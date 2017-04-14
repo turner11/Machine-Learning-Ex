@@ -16,7 +16,7 @@ class LogisticClassifier(object):
     @property
     def feature_count(self):
         # column count
-        return len(self.data[0, :])
+        return self.normalized_data.shape[1]
 
     @property
     def samples_count(self):
@@ -30,8 +30,8 @@ class LogisticClassifier(object):
     @data.setter
     def data(self, data):
         self.__data = data
+        self.__normalized_data = self.normalize_data(self.data)
         logger.info("Got {0} features for {1} samples".format(self.feature_count, self.samples_count))
-        self.set_normalized_data()
 
     @property
     def normalized_data(self):
@@ -77,15 +77,17 @@ class LogisticClassifier(object):
             # def __str__(self, ):
             #     pass
 
-    def set_normalized_data(self):
-        normed = self.normalize_data(self.data)
-        self.__normalized_data = normed
+
 
     def normalize_data(self, data):
         input_avgs = data.mean(axis=0)  # input - by column
         input_std = data.std(axis=0)
         normed = (data - input_avgs) / input_std
-        return np.matrix(normed)
+        # Adding 1 as the first feature for all
+        with_ones = np.zeros((normed.shape[0], normed.shape[1] + 1)) # cerating the new matrix
+        with_ones[:, 1:] = normed #populating all but first column
+        with_ones[:, 0:1] = 1 # adding 1's in first column
+        return np.matrix(with_ones)
 
     def classify(self, data, is_data_normalized=False):
         normed = data if is_data_normalized else self.normalize_data(data)
@@ -201,7 +203,7 @@ class LogisticClassifier(object):
         # makes sure that only predictions of NEGITIVE(y == 0) is taken in considerations
         cost_FalseNeg = -np.log(1 - neg_vals)
         summedCost = np.sum(cost_FalseNeg) + np.sum(cost_FalsePos)
-        J = (1.0 / 2) * summedCost
+        J = (1.0 / m) * summedCost
 
         # -----------------Grad
         diff = sigmoidH - y
@@ -213,13 +215,11 @@ class LogisticClassifier(object):
         """
         Compute sigmoid function J = SIGMOID(z) 
             Compute the sigmoid of each value of z (z can be a matrix, vector or scalar).
-        
         """
         g = np.zeros(shape=z.shape)
         mz = -z
         e_exp = np.exp(mz)
         g = 1. / (1. + e_exp)
-
         return g
         # plot(z, g, 'g', 'LineWidth', 2, 'MarkerSize', 4);
 
