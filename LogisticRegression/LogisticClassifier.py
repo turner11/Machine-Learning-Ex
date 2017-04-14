@@ -245,10 +245,7 @@ class LogisticClassifier(object):
 
         ax = plt.plot(js)
         plt.title("Cost by iterations")
-
-        np.diff(js)
-
-        # plt.show()
+        plt.show()
 
         return model
 
