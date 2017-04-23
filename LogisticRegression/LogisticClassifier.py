@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 from LogisticRegression.AbstractLogisticClassifier import AbstractLogisticClassifier
 
 
-
 class LogisticClassifier(AbstractLogisticClassifier):
     """"""
 

@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="18f07060-bc58-4773-a2b4-80900dea6f80" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/LogisticRegression_log.txt" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LogisticRegression/AbstractClassifier.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py" afterPath="$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py" afterPath="$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main.py" afterPath="$PROJECT_DIR$/Main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py" afterPath="$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py" />
     </list>
     <ignored path="untitled.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,42 +25,21 @@
     <favorites_list name="untitled" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.49517167">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
           <file leaf-file-name="AbstractLogisticClassifier.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1056">
-                  <caret line="244" column="18" lean-forward="true" selection-start-line="244" selection-start-column="18" selection-end-line="244" selection-end-column="18" />
+                <state relative-caret-position="692">
+                  <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
                   <folding>
-                    <element signature="e#453#512#0" expanded="false" />
-                    <element signature="e#565#613#0" expanded="false" />
-                    <element signature="e#657#675#0" expanded="false" />
-                    <element signature="e#728#913#0" expanded="false" />
-                    <element signature="e#968#997#0" expanded="false" />
-                    <element signature="e#1479#2382#0" expanded="false" />
-                    <element signature="e#1496#2202#0" expanded="false" />
-                    <element signature="e#2248#2382#0" expanded="false" />
-                    <element signature="e#2337#2359#0" expanded="false" />
-                    <element signature="e#2430#2872#0" expanded="false" />
-                    <element signature="e#2938#3119#0" expanded="false" />
-                    <element signature="e#3212#3825#0" expanded="false" />
-                    <element signature="e#3253#3444#0" expanded="false" />
-                    <element signature="e#3913#4441#0" expanded="false" />
-                    <element signature="e#4500#5456#0" expanded="false" />
-                    <element signature="e#5505#5675#0" expanded="false" />
-                    <element signature="e#5723#6486#0" expanded="false" />
-                    <element signature="e#6538#7023#0" expanded="false" />
-                    <element signature="e#6558#6661#1" expanded="false" />
-                    <element signature="e#6810#6861#0" expanded="false" />
-                    <element signature="e#7084#7625#0" expanded="false" />
-                    <element signature="e#7175#7278#1" expanded="false" />
-                    <element signature="e#7430#7481#0" expanded="false" />
-                    <element signature="e#7661#8001#0" expanded="false" />
-                    <element signature="e#7661#7815#1" expanded="false" />
-                    <element signature="e#8335#8576#0" expanded="false" />
-                    <element signature="e#8698#8872#0" expanded="false" />
+                    <element signature="e#541#707#0" expanded="false" />
+                    <element signature="e#1960#2063#1" expanded="false" />
+                    <element signature="e#2212#2263#0" expanded="false" />
+                    <element signature="e#2462#2616#1" expanded="false" />
+                    <element signature="e#3499#3673#0" expanded="false" />
+                    <element signature="e#3914#4181#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -70,12 +48,13 @@
           <file leaf-file-name="LogisticClassifier_coursera.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="221">
-                  <caret line="24" column="48" lean-forward="true" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+                <state relative-caret-position="612">
+                  <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
                   <folding>
-                    <element signature="e#377#448#0" expanded="false" />
-                    <element signature="e#520#623#1" expanded="false" />
-                    <element signature="e#772#823#0" expanded="false" />
+                    <element signature="e#0#34#0" expanded="true" />
+                    <element signature="e#376#447#0" expanded="false" />
+                    <element signature="e#519#622#1" expanded="false" />
+                    <element signature="e#771#822#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -84,8 +63,8 @@
           <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="229">
-                  <caret line="23" column="69" lean-forward="true" selection-start-line="23" selection-start-column="69" selection-end-line="23" selection-end-column="69" />
+                <state relative-caret-position="459">
+                  <caret line="27" column="24" lean-forward="true" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                   </folding>
@@ -96,7 +75,7 @@
           <file leaf-file-name="Visualyzer.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/DataVisualization/Visualyzer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="493">
+                <state relative-caret-position="476">
                   <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
@@ -108,11 +87,12 @@
           <file leaf-file-name="LogisticClassifier.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="85">
-                  <caret line="12" column="10" lean-forward="true" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+                <state relative-caret-position="442">
+                  <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
                   <folding>
-                    <element signature="e#511#614#1" expanded="false" />
-                    <element signature="e#763#814#0" expanded="false" />
+                    <element signature="e#0#34#0" expanded="true" />
+                    <element signature="e#510#613#1" expanded="false" />
+                    <element signature="e#762#813#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -121,15 +101,41 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
-          <file leaf-file-name="LogisticClassifier.py" pinned="false" current-in-tab="true">
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+          <file leaf-file-name="LogisticClassifier.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="289">
-                  <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+                <state relative-caret-position="17">
+                  <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
                   <folding>
-                    <element signature="e#511#614#1" expanded="false" />
-                    <element signature="e#763#814#0" expanded="false" />
+                    <element signature="e#510#613#1" expanded="false" />
+                    <element signature="e#762#813#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="AbstractClassifier.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/LogisticRegression/AbstractClassifier.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="609">
+                  <caret line="150" column="48" lean-forward="true" selection-start-line="150" selection-start-column="48" selection-end-line="150" selection-end-column="48" />
+                  <folding>
+                    <element signature="e#417#476#0" expanded="false" />
+                    <element signature="e#529#577#0" expanded="false" />
+                    <element signature="e#621#639#0" expanded="false" />
+                    <element signature="e#692#877#0" expanded="false" />
+                    <element signature="e#932#961#0" expanded="false" />
+                    <element signature="e#1457#2360#0" expanded="false" />
+                    <element signature="e#1474#2180#0" expanded="false" />
+                    <element signature="e#2226#2360#0" expanded="false" />
+                    <element signature="e#2315#2337#0" expanded="false" />
+                    <element signature="e#2406#2852#0" expanded="false" />
+                    <element signature="e#2918#3053#0" expanded="false" />
+                    <element signature="e#3146#3759#0" expanded="false" />
+                    <element signature="e#3187#3378#0" expanded="false" />
+                    <element signature="e#4432#5388#0" expanded="false" />
+                    <element signature="e#5876#5911#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -148,12 +154,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>test_set</find>
-      <find>test_model</find>
-      <find>__normalized_data =</find>
-      <find>score</find>
-      <find>norma</find>
-      <find>f_measure</find>
       <find>norm</find>
       <find>0.98064516129</find>
       <find>plt.</find>
@@ -178,6 +178,12 @@
       <find>cost_f</find>
       <find>log</find>
       <find>recall</find>
+      <find>norma</find>
+      <find>get_initial_model</find>
+      <find>_train</find>
+      <find>cost_function_coursera</find>
+      <find>def cost_function</find>
+      <find>__model</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -196,9 +202,10 @@
         <option value="$PROJECT_DIR$/DataVisualization/__init__.py" />
         <option value="$PROJECT_DIR$/DataVisualization/Visualyzer.py" />
         <option value="$PROJECT_DIR$/Main.py" />
-        <option value="$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py" />
-        <option value="$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py" />
         <option value="$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py" />
+        <option value="$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py" />
+        <option value="$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py" />
+        <option value="$PROJECT_DIR$/LogisticRegression/AbstractClassifier.py" />
       </list>
     </option>
   </component>
@@ -243,7 +250,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -286,6 +292,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -293,11 +300,11 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Avi\PycharmProjects\exML\Machine-Learning-Ex\LogisticRegression" />
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Avi\PycharmProjects\untitled" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Avi\PycharmProjects\exML\Machine-Learning-Ex\LogisticRegression" />
       <recent name="C:\Users\Avi\PycharmProjects\untitled" />
     </key>
   </component>
@@ -489,17 +496,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14377682" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19688842" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49187934" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973147" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32714617" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.39327148" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="2035" y="79" width="1639" height="732" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.39327148" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="2270" y="142" width="1207" height="684" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939914" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -507,7 +514,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -556,13 +562,13 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py</url>
-          <line>37</line>
+          <line>36</line>
           <option name="timeStamp" value="94" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py</url>
-          <line>240</line>
-          <option name="timeStamp" value="103" />
+          <line>103</line>
+          <option name="timeStamp" value="107" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -575,20 +581,15 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="104" />
+      <option name="time" value="110" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="diff" />
-        <watch expression="grad" />
-        <watch expression="self.gradient_step_size * grad" />
-        <watch expression="self.__class__" />
         <watch expression="self" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Program.py" />
     <entry file="file://$PROJECT_DIR$/Preprocessor.py" />
     <entry file="file://$PROJECT_DIR$/Main.py" />
     <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py" />
@@ -687,7 +688,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="54" column="4" lean-forward="false" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -717,7 +717,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38131">
           <caret line="2243" column="4" lean-forward="false" selection-start-line="2243" selection-start-column="4" selection-end-line="2243" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -725,15 +724,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#31#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DataVisualization/Visualyzer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
+        <state relative-caret-position="476">
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
@@ -745,7 +741,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="25" column="35" lean-forward="true" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -753,7 +748,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="1860" column="28" lean-forward="true" selection-start-line="1860" selection-start-column="28" selection-end-line="1860" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -761,7 +755,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="409">
           <caret line="5170" column="0" lean-forward="false" selection-start-line="5170" selection-start-column="0" selection-end-line="5170" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -769,7 +762,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
           <caret line="175" column="0" lean-forward="true" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -777,7 +769,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
           <caret line="427" column="4" lean-forward="false" selection-start-line="427" selection-start-column="4" selection-end-line="427" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -785,26 +776,37 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-89115">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="24" column="48" lean-forward="true" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+        <state relative-caret-position="612">
+          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding>
-            <element signature="e#377#448#0" expanded="false" />
-            <element signature="e#520#623#1" expanded="false" />
-            <element signature="e#772#823#0" expanded="false" />
+            <element signature="e#0#34#0" expanded="true" />
+            <element signature="e#376#447#0" expanded="false" />
+            <element signature="e#519#622#1" expanded="false" />
+            <element signature="e#771#822#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#510#613#1" expanded="false" />
+            <element signature="e#762#813#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="23" column="69" lean-forward="true" selection-start-line="23" selection-start-column="69" selection-end-line="23" selection-end-column="69" />
+        <state relative-caret-position="459">
+          <caret line="27" column="24" lean-forward="true" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -813,47 +815,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1056">
-          <caret line="244" column="18" lean-forward="true" selection-start-line="244" selection-start-column="18" selection-end-line="244" selection-end-column="18" />
+        <state relative-caret-position="692">
+          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
           <folding>
-            <element signature="e#453#512#0" expanded="false" />
-            <element signature="e#565#613#0" expanded="false" />
-            <element signature="e#657#675#0" expanded="false" />
-            <element signature="e#728#913#0" expanded="false" />
-            <element signature="e#968#997#0" expanded="false" />
-            <element signature="e#1479#2382#0" expanded="false" />
-            <element signature="e#1496#2202#0" expanded="false" />
-            <element signature="e#2248#2382#0" expanded="false" />
-            <element signature="e#2337#2359#0" expanded="false" />
-            <element signature="e#2430#2872#0" expanded="false" />
-            <element signature="e#2938#3119#0" expanded="false" />
-            <element signature="e#3212#3825#0" expanded="false" />
-            <element signature="e#3253#3444#0" expanded="false" />
-            <element signature="e#3913#4441#0" expanded="false" />
-            <element signature="e#4500#5456#0" expanded="false" />
-            <element signature="e#5505#5675#0" expanded="false" />
-            <element signature="e#5723#6486#0" expanded="false" />
-            <element signature="e#6538#7023#0" expanded="false" />
-            <element signature="e#6558#6661#1" expanded="false" />
-            <element signature="e#6810#6861#0" expanded="false" />
-            <element signature="e#7084#7625#0" expanded="false" />
-            <element signature="e#7175#7278#1" expanded="false" />
-            <element signature="e#7430#7481#0" expanded="false" />
-            <element signature="e#7661#8001#0" expanded="false" />
-            <element signature="e#7661#7815#1" expanded="false" />
-            <element signature="e#8335#8576#0" expanded="false" />
-            <element signature="e#8698#8872#0" expanded="false" />
+            <element signature="e#541#707#0" expanded="false" />
+            <element signature="e#1960#2063#1" expanded="false" />
+            <element signature="e#2212#2263#0" expanded="false" />
+            <element signature="e#2462#2616#1" expanded="false" />
+            <element signature="e#3499#3673#0" expanded="false" />
+            <element signature="e#3914#4181#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py">
+    <entry file="file://$PROJECT_DIR$/LogisticRegression/AbstractClassifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+        <state relative-caret-position="609">
+          <caret line="150" column="48" lean-forward="true" selection-start-line="150" selection-start-column="48" selection-end-line="150" selection-end-column="48" />
           <folding>
-            <element signature="e#511#614#1" expanded="false" />
-            <element signature="e#763#814#0" expanded="false" />
+            <element signature="e#417#476#0" expanded="false" />
+            <element signature="e#529#577#0" expanded="false" />
+            <element signature="e#621#639#0" expanded="false" />
+            <element signature="e#692#877#0" expanded="false" />
+            <element signature="e#932#961#0" expanded="false" />
+            <element signature="e#1457#2360#0" expanded="false" />
+            <element signature="e#1474#2180#0" expanded="false" />
+            <element signature="e#2226#2360#0" expanded="false" />
+            <element signature="e#2315#2337#0" expanded="false" />
+            <element signature="e#2406#2852#0" expanded="false" />
+            <element signature="e#2918#3053#0" expanded="false" />
+            <element signature="e#3146#3759#0" expanded="false" />
+            <element signature="e#3187#3378#0" expanded="false" />
+            <element signature="e#4432#5388#0" expanded="false" />
+            <element signature="e#5876#5911#0" expanded="false" />
           </folding>
         </state>
       </provider>
