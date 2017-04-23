@@ -7,10 +7,6 @@ import matplotlib.pyplot as plt
 
 from LogisticRegression.AbstractClassifier import AbstractClassifier
 
-SlicedData = namedtuple('SlicedData', 'training_set training_y test_set test_y')
-ModelScore = namedtuple("ModelScore", "precision recall accuracy f_measure")
-
-
 class AbstractLogisticClassifier(AbstractClassifier):
     """"""
     DEFAULT_THRESHOLD = 0.5
@@ -21,8 +17,8 @@ class AbstractLogisticClassifier(AbstractClassifier):
         self.threshold = self.DEFAULT_THRESHOLD
         self.gradient_step_size = gradient_step_size
 
-    def _predict(self, normed):
-        hx = normed * self._model.transpose()
+    def _predict(self, normed_data):
+        hx = normed_data * self._model.transpose()
         prediction = hx >= self.threshold
         return prediction
 
@@ -48,7 +44,7 @@ class AbstractLogisticClassifier(AbstractClassifier):
         logger.info('Gradient at initial theta: \n{0}'.format(grad))
 
         model = self.optimize(lambda th: self.cost_function(theta=th, X=t_samples, y=t_y), initial_model,
-                              max_itteration_count=500)
+                              max_iteration_count=500)
 
         return model
 
@@ -65,8 +61,7 @@ class AbstractLogisticClassifier(AbstractClassifier):
         # set J to the cost.
         # Compute the partial derivatives
         # Note: grad should have the same dimensions as theta
-        raise NotImplemented
-
+        raise NotImplementedError("A concreate logistic regression class should implement the cost function")
 
     def sigmoid(self, z):
         """
@@ -80,14 +75,23 @@ class AbstractLogisticClassifier(AbstractClassifier):
         return g
         # plot(z, g, 'g', 'LineWidth', 2, 'MarkerSize', 4);
 
-    def optimize(self, cost_function_for_model, initial_model, max_itteration_count=500,
+    def optimize(self, cost_function_for_model, initial_model, max_iteration_count=500,
                  stop_at_cost=0.01):
+        """
+        :param cost_function_for_model: the function for testing the cost for a specific model [cost, gradient = function(iterable_model)]
+        :param stop_at_cost: at what condition should the optimizing stop 
+
+        :type initial_model: iterable
+        :type cost_function_for_model: function
+        :type max_iteration_count: int
+        """
+        # TODO: stop_at_cost should be a percentage of enhancement...
         iter_count = 0
         cost = np.Inf
         model = initial_model
 
-        js = [None] * max_itteration_count
-        while (iter_count < max_itteration_count and cost > stop_at_cost):
+        js = [None] * max_iteration_count
+        while (iter_count < max_iteration_count and cost > stop_at_cost):
             cost, grad = cost_function_for_model(model)
             model = model + self.gradient_step_size * grad
 
@@ -96,11 +100,11 @@ class AbstractLogisticClassifier(AbstractClassifier):
             iter_count += 1
 
         js = [j for i, j in enumerate(js) if i < iter_count]
-        if iter_count == max_itteration_count:
+        if iter_count == max_iteration_count:
             logger.warn("Exited optimization due to max iteration achieved ({0})".format(iter_count))
             logger.warn("cost was {0}; (max cost - {1})".format(cost, stop_at_cost))
 
-        plt.figure() # new figure
+        plt.figure()  # new figure
         ax = plt.plot(js)
         plt.title("Cost by iterations ({0})".format(self))
         plt.draw()
@@ -108,7 +112,7 @@ class AbstractLogisticClassifier(AbstractClassifier):
 
         return model
 
-    def log_score(self, model_score, prefix = ""):
+    def log_score(self, model_score, prefix=""):
         prefix = (prefix or "Model score") + " ({0})".format(self)
-        logger.info(prefix+":\nprecision: {0}\nrecall: {1}\naccuracy: {2}\nf_measure: {3}"
-                   .format(model_score.precision, model_score.recall , model_score.accuracy , model_score.f_measure))
+        logger.info(prefix + ":\nprecision: {0}\nrecall: {1}\naccuracy: {2}\nf_measure: {3}"
+                    .format(model_score.precision, model_score.recall, model_score.accuracy, model_score.f_measure))

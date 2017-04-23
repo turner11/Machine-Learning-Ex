@@ -36,7 +36,7 @@ class AbstractClassifier(object):
     def normalized_data(self):
         return self.__normalized_data
 
-    def __init__(self, gradient_step_size=0.01):
+    def __init__(self):
         """"""
         super(AbstractClassifier, self).__init__()
         self.__data = None
@@ -47,7 +47,7 @@ class AbstractClassifier(object):
         self.ys = None
         self._model = None
 
-    def _predict(self, normed):
+    def _predict(self, normed_data):
         raise NotImplementedError("prediction must be implemented by concrete classifier")
 
     def load_data_from_csv(self, data_path, classification_column=0):
@@ -89,8 +89,8 @@ class AbstractClassifier(object):
         return np.matrix(with_ones)
 
     def classify(self, data, is_data_normalized=False):
-        normed = data if is_data_normalized else self.normalize_data(data)
-        prediction = self._predict(normed)
+        normed_data = data if is_data_normalized else self.normalize_data(data)
+        prediction = self._predict(normed_data)
         return prediction
 
     def slice_data(self, training_set_size_percentage=0.6, trainingset_size=None):

@@ -1,12 +1,15 @@
 import os
 from DataVisualization.Visualyzer import Visualyzer
 
-
 CSV_NAME = "Data.csv"
 from LogisticRegression.LogisticClassifier import LogisticClassifier as lc
 from LogisticRegression.LogisticClassifier_coursera import LogisticClassifier_coursera as lc_coursera
+from LogisticRegression.GaussianGenerativeClassifier import GaussianGenerativeClassifier
 
 def main():
+    gc = GaussianGenerativeClassifier()
+    run_classifier(gc)
+
     logc = lc()
     run_classifier(logc)
 
