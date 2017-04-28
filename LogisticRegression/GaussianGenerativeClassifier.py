@@ -30,17 +30,66 @@ class GaussianGenerativeClassifier(AbstractClassifier):
         y_list = list(np.array(t_y).reshape(-1,))
         all_classes = np.unique(y_list)
 
-        #
-        average_by_class = dict((cls,np.mean(t_samples[t_y == cls])) for cls in all_classes)
+        assert len(all_classes) == 2, "Current implementationh supports only 2 classes"
+
+        # tuples of (class, indices)
+        cidx = [(cls,[i for i,c in enumerate(y_list)if c == cls]) for cls in all_classes]
+        average_by_class = [(cls, np.mean(t_samples[idxs])) for cls, idxs in cidx]
         average_by_class = defaultdict(lambda :None, average_by_class)
-        m = len(t_y)
+        m = len(y_list)
         one_over_m = 1.0/m
-        def internal_predict(x):
-            diffs = [x - avg for cls, avg in average_by_class]
-            prod_diffs = np.prod(diffs)
-            sum_prod_diffs = np.sum(prod_diffs)
-            prediction = one_over_m * sum_prod_diffs
-            return prediction
+
+
+
+
+        cov = np.cov(t_samples,rowvar=False)
+        cov_det = np.linalg.det(cov)
+        inv_cov = np.linalg.inv(cov)
+        predix_denominator = np.sqrt(2 * np.pi) *np.sqrt(cov_det)
+        model_prefix = 1.0 / predix_denominator
+        avg_0, avg_1 = average_by_class[0], average_by_class[1]
+
+
+
+        def internal_predict(xs):
+            sample_count = xs.shape[0]
+            results = []
+            for x in xs:
+
+                best_likelihood = -np.Infinity
+                chosen_class = None
+
+                for cls,avg in average_by_class.items():
+                    exp_power = -0.5 * ((x - avg) * inv_cov * (x - avg).transpose())
+                    model_result = model_prefix * np.exp(exp_power)
+
+                    if model_result  > best_likelihood:
+                        best_likelihood = model_result
+                        chosen_class = cls
+
+                results.append(chosen_class)
+
+            return results if len(results) != 1 else results[0]
+
+        # x_0 = t_samples[0]
+        # x_19 = t_samples[19]
+        #
+        # test = internal_predict(t_samples)
+        # y_0 = internal_predict(x_0)
+        # y_19 = internal_predict(x_19)
+
+        return internal_predict
+
+
+
+
+
+        # def internal_predict(x):
+        #     diffs = [x - avg for cls, avg in average_by_class.items()]
+        #     prod_diffs = np.prod(diffs)
+        #     sum_prod_diffs = np.sum(prod_diffs)
+        #     prediction = one_over_m * sum_prod_diffs
+        #     return prediction
 
 
 

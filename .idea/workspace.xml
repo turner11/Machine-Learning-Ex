@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="18f07060-bc58-4773-a2b4-80900dea6f80" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LogisticRegression/GaussianGenerativeClassifier.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LogisticRegression/gda_downloaded.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Utils/Event.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Utils/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LogisticRegression/AbstractClassifier.py" afterPath="$PROJECT_DIR$/LogisticRegression/AbstractClassifier.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py" afterPath="$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LogisticRegression/GaussianGenerativeClassifier.py" afterPath="$PROJECT_DIR$/LogisticRegression/GaussianGenerativeClassifier.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py" afterPath="$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py" afterPath="$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main.py" afterPath="$PROJECT_DIR$/Main.py" />
     </list>
     <ignored path="untitled.iws" />
@@ -25,29 +30,28 @@
     <favorites_list name="untitled" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.49517167">
+    <splitter split-orientation="horizontal" split-proportion="0.53218883">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
           <file leaf-file-name="LogisticClassifier_coursera.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="357">
-                  <caret line="31" column="31" lean-forward="false" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+                <state relative-caret-position="139">
+                  <caret line="17" column="42" lean-forward="true" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
                     <element signature="e#376#447#0" expanded="false" />
-                    <element signature="e#519#622#1" expanded="false" />
-                    <element signature="e#771#822#0" expanded="false" />
+                    <element signature="e#520#623#1" expanded="false" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Main.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="408">
-                  <caret line="24" column="46" lean-forward="false" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
+                <state relative-caret-position="581">
+                  <caret line="44" column="55" lean-forward="false" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="55" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                   </folding>
@@ -55,11 +59,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="shape_base.py" pinned="false" current-in-tab="false">
-            <entry file="file://C:/Program Files/Anaconda2/Lib/site-packages/numpy/core/shape_base.py">
+          <file leaf-file-name="defmatrix.py" pinned="false" current-in-tab="false">
+            <entry file="file://C:/Program Files/Anaconda2/Lib/site-packages/numpy/matrixlib/defmatrix.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="276">
-                  <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
+                <state relative-caret-position="165">
+                  <caret line="342" column="0" lean-forward="false" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -80,35 +84,36 @@
           <file leaf-file-name="LogisticClassifier.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="150">
-                  <caret line="10" column="40" lean-forward="true" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+                <state relative-caret-position="309">
+                  <caret line="23" column="48" lean-forward="true" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
-                    <element signature="e#510#613#1" expanded="false" />
-                    <element signature="e#762#813#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="GaussianGenerativeClassifier.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="GaussianGenerativeClassifier.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/LogisticRegression/GaussianGenerativeClassifier.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="360">
-                  <caret line="38" column="51" lean-forward="true" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
+                <state relative-caret-position="50">
+                  <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
+                    <element signature="e#473#493#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="function_base.py" pinned="false" current-in-tab="false">
-            <entry file="file://C:/Program Files/Anaconda2/Lib/site-packages/numpy/lib/function_base.py">
+          <file leaf-file-name="gda_downloaded.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/LogisticRegression/gda_downloaded.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="267">
-                  <caret line="2431" column="0" lean-forward="false" selection-start-line="2431" selection-start-column="0" selection-end-line="2431" selection-end-column="0" />
-                  <folding />
+                <state relative-caret-position="126">
+                  <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#16#26#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -120,54 +125,45 @@
           <file leaf-file-name="LogisticClassifier.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="51">
-                  <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+                <state relative-caret-position="184">
+                  <caret line="37" column="27" lean-forward="false" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
                   <folding>
-                    <element signature="e#510#613#1" expanded="false" />
-                    <element signature="e#762#813#0" expanded="false" />
+                    <element signature="e#0#34#0" expanded="true" />
+                    <element signature="e#511#614#1" expanded="false" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="AbstractClassifier.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="AbstractClassifier.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/LogisticRegression/AbstractClassifier.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="289">
-                  <caret line="19" column="13" lean-forward="true" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+                <state relative-caret-position="267">
+                  <caret line="126" column="39" lean-forward="true" selection-start-line="126" selection-start-column="39" selection-end-line="126" selection-end-column="39" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
                     <element signature="e#417#476#0" expanded="false" />
                     <element signature="e#529#577#0" expanded="false" />
                     <element signature="e#621#639#0" expanded="false" />
-                    <element signature="e#692#877#0" expanded="false" />
                     <element signature="e#932#961#0" expanded="false" />
-                    <element signature="e#1437#2340#0" expanded="false" />
-                    <element signature="e#1454#2160#0" expanded="false" />
-                    <element signature="e#2206#2340#0" expanded="false" />
-                    <element signature="e#2295#2317#0" expanded="false" />
-                    <element signature="e#2386#2832#0" expanded="false" />
-                    <element signature="e#3136#3749#0" expanded="false" />
-                    <element signature="e#3177#3368#0" expanded="false" />
-                    <element signature="e#4422#5378#0" expanded="false" />
-                    <element signature="e#5866#5901#0" expanded="false" />
+                    <element signature="e#2323#2345#0" expanded="false" />
+                    <element signature="e#5989#6024#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="AbstractLogisticClassifier.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="AbstractLogisticClassifier.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="187">
-                  <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+                <state relative-caret-position="524">
+                  <caret line="127" column="0" lean-forward="false" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
                   <folding>
-                    <element signature="e#1809#1912#1" expanded="false" />
-                    <element signature="e#2061#2112#0" expanded="false" />
-                    <element signature="e#2391#2545#1" expanded="false" />
-                    <element signature="e#3496#3737#0" expanded="false" />
-                    <element signature="e#3858#4032#0" expanded="false" />
-                    <element signature="e#4272#4540#0" expanded="false" />
+                    <element signature="e#2788#2891#1" expanded="false" />
+                    <element signature="e#3062#3113#0" expanded="false" />
+                    <element signature="e#3392#3546#1" expanded="false" />
+                    <element signature="e#4859#5033#0" expanded="false" />
+                    <element signature="e#5273#5541#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -186,29 +182,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>J =</find>
-      <find>grad</find>
-      <find>(max cost</find>
-      <find>cost w</find>
-      <find>cost was</find>
-      <find>/ m</find>
-      <find>**</find>
-      <find>model</find>
-      <find>optim</find>
-      <find>0.1</find>
-      <find>step</find>
-      <find>cost_function</find>
-      <find>plot</find>
-      <find>model +</find>
-      <find>precision</find>
-      <find>cost_f</find>
-      <find>log</find>
-      <find>recall</find>
-      <find>norma</find>
-      <find>get_initial_model</find>
-      <find>_train</find>
-      <find>cost_function_coursera</find>
-      <find>def cost_function</find>
       <find>SlicedData</find>
       <find>_predict</find>
       <find>default_factory</find>
@@ -216,6 +189,29 @@
       <find>exp</find>
       <find>__model</find>
       <find>cm</find>
+      <find>plot</find>
+      <find>plt</find>
+      <find>(</find>
+      <find>NINF</find>
+      <find>rowvar</find>
+      <find>log</find>
+      <find>norma</find>
+      <find>classify</find>
+      <find>grad</find>
+      <find>&quot;:Gradient at initial thet</find>
+      <find>&quot;Gradient at initial thet</find>
+      <find>'Gradient at initial thet</find>
+      <find>Gradient at initial thet</find>
+      <find>&quot;  Gradient at initial thet</find>
+      <find>&quot;Gradient at initial thet</find>
+      <find>&quot; Gradient at initial thet</find>
+      <find>' Gradient at initial thet</find>
+      <find>'Gradient at initial thet</find>
+      <find>========================================================</find>
+      <find>training_y</find>
+      <find>sliced_data</find>
+      <find>train</find>
+      <find>Gradient at initial thet</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -233,12 +229,17 @@
         <option value="$PROJECT_DIR$/LogisticRegression/__init__.py" />
         <option value="$PROJECT_DIR$/DataVisualization/__init__.py" />
         <option value="$PROJECT_DIR$/DataVisualization/Visualyzer.py" />
+        <option value="$PROJECT_DIR$/Utils/__init__.py" />
+        <option value="$PROJECT_DIR$/Utils/aaa.py" />
+        <option value="$PROJECT_DIR$/Utils/Events.py" />
+        <option value="$PROJECT_DIR$/Utils/Event.py" />
+        <option value="$PROJECT_DIR$/LogisticRegression/gda_downloaded.py" />
+        <option value="$PROJECT_DIR$/LogisticRegression/GaussianGenerativeClassifier.py" />
         <option value="$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py" />
         <option value="$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py" />
         <option value="$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py" />
         <option value="$PROJECT_DIR$/LogisticRegression/AbstractClassifier.py" />
         <option value="$PROJECT_DIR$/Main.py" />
-        <option value="$PROJECT_DIR$/LogisticRegression/GaussianGenerativeClassifier.py" />
       </list>
     </option>
   </component>
@@ -282,7 +283,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -305,7 +305,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="LogisticRegression" />
+              <option name="myItemId" value="Utils" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -319,18 +319,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="DataVisualization" />
+              <option name="myItemId" value="LogisticRegression" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -537,6 +538,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19688842" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -547,7 +549,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973147" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32714617" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.39327148" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="2062" y="170" width="1207" height="684" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.39327148" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1920" y="0" width="1600" height="862" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939914" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -602,7 +604,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Main.py</url>
-          <line>18</line>
+          <line>24</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
@@ -612,7 +614,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py</url>
-          <line>107</line>
+          <line>127</line>
           <option name="timeStamp" value="107" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -621,42 +623,66 @@
           <option name="timeStamp" value="110" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Main.py</url>
-          <line>10</line>
-          <option name="timeStamp" value="111" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/LogisticRegression/GaussianGenerativeClassifier.py</url>
           <line>25</line>
           <option name="timeStamp" value="112" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LogisticRegression/GaussianGenerativeClassifier.py</url>
+          <line>29</line>
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LogisticRegression/GaussianGenerativeClassifier.py</url>
+          <line>77</line>
+          <option name="timeStamp" value="123" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Main.py</url>
+          <line>13</line>
+          <option name="timeStamp" value="137" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py</url>
+          <line>52</line>
+          <option name="timeStamp" value="145" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Main.py</url>
+          <line>46</line>
+          <option name="timeStamp" value="147" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Main.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="157" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Main.py</url>
+          <line>41</line>
+          <option name="timeStamp" value="159" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Main.py</url>
+          <line>44</line>
+          <option name="timeStamp" value="161" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <default-breakpoints>
-        <breakpoint type="python-exception">
-          <properties notifyOnTerminate="true" exception="BaseException">
-            <option name="notifyOnTerminate" value="true" />
-          </properties>
-        </breakpoint>
-      </default-breakpoints>
-      <option name="time" value="113" />
+      <option name="time" value="162" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="self" />
+        <watch expression="logc.__str__()" language="Python" />
+        <watch expression="diff_len" />
+        <watch expression="str(score)" />
+        <watch expression="str(logc.score)" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/LogisticRegression/__init__.py" />
-    <entry file="file://$PROJECT_DIR$/Program.py" />
-    <entry file="file://$PROJECT_DIR$/Preprocessor.py" />
-    <entry file="file://$PROJECT_DIR$/Program.py" />
-    <entry file="file://$PROJECT_DIR$/Preprocessor.py" />
-    <entry file="file://$PROJECT_DIR$/Program.py" />
-    <entry file="file://$PROJECT_DIR$/Program.py" />
     <entry file="file://$PROJECT_DIR$/Preprocessor.py" />
     <entry file="file://$PROJECT_DIR$/Program.py" />
     <entry file="file://$PROJECT_DIR$/Preprocessor.py" />
@@ -741,14 +767,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1411134348/numpy/core/multiarray.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="54" column="4" lean-forward="false" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1411134348/numpy/random/mtrand.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -756,19 +774,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Program Files/Anaconda2/Lib/site-packages/numpy/core/numeric.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="2984" column="0" lean-forward="false" selection-start-line="2984" selection-start-column="0" selection-end-line="2984" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1411134348/numpy/core/umath.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38131">
           <caret line="2243" column="4" lean-forward="false" selection-start-line="2243" selection-start-column="4" selection-end-line="2243" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -803,32 +812,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1411134348/__builtin__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="5170" column="0" lean-forward="false" selection-start-line="5170" selection-start-column="0" selection-end-line="5170" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Program Files/Anaconda2/Lib/site-packages/numpy/matrixlib/defmatrix.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="175" column="0" lean-forward="true" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Program Files/Anaconda2/Lib/site-packages/matplotlib/pyplot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
           <caret line="427" column="4" lean-forward="false" selection-start-line="427" selection-start-column="4" selection-end-line="427" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LogisticRegression.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-89115">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -840,102 +827,188 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py">
+    <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1411134348/__builtin__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="40" lean-forward="true" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-            <element signature="e#510#613#1" expanded="false" />
-            <element signature="e#762#813#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="395">
+          <caret line="565" column="7" lean-forward="true" selection-start-line="565" selection-start-column="7" selection-end-line="565" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py">
+    <entry file="file://C:/Program Files/Anaconda2/Lib/site-packages/numpy/lib/arraysetops.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="31" column="31" lean-forward="false" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-            <element signature="e#376#447#0" expanded="false" />
-            <element signature="e#519#622#1" expanded="false" />
-            <element signature="e#771#822#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="429">
+          <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py">
+    <entry file="file://$PROJECT_DIR$/Utils/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="e#1809#1912#1" expanded="false" />
-            <element signature="e#2061#2112#0" expanded="false" />
-            <element signature="e#2391#2545#1" expanded="false" />
-            <element signature="e#3496#3737#0" expanded="false" />
-            <element signature="e#3858#4032#0" expanded="false" />
-            <element signature="e#4272#4540#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="340">
+          <caret line="20" column="34" lean-forward="false" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Program Files/Anaconda2/Lib/site-packages/numpy/core/shape_base.py">
+    <entry file="file://$PROJECT_DIR$/Utils/Events.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utils/Events.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utils/Event.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="41" lean-forward="false" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files/Anaconda2/Lib/site-packages/numpy/core/numeric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="530">
+          <caret line="2986" column="21" lean-forward="true" selection-start-line="2986" selection-start-column="21" selection-end-line="2986" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://C:/Program Files/Anaconda2/Lib/site-packages/numpy/lib/function_base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="2431" column="0" lean-forward="false" selection-start-line="2431" selection-start-column="0" selection-end-line="2431" selection-end-column="0" />
+        <state relative-caret-position="373">
+          <caret line="2310" column="14" lean-forward="true" selection-start-line="2310" selection-start-column="14" selection-end-line="2310" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main.py">
+    <entry file="file://C:/Program Files/Anaconda2/Lib/site-packages/numpy/core/shape_base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="46" lean-forward="false" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
+        <state relative-caret-position="344">
+          <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1411134348/numpy/core/multiarray.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="2395" column="66" lean-forward="false" selection-start-line="2395" selection-start-column="66" selection-end-line="2395" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LogisticRegression/gda_downloaded.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#16#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LogisticRegression/AbstractClassifier.py">
+    <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" column="13" lean-forward="true" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        <state relative-caret-position="309">
+          <caret line="23" column="48" lean-forward="true" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
-            <element signature="e#417#476#0" expanded="false" />
-            <element signature="e#529#577#0" expanded="false" />
-            <element signature="e#621#639#0" expanded="false" />
-            <element signature="e#692#877#0" expanded="false" />
-            <element signature="e#932#961#0" expanded="false" />
-            <element signature="e#1437#2340#0" expanded="false" />
-            <element signature="e#1454#2160#0" expanded="false" />
-            <element signature="e#2206#2340#0" expanded="false" />
-            <element signature="e#2295#2317#0" expanded="false" />
-            <element signature="e#2386#2832#0" expanded="false" />
-            <element signature="e#3136#3749#0" expanded="false" />
-            <element signature="e#3177#3368#0" expanded="false" />
-            <element signature="e#4422#5378#0" expanded="false" />
-            <element signature="e#5866#5901#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LogisticRegression/LogisticClassifier_coursera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="17" column="42" lean-forward="true" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+            <element signature="e#376#447#0" expanded="false" />
+            <element signature="e#520#623#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LogisticRegression.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="236" column="47" lean-forward="false" selection-start-line="236" selection-start-column="47" selection-end-line="236" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydevd_bundle/pydevd_exec.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LogisticRegression/GaussianGenerativeClassifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="38" column="51" lean-forward="true" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
+        <state relative-caret-position="50">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#473#493#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files/Anaconda2/Lib/site-packages/numpy/matrixlib/defmatrix.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="342" column="0" lean-forward="false" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LogisticRegression/AbstractClassifier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="126" column="39" lean-forward="true" selection-start-line="126" selection-start-column="39" selection-end-line="126" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+            <element signature="e#417#476#0" expanded="false" />
+            <element signature="e#529#577#0" expanded="false" />
+            <element signature="e#621#639#0" expanded="false" />
+            <element signature="e#932#961#0" expanded="false" />
+            <element signature="e#2323#2345#0" expanded="false" />
+            <element signature="e#5989#6024#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LogisticRegression/AbstractLogisticClassifier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="127" column="0" lean-forward="false" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+          <folding>
+            <element signature="e#2788#2891#1" expanded="false" />
+            <element signature="e#3062#3113#0" expanded="false" />
+            <element signature="e#3392#3546#1" expanded="false" />
+            <element signature="e#4859#5033#0" expanded="false" />
+            <element signature="e#5273#5541#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="44" column="55" lean-forward="false" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>

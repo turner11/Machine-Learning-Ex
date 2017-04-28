@@ -15,15 +15,15 @@ class LogisticClassifier(AbstractLogisticClassifier):
         """"""
         super(self.__class__, self).__init__(gradient_step_size)
 
-    def cost_function(self, theta, X, y):
+    def _cost_function(self, theta, X, y):
         # [J, grad]
         """
         Computes cost and gradient for logistic regression using theta as the parameter
         """
-        m = len(y)  # number of training examples
+        n = theta.shape[1]  #number of features
         # need to return the following variables
         J = 0
-        grad = np.zeros(m)
+        grad = np.zeros(n)
         # Compute the cost of a particular choice of theta.
         # setting J to the cost.
         # Compute the partial derivatives

@@ -17,10 +17,19 @@ class AbstractLogisticClassifier(AbstractClassifier):
         self.threshold = self.DEFAULT_THRESHOLD
         self.gradient_step_size = gradient_step_size
 
+
+    def normalize_data(self, data):
+        normed = super(AbstractLogisticClassifier, self).normalize_data(data)
+        with_ones = np.zeros((normed.shape[0], normed.shape[1] + 1))  # cerating the new matrix
+        with_ones[:, 1:] = normed  # populating all but first column
+        with_ones[:, 0:1] = 1  # adding 1's in first column
+        return np.matrix(with_ones)
+
     def _predict(self, normed_data):
         hx = normed_data * self._model.transpose()
         prediction = hx >= self.threshold
-        return prediction
+        int_prediction  = prediction + 0
+        return int_prediction
 
     def __get_initial_model(self, size):
         logger.warn("using an initial all 0 model")
@@ -41,7 +50,7 @@ class AbstractLogisticClassifier(AbstractClassifier):
         J, grad = self.cost_function(initial_model, t_samples, t_y)
 
         logger.info('Cost at initial theta : {0}'.format(J))
-        logger.info('Gradient at initial theta: \n{0}'.format(grad))
+        # logger.info('Gradient at initial theta: \n{0}'.format(grad))
 
         model = self.optimize(lambda th: self.cost_function(theta=th, X=t_samples, y=t_y), initial_model,
                               max_iteration_count=500)
@@ -49,6 +58,17 @@ class AbstractLogisticClassifier(AbstractClassifier):
         return model
 
     def cost_function(self, theta, X, y):
+        """
+               Computes cost and gradient for logistic regression using theta as the parameter
+               """
+        assert theta.shape[1] == X.shape[1], "dimensions of data (X) and model (theta) did not agree. cannot " \
+                                             "determine number of features "
+        y_fixed = np.matrix(y).transpose()
+        m = len(y)  # number of training examples
+        n = theta.shape[1]  # number of features
+        return self._cost_function(theta, X,y_fixed)
+
+    def _cost_function(self, theta, X, y):
         # [J, grad]
         """
         Computes cost and gradient for logistic regression using theta as the parameter
@@ -56,7 +76,7 @@ class AbstractLogisticClassifier(AbstractClassifier):
         m = len(y)  # number of training examples
         # need to return the following variables
         J = 0
-        grad = np.zeros(m)
+        n = theta.shape[1]  # number of features
         # Compute the cost of a particular choice of theta.
         # set J to the cost.
         # Compute the partial derivatives

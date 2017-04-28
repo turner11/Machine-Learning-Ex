@@ -46,6 +46,7 @@ class AbstractClassifier(object):
         self.val_1_str = None
         self.ys = None
         self._model = None
+        self.score = None
 
     def _predict(self, normed_data):
         raise NotImplementedError("prediction must be implemented by concrete classifier")
@@ -62,7 +63,7 @@ class AbstractClassifier(object):
             self.val_0_str = ys_raw[0]
             self.val_1_str = next(x for x in ys_raw if x != self.val_0_str)
             ys = [0 if x == self.val_0_str else 1 for x in ys_raw]
-            self.ys = np.matrix(ys).transpose()
+            self.ys = np.array(ys).transpose()
 
             # make data hold only numerical values
             m = np.delete(m, [classification_column], 1)
@@ -73,7 +74,7 @@ class AbstractClassifier(object):
 
         except Exception as ex:
             logger.error("Failed to read data:\t{0}".format(str(ex)))
-            raise
+            raise ex
 
             # def __str__(self, ):
             #     pass
@@ -83,28 +84,27 @@ class AbstractClassifier(object):
         input_std = data.std(axis=0)
         normed = (data - input_avgs) / input_std
         # Adding 1 as the first feature for all
-        with_ones = np.zeros((normed.shape[0], normed.shape[1] + 1))  # cerating the new matrix
-        with_ones[:, 1:] = normed  # populating all but first column
-        with_ones[:, 0:1] = 1  # adding 1's in first column
-        return np.matrix(with_ones)
+        return np.matrix(normed)
+
 
     def classify(self, data, is_data_normalized=False):
         normed_data = data if is_data_normalized else self.normalize_data(data)
         prediction = self._predict(normed_data)
-        return prediction
+        return np.array(prediction).reshape(-1)
 
-    def slice_data(self, training_set_size_percentage=0.6, trainingset_size=None):
+    def slice_data(self, training_set_size_percentage=0.6, trainingset_size=None, normalized=True ):
         if trainingset_size is None:
             if training_set_size_percentage is None or training_set_size_percentage <= 0 or training_set_size_percentage >= 1:
                 raise Exception("percentage must be within the (0,1) range")
 
         trainingset_size = int(self.samples_count * training_set_size_percentage)
 
-        training_set = self.normalized_data[:trainingset_size, :]
+        data_to_use = self.normalized_data if normalized else self.data
+        training_set = data_to_use[:trainingset_size, :]
         train_y = self.ys[:trainingset_size]
 
-        test_set = self.normalized_data[trainingset_size + 1:, :]
-        test_y = self.ys[trainingset_size + 1:, :]
+        test_set = data_to_use[trainingset_size:, :]
+        test_y = self.ys[trainingset_size:]
 
         return SlicedData(training_set, train_y, test_set, test_y)
 
@@ -117,15 +117,18 @@ class AbstractClassifier(object):
         model_score = self.get_model_score(sliced_data.test_set, sliced_data.test_y)
         self.log_score(model_score, prefix="Score for test set")
 
-        model_score = self.get_model_score(sliced_data.training_set, sliced_data.training_y)
-        self.log_score(model_score, prefix="Score for training set:")
+        self.score = model_score
+
+        train_score = self.get_model_score(sliced_data.training_set, sliced_data.training_y)
+        self.log_score(train_score , prefix="Score for training set:")
+
         return self._model
 
-    def get_model_score(self, test_set, test_y):
-        prediction = self.classify(test_set, is_data_normalized=True)
+    def get_model_score(self, test_set, test_y, prediction = None):
+        prediction = prediction  if prediction is not None else  self.classify(test_set, is_data_normalized=True)
 
-        pos = test_y == 1
-        neg = test_y == 0
+        pos = np.array(test_y == 1)
+        neg = np.array(test_y == 0)
 
         # True class A (TA) - correctly classified into class A
         tp = np.count_nonzero(prediction[pos] == 1)
@@ -149,9 +152,13 @@ class AbstractClassifier(object):
         raise NotImplementedError("training must be implemented by concrete classifier")
 
     def log_score(self, model_score, prefix=""):
-        prefix = (prefix or "Model score") + " ({0})".format(self)
+
+        line_sep = "========================================================"
+        prefix = (prefix or "Model score") + " ({0}) ".format(self)+line_sep
         logger.info(prefix + ":\nprecision: {0}\nrecall: {1}\naccuracy: {2}\nf_measure: {3}"
                     .format(model_score.precision, model_score.recall, model_score.accuracy, model_score.f_measure))
+
+        logger.info(line_sep)
 
     def __str__(self):
         return str(self.__class__.__name__)
