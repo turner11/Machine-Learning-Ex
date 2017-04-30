@@ -43,7 +43,7 @@ def run_classifier(logc):
     # did we get same classification?
 
     score = logc.get_model_score(test_set, ground_truth, prediction=ys )
-    assert str(score) == str(logc.score), "Got difference in score..."
+    assert score == logc.score, "Got difference in score:\n{0}\n{1}".format(score,logc.score)
     str()
 
 

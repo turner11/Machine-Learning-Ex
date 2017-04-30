@@ -6,7 +6,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 SlicedData = namedtuple('SlicedData', 'training_set training_y test_set test_y')
-ModelScore = namedtuple("ModelScore", "precision recall accuracy f_measure")
+
+
+class ModelScore(object):
+    def __init__(self, precision=None, recall=None, accuracy=None, f_measure=None):
+        self.precision = precision
+        self.recall = recall
+        self.accuracy = accuracy
+        self.f_measure = f_measure
+
+    def __str__(self):
+        return "precision: {0}\t" \
+               "recall: {1}\t" \
+               "accuracy: {2}\t" \
+               "f_measure: {3}\t".format(self.precision,
+                                         self.recall,
+                                         self.accuracy,
+                                         self.f_measure)
+
+    def __eq__(self, other):
+        eq = self.precision == other.precision and \
+             self.recall == other.recall and \
+             self.accuracy == other.accuracy and \
+             self.f_measure == other.f_measure
+
+        return eq
 
 
 class AbstractClassifier(object):
@@ -29,7 +53,12 @@ class AbstractClassifier(object):
     @data.setter
     def data(self, data):
         self.__data = data
+
+        self.__features_avgs = data.mean(axis=0)  # input - by column
+        self.__features_std = data.std(axis=0)
+
         self.__normalized_data = self.normalize_data(self.data)
+
         logger.info("Got {0} features for {1} samples".format(self.feature_count, self.samples_count))
 
     @property
@@ -41,6 +70,9 @@ class AbstractClassifier(object):
         super(AbstractClassifier, self).__init__()
         self.__data = None
         self.__normalized_data = None
+
+        self.__features_avgs = None
+        self.__features_std = None
 
         self.val_0_str = None
         self.val_1_str = None
@@ -59,6 +91,7 @@ class AbstractClassifier(object):
             m = csv.values
 
             # get the tags
+            logger.warn("Assuming tags headers in first column")
             ys_raw = m[:, classification_column]
             self.val_0_str = ys_raw[0]
             self.val_1_str = next(x for x in ys_raw if x != self.val_0_str)
@@ -80,19 +113,16 @@ class AbstractClassifier(object):
             #     pass
 
     def normalize_data(self, data):
-        input_avgs = data.mean(axis=0)  # input - by column
-        input_std = data.std(axis=0)
-        normed = (data - input_avgs) / input_std
+        normed = (data - self.__features_avgs) / self.__features_std
         # Adding 1 as the first feature for all
         return np.matrix(normed)
-
 
     def classify(self, data, is_data_normalized=False):
         normed_data = data if is_data_normalized else self.normalize_data(data)
         prediction = self._predict(normed_data)
         return np.array(prediction).reshape(-1)
 
-    def slice_data(self, training_set_size_percentage=0.6, trainingset_size=None, normalized=True ):
+    def slice_data(self, training_set_size_percentage=0.6, trainingset_size=None, normalized=True):
         if trainingset_size is None:
             if training_set_size_percentage is None or training_set_size_percentage <= 0 or training_set_size_percentage >= 1:
                 raise Exception("percentage must be within the (0,1) range")
@@ -120,12 +150,12 @@ class AbstractClassifier(object):
         self.score = model_score
 
         train_score = self.get_model_score(sliced_data.training_set, sliced_data.training_y)
-        self.log_score(train_score , prefix="Score for training set:")
+        self.log_score(train_score, prefix="Score for training set:")
 
         return self._model
 
-    def get_model_score(self, test_set, test_y, prediction = None):
-        prediction = prediction  if prediction is not None else  self.classify(test_set, is_data_normalized=True)
+    def get_model_score(self, test_set, test_y, prediction=None):
+        prediction = prediction if prediction is not None else  self.classify(test_set, is_data_normalized=True)
 
         pos = np.array(test_y == 1)
         neg = np.array(test_y == 0)
@@ -153,11 +183,11 @@ class AbstractClassifier(object):
 
     def log_score(self, model_score, prefix=""):
 
-        line_sep = "========================================================"
-        prefix = (prefix or "Model score") + " ({0}) ".format(self)+line_sep
-        logger.info(prefix + ":\nprecision: {0}\nrecall: {1}\naccuracy: {2}\nf_measure: {3}"
-                    .format(model_score.precision, model_score.recall, model_score.accuracy, model_score.f_measure))
-
+        line_sep = "---------------------------------------------------"
+        prefix = (prefix or "Model score") + " ({0}) ".format(self)
+        logger.info(line_sep)
+        logger.info(prefix + ":\n")
+        logger.info(str(model_score))
         logger.info(line_sep)
 
     def __str__(self):

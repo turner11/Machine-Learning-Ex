@@ -132,7 +132,3 @@ class AbstractLogisticClassifier(AbstractClassifier):
 
         return model
 
-    def log_score(self, model_score, prefix=""):
-        prefix = (prefix or "Model score") + " ({0})".format(self)
-        logger.info(prefix + ":\nprecision: {0}\nrecall: {1}\naccuracy: {2}\nf_measure: {3}"
-                    .format(model_score.precision, model_score.recall, model_score.accuracy, model_score.f_measure))
