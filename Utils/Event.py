@@ -7,6 +7,9 @@ class EventHook(object):
         self.__handlers.append(handler)
         return self
 
+    def __call__(self, *args, **kwargs):
+        self.fire(*args, **kwargs)
+
     def __isub__(self, handler):
         self.__handlers.remove(handler)
         return self

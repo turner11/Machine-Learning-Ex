@@ -5,6 +5,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+from Utils.Event import EventHook
+
 SlicedData = namedtuple('SlicedData', 'training_set training_y test_set test_y')
 
 
@@ -52,12 +54,14 @@ class AbstractClassifier(object):
 
     @data.setter
     def data(self, data):
+
         self.__data = data
 
         self.__features_avgs = data.mean(axis=0)  # input - by column
         self.__features_std = data.std(axis=0)
 
         self.__normalized_data = self.normalize_data(self.data)
+
 
         logger.info("Got {0} features for {1} samples".format(self.feature_count, self.samples_count))
 
@@ -67,6 +71,7 @@ class AbstractClassifier(object):
 
     def __init__(self):
         """"""
+        self.event_data_loaded = EventHook()
         super(AbstractClassifier, self).__init__()
         self.__data = None
         self.__normalized_data = None
@@ -104,6 +109,8 @@ class AbstractClassifier(object):
             # data should be numerical
             m = m.astype('float32')
             self.data = m
+
+            self.event_data_loaded(self, self.normalized_data,self.ys)
 
         except Exception as ex:
             logger.error("Failed to read data:\t{0}".format(str(ex)))
