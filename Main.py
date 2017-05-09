@@ -10,18 +10,27 @@ from LogisticRegression.GaussianGenerativeClassifier import GaussianGenerativeCl
 
 
 def main():
+
+    # LogisticClassifier           -----------------------------------------------
     logc = lc()
     run_classifier(logc)
+
+
+    # GaussianGenerativeClassifier -----------------------------------------------
     downloaded_gc = GaussianDiscriminantAnalysis()
     run_classifier(downloaded_gc)
 
-    gc = GaussianGenerativeClassifier()
-    run_classifier(gc)
 
 
+    # GaussianGenerativeClassifier -----------------------------------------------
+    # gc = GaussianGenerativeClassifier()
+    # run_classifier(gc)
+
+    # Coursera -----------------------------------------------
     logc_coursera = lc_coursera()
     run_classifier(logc_coursera)
 
+    str()
     str()
 
 
@@ -86,7 +95,11 @@ def run_classifier(logc):
     # did we get same classification?
 
     score = logc.get_model_score(test_set, ground_truth, prediction=ys )
-    assert score == logc.score, "Got difference in score:\n{0}\n{1}".format(score,logc.score)
+    # assert score == logc.score, "Got difference in score:\n{0}\n{1}".format(score,logc.score)
+    try:
+        print ("{0}: alpha: {1}; iterations: {2}".format(logc, logc.gradient_step_size,logc.iterations))
+    except:
+        pass
     str()
 
 

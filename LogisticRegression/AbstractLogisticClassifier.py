@@ -15,6 +15,8 @@ class AbstractLogisticClassifier(AbstractClassifier):
         """"""
         super(AbstractLogisticClassifier, self).__init__()
         self.threshold = self.DEFAULT_THRESHOLD
+
+        self.iterations = 500
         self.gradient_step_size = gradient_step_size
 
 
@@ -52,8 +54,11 @@ class AbstractLogisticClassifier(AbstractClassifier):
         logger.info('Cost at initial theta : {0}'.format(J))
         # logger.info('Gradient at initial theta: \n{0}'.format(grad))
 
+
         model = self.optimize(lambda th: self.cost_function(theta=th, X=t_samples, y=t_y), initial_model,
-                              max_iteration_count=500)
+                              max_iteration_count=self.iterations)
+
+
 
         return model
 
