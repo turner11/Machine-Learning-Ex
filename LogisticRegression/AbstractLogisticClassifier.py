@@ -5,10 +5,12 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-from LogisticRegression.AbstractClassifier import AbstractClassifier
+from LogisticRegression.AbstractClassifier import AbstractClassifier, draw_plots
+
 
 class AbstractLogisticClassifier(AbstractClassifier):
     """"""
+
     DEFAULT_THRESHOLD = 0.5
 
     def __init__(self, gradient_step_size=0.01):
@@ -18,6 +20,8 @@ class AbstractLogisticClassifier(AbstractClassifier):
 
         self.iterations = 500
         self.gradient_step_size = gradient_step_size
+
+
 
 
     def normalize_data(self, data):
@@ -129,11 +133,12 @@ class AbstractLogisticClassifier(AbstractClassifier):
             logger.warn("Exited optimization due to max iteration achieved ({0})".format(iter_count))
             logger.warn("cost was {0}; (max cost - {1})".format(cost, stop_at_cost))
 
-        plt.figure()  # new figure
-        ax = plt.plot(js)
-        plt.title("Cost by iterations ({0})".format(self))
-        plt.draw()
-        plt.show()
+        if self.draw_plots:
+            plt.figure()  # new figure
+            ax = plt.plot(js)
+            plt.title("Cost by iterations ({0})".format(self))
+            plt.draw()
+            plt.show()
 
         return model
 

@@ -5,6 +5,8 @@ import numpy as np
 from LogisticRegression.DataLoader import ClassifyingData
 from Utils.Event import EventHook
 
+draw_plots = True
+
 SlicedData = namedtuple('SlicedData', 'training_set training_y test_set test_y')
 
 
@@ -32,9 +34,15 @@ class ModelScore(object):
 
         return eq
 
+    def has_nans(self):
+        stats = [self.precision, self.recall , self.accuracy , self.f_measure ]
+        return any([np.math.isnan(s) for s in stats])
+
+
 
 class AbstractClassifier(object):
     """"""
+
 
     @property
     def feature_count(self):
@@ -75,8 +83,9 @@ class AbstractClassifier(object):
         self.__input_data = value
         self.__event_data_loaded_internal()
 
-    def __init__(self):
+    def __init__(self, draw_plots=False):
         """"""
+        self.draw_plots = draw_plots
         self.__event_data_loaded_internal = EventHook()
         self.__event_data_loaded_internal += self.__data_loaded_handler
         self.event_data_loaded = EventHook()
@@ -143,6 +152,7 @@ class AbstractClassifier(object):
         return self._model
 
     def get_model_score(self, test_set, test_y, prediction=None):
+        # type: (object, object, object) -> ModelScore
         prediction = prediction if prediction is not None else  self.classify(test_set, is_data_normalized=True)
 
         pos = np.array(test_y == 1)
@@ -157,12 +167,12 @@ class AbstractClassifier(object):
         # False class B (FB) - incorrectly classified into class B
         fp = np.count_nonzero(prediction[neg] == 1)
 
-        precision = float(tp) / (tp + fn)
-        recall = float(tp) / (tp + fp)
+        precision = float(tp) / (tp + fn) if tp+fn != 0 else np.nan
+        recall = float(tp) / (tp + fp) if tp+fp != 0 else np.nan
 
         # You might also need accuracy and F-measure:
         accuracy = float(tp + tn) / (tp + tn + fp + fn)
-        f_measure = 2 * (float(precision * recall) / (precision + recall))
+        f_measure = 2 * (float(precision * recall) / (precision + recall))  if precision + recall != 0 else np.nan
 
         return ModelScore(precision=precision, recall=recall, accuracy=accuracy, f_measure=f_measure)
 
