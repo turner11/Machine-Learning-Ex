@@ -1,10 +1,8 @@
 from collections import namedtuple
-
 from LogisticRegression import rootLogger as logger
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
+from LogisticRegression.DataLoader import ClassifyingData
 from Utils.Event import EventHook
 
 SlicedData = namedtuple('SlicedData', 'training_set training_y test_set test_y')
@@ -22,9 +20,9 @@ class ModelScore(object):
                "recall: {1:.4f}\t" \
                "accuracy: {2:.4f}\t" \
                "f_measure: {3:.4f}\t".format(self.precision,
-                                         self.recall,
-                                         self.accuracy,
-                                         self.f_measure)
+                                             self.recall,
+                                             self.accuracy,
+                                             self.f_measure)
 
     def __eq__(self, other):
         eq = self.precision == other.precision and \
@@ -50,74 +48,57 @@ class AbstractClassifier(object):
 
     @property
     def data(self):
-        return self.__data
-
-    @data.setter
-    def data(self, data):
-
-        self.__data = data
-
-        self.__features_avgs = data.mean(axis=0)  # input - by column
-        self.__features_std = data.std(axis=0)
-
-        self.__normalized_data = self.normalize_data(self.data)
-
-
-        logger.info("Got {0} features for {1} samples".format(self.feature_count, self.samples_count))
+        return self.input_data.x_mat
 
     @property
     def normalized_data(self):
         return self.__normalized_data
 
+    @property
+    def val_0_str(self):
+        return self.input_data.val_0_str
+
+    @property
+    def val_1_str(self):
+        return self.input_data.val_1_str
+
+    @property
+    def ys(self):
+        return self.input_data.ys
+
+    @property
+    def input_data(self):
+        return self.__input_data
+
+    @input_data.setter
+    def input_data(self, value):
+        self.__input_data = value
+        self.__event_data_loaded_internal()
+
     def __init__(self):
         """"""
+        self.__event_data_loaded_internal = EventHook()
+        self.__event_data_loaded_internal += self.__data_loaded_handler
         self.event_data_loaded = EventHook()
         super(AbstractClassifier, self).__init__()
+
+        self.__input_data = ClassifyingData("Null Object 0", "Null Object 1", [], np.array([]))
+
         self.__data = None
         self.__normalized_data = None
 
         self.__features_avgs = None
         self.__features_std = None
 
-        self.val_0_str = None
-        self.val_1_str = None
-        self.ys = None
         self._model = None
         self.score = None
 
     def _predict(self, normed_data):
         raise NotImplementedError("prediction must be implemented by concrete classifier")
 
-    def load_data_from_csv(self, data_path, classification_column=0):
-        try:
-            # self.data = np.genfromtxt(data_path, delimiter=',')
-            logger.warn("Assuming no headers in csv")
-            csv = pd.read_csv(data_path, header=None)
-            m = csv.values
-
-            # get the tags
-            logger.warn("Assuming tags headers in first column")
-            ys_raw = m[:, classification_column]
-            self.val_0_str = ys_raw[0]
-            self.val_1_str = next(x for x in ys_raw if x != self.val_0_str)
-            ys = [0 if x == self.val_0_str else 1 for x in ys_raw]
-            self.ys = np.array(ys).transpose()
-
-            # make data hold only numerical values
-            m = np.delete(m, [classification_column], 1)
-
-            # data should be numerical
-            m = m.astype('float32')
-            self.data = m
-
-            self.event_data_loaded(self, self.normalized_data,self.ys)
-
-        except Exception as ex:
-            logger.error("Failed to read data:\t{0}".format(str(ex)))
-            raise ex
-
-            # def __str__(self, ):
-            #     pass
+    def set_data(self, input_data):
+        # type: (ClassifyingData) -> None
+        self.input_data = input_data
 
     def normalize_data(self, data):
         normed = (data - self.__features_avgs) / self.__features_std
@@ -196,6 +177,15 @@ class AbstractClassifier(object):
         logger.info(prefix + ":\n")
         logger.info(str(model_score))
         logger.info(line_sep)
+
+    def __data_loaded_handler(self):
+        self.__features_avgs = self.data.mean(axis=0)  # input - by column
+        self.__features_std = self.data.std(axis=0)
+
+        self.__normalized_data = self.normalize_data(self.data)
+        logger.info("Got {0} features for {1} samples".format(self.feature_count, self.samples_count))
+        self.event_data_loaded(self, self.normalized_data, self.ys)
+
 
     def __str__(self):
         return str(self.__class__.__name__)

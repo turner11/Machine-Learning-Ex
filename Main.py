@@ -1,6 +1,8 @@
 import os
 from DataVisualization.Visualyzer import Visualyzer
+from LogisticRegression.DataLoader import DataLoader
 from LogisticRegression.gda_downloaded import GaussianDiscriminantAnalysis
+from LogisticRegression import rootLogger as logger
 import numpy as np
 
 CSV_NAME = "Data.csv"
@@ -10,17 +12,15 @@ from LogisticRegression.GaussianGenerativeClassifier import GaussianGenerativeCl
 
 
 def main():
+    run_best_n_fitures()
 
     # LogisticClassifier           -----------------------------------------------
     logc = lc()
     run_classifier(logc)
 
-
     # GaussianGenerativeClassifier -----------------------------------------------
     downloaded_gc = GaussianDiscriminantAnalysis()
     run_classifier(downloaded_gc)
-
-
 
     # GaussianGenerativeClassifier -----------------------------------------------
     # gc = GaussianGenerativeClassifier()
@@ -34,7 +34,7 @@ def main():
     str()
 
 
-def classifier_loaded_data(classifier, X,y):
+def classifier_loaded_data_handler(classifier, X, y):
     import logging
     # Code source: Gael Varoquaux
     # License: BSD 3 clause
@@ -55,9 +55,9 @@ def classifier_loaded_data(classifier, X,y):
     X = pca.transform(X)
 
     unique_labels = np.unique(y)
-    labels = [("Label: "+str(lbl), lbl) for lbl in unique_labels]
+    labels = [("Label: " + str(lbl), lbl) for lbl in unique_labels]
 
-    for name, label in labels :
+    for name, label in labels:
         ax.text3D(X[y == label, 0].mean(),
                   X[y == label, 1].mean() + 1.5,
                   X[y == label, 2].mean(), name,
@@ -66,7 +66,7 @@ def classifier_loaded_data(classifier, X,y):
     # Reorder the labels to have colors matching the cluster results
     y = np.choose(y, [1, 2, 0]).astype(np.float)
 
-    cm = plt.cm.get_cmap('RdYlBu')#plt.cm.spectral
+    cm = plt.cm.get_cmap('RdYlBu')  # plt.cm.spectral
     ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=y, cmap=cm)
 
     ax.w_xaxis.set_ticklabels([])
@@ -76,10 +76,45 @@ def classifier_loaded_data(classifier, X,y):
     plt.show()
 
 
-def run_classifier(logc):
-    logc.event_data_loaded += classifier_loaded_data
+def get_next_best_feature(classifier, m, selected_idxs):
+    selected_idxs = set(selected_idxs)
+    col_idxs = set(range(m.shape[1]))
+    idxs_to_check = col_idxs - selected_idxs
+    for col_idx in idxs_to_check:
+        features_idxs = selected_idxs + {col_idx}
+
+
+        pass
+
+    idxs = [0, 1]
+    [c[idxs] for c in m]
+
+
+def run_best_n_fitures(n=5, classifier=None):
+    classifier = classifier or lc_coursera()
+    def filter_data_func(m):
+
+        selected_idxs = []
+        while(len(selected_idxs)) < n:
+            next_best = get_next_best_feature(classifier, m, selected_idxs)
+            if next_best is None:
+                logger.warn("Got a none value for next best index. aborting...")
+                break
+            selected_idxs.append(next_best)
+
+        idxs = [0, 1]
+        [c[idxs] for c in m]
+        m = m
+        return m
+    run_classifier(classifier, filter_data_func)
+
+
+
+def run_classifier(logc, filter_data_func=None):
+    logc.event_data_loaded += classifier_loaded_data_handler
     path = os.path.join(os.path.curdir, CSV_NAME)
-    logc.load_data_from_csv(path)
+    data = DataLoader.from_csv(CSV_NAME)
+    logc.set_data(data)
     # Visualyzer.display_heat_map(logc.normalized_data, logc.ys)
     percentage_for_300 = 0.528
     logc.train(training_set_size_percentage=percentage_for_300)
@@ -94,10 +129,10 @@ def run_classifier(logc):
     ys = logc.classify(test_set)
     # did we get same classification?
 
-    score = logc.get_model_score(test_set, ground_truth, prediction=ys )
+    score = logc.get_model_score(test_set, ground_truth, prediction=ys)
     # assert score == logc.score, "Got difference in score:\n{0}\n{1}".format(score,logc.score)
     try:
-        print ("{0}: alpha: {1}; iterations: {2}".format(logc, logc.gradient_step_size,logc.iterations))
+        print ("{0}: alpha: {1}; iterations: {2}".format(logc, logc.gradient_step_size, logc.iterations))
     except:
         pass
     str()
