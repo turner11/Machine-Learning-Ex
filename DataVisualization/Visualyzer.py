@@ -4,6 +4,8 @@ import numpy as np
 class Visualyzer:
     """"""
 
+
+
     def __init__(self, ):
         """"""
         super(self.__class__, self).init()
@@ -31,4 +33,36 @@ class Visualyzer:
 
 
 
+    @classmethod
+    def plotSufrfce(cls, x, y, z,xlabel='X',ylabel='Y',zlabel='Z'):
+
+        import matplotlib.pyplot as plt
+        from matplotlib.ticker import MaxNLocator
+        from matplotlib import cm
+
+        Xs = np.array(x)
+        Ys = np.array(y)
+        Zs = np.array(z)
+
+        # ======
+        ## plot:
+
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+
+        surf = ax.plot_trisurf(Xs, Ys, Zs, cmap=cm.jet, linewidth=0)
+        fig.colorbar(surf)
+
+        ax.xaxis.set_major_locator(MaxNLocator(5))
+        ax.yaxis.set_major_locator(MaxNLocator(6))
+        ax.zaxis.set_major_locator(MaxNLocator(5))
+
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        ax.set_zlabel(zlabel)
+
+
+        fig.tight_layout()
+
+        plt.show()  # or:
 

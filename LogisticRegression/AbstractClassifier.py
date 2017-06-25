@@ -2,7 +2,7 @@ from collections import namedtuple
 from LogisticRegression import rootLogger as logger
 import numpy as np
 
-from LogisticRegression.DataLoader import ClassifyingData
+from LogisticRegression.DataLoaders.ClassifyingData import ClassifyingData
 from Utils.Event import EventHook
 
 draw_plots = True
@@ -35,14 +35,12 @@ class ModelScore(object):
         return eq
 
     def has_nans(self):
-        stats = [self.precision, self.recall , self.accuracy , self.f_measure ]
+        stats = [self.precision, self.recall, self.accuracy, self.f_measure]
         return any([np.math.isnan(s) for s in stats])
-
 
 
 class AbstractClassifier(object):
     """"""
-
 
     @property
     def feature_count(self):
@@ -125,13 +123,19 @@ class AbstractClassifier(object):
                 raise Exception("percentage must be within the (0,1) range")
 
         trainingset_size = int(self.samples_count * training_set_size_percentage)
+        test_set_size = self.samples_count-trainingset_size
 
         data_to_use = self.normalized_data if normalized else self.data
-        training_set = data_to_use[:trainingset_size, :]
-        train_y = self.ys[:trainingset_size]
+        all_idxs =set(range(self.samples_count))
+        training_idxs = sorted(np.random.choice(list(all_idxs), size=trainingset_size))
+        test_idsx =  list(all_idxs - set(training_idxs ))
+        # type: (np.ndarray, np.ndarray) -> np.ndarray
 
-        test_set = data_to_use[trainingset_size:, :]
-        test_y = self.ys[trainingset_size:]
+        training_set = data_to_use[training_idxs, :]
+        train_y = self.ys[training_idxs]
+
+        test_set = data_to_use[test_idsx, :]
+        test_y = self.ys[test_idsx]
 
         return SlicedData(training_set, train_y, test_set, test_y)
 
@@ -152,7 +156,7 @@ class AbstractClassifier(object):
         return self._model
 
     def get_model_score(self, test_set, test_y, prediction=None):
-        # type: (object, object, object) -> ModelScore
+        # type: (np.ndarray, np.ndarray, np.ndarray) -> ModelScore
         prediction = prediction if prediction is not None else  self.classify(test_set, is_data_normalized=True)
 
         pos = np.array(test_y == 1)
@@ -167,12 +171,12 @@ class AbstractClassifier(object):
         # False class B (FB) - incorrectly classified into class B
         fp = np.count_nonzero(prediction[neg] == 1)
 
-        precision = float(tp) / (tp + fn) if tp+fn != 0 else np.nan
-        recall = float(tp) / (tp + fp) if tp+fp != 0 else np.nan
+        precision = float(tp) / (tp + fn) if tp + fn != 0 else np.nan
+        recall = float(tp) / (tp + fp) if tp + fp != 0 else np.nan
 
         # You might also need accuracy and F-measure:
         accuracy = float(tp + tn) / (tp + tn + fp + fn)
-        f_measure = 2 * (float(precision * recall) / (precision + recall))  if precision + recall != 0 else np.nan
+        f_measure = 2 * (float(precision * recall) / (precision + recall)) if precision + recall != 0 else np.nan
 
         return ModelScore(precision=precision, recall=recall, accuracy=accuracy, f_measure=f_measure)
 
@@ -195,7 +199,6 @@ class AbstractClassifier(object):
         self.__normalized_data = self.normalize_data(self.data)
         logger.info("Got {0} features for {1} samples".format(self.feature_count, self.samples_count))
         self.event_data_loaded(self, self.normalized_data, self.ys)
-
 
     def __str__(self):
         return str(self.__class__.__name__)

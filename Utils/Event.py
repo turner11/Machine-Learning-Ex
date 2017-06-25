@@ -22,3 +22,8 @@ class EventHook(object):
         for theHandler in self.__handlers:
             if theHandler.im_self == inObject:
                 self -= theHandler
+
+
+    def clear(self):
+        for theHandler in self.__handlers:
+                self -= theHandler

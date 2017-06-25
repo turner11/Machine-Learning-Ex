@@ -4,22 +4,92 @@ import matplotlib.pyplot as plt
 from copy import deepcopy
 
 from DataVisualization.Visualyzer import Visualyzer
-from LogisticRegression.DataLoader import DataLoader, ClassifyingData
+from LogisticRegression.DataLoaders import AbstractDataLoader, CancerDataLoader, ClassifyingData
+
+from LogisticRegression.DataLoaders import CancerDataLoader
+from LogisticRegression.DataLoaders.Utils import get_default_data_loader
+from LogisticRegression.SvmClassifier import SvmClassifier
+from LogisticRegression.builin_LR import Bultin_LR
 from LogisticRegression.gda_downloaded import GaussianDiscriminantAnalysis
 from LogisticRegression import rootLogger as logger, AbstractClassifier
 
 import numpy as np
 
-CSV_NAME = "Data.csv"
+
 from LogisticRegression.LogisticClassifier import LogisticClassifier as lc
 from LogisticRegression.LogisticClassifier_coursera import LogisticClassifier_coursera as lc_coursera
 from LogisticRegression.GaussianGenerativeClassifier import GaussianGenerativeClassifier
 
 
+def main_SVM():
+    svm_classifier = SvmClassifier()
+
+    data_loader = get_default_data_loader()
+    data = data_loader.load()
+    training_set_percentage = 0.7
+
+    def get_pairs(l1,l2):
+        import itertools
+        ret  = list(itertools.product(l1,l2))
+        return ret
+
+    degree = range(0,6)
+    Cs = [0.1+v/100.0 for v in range(0,1000,10)]
+    pairs = get_pairs(degree,Cs)
+    is_first = True
+
+    points = [[],[],[]]
+    for degree,C in pairs:
+
+        classifier = SvmClassifier()
+        if is_first:
+            classifier.event_data_loaded += classifier_loaded_data_handler
+            is_first = False
+
+        classifier.set_data(data)
+        classifier.set_classifier(c=C, degree=degree)#,kernel='Spline'
+        # TODO: Add modifing the classifier to use degree and C
+        classifier.train(training_set_size_percentage=training_set_percentage)
+
+        # TODO: Modify kernel as well...
+        # TODO: Add allowing mistakes (outliers)
+
+
+        # verifying...----------------------------------
+
+        sliced_data = classifier.slice_data(training_set_size_percentage=training_set_percentage, normalized=False)
+
+        # get the not yet normed data set that was used for training
+        test_set = sliced_data.test_set
+        ground_truth = np.array(sliced_data.test_y)
+        ys = classifier.classify(test_set)
+        # did we get same classification?
+
+        score = classifier.get_model_score(test_set, ground_truth, prediction=ys)
+
+
+        f_measure = score.f_measure
+        points[0].append(degree)
+        points[1].append(C)
+        points[2].append(f_measure*100)
+
+    x, y, z  = points
+    Visualyzer.plotSufrfce(x, y, z,xlabel="Degree",ylabel="C",zlabel="F Measurew")
+    # import pickle
+    # with open('points.pickle','w') as f:
+    #     pickle.dunmp(points,f)
+
+
+
+    pass
+
 def main():
     n_features = 5
-    run_best_n_fitures(n=n_features ,classifier=GaussianDiscriminantAnalysis())
+    run_best_n_fitures(n=n_features, classifier=Bultin_LR())
+    return
     run_best_n_fitures(n=n_features , classifier=lc_coursera())
+    return
+    run_best_n_fitures(n=n_features ,classifier=GaussianDiscriminantAnalysis())
     return
     # LogisticClassifier           -----------------------------------------------
     logc = lc()
@@ -56,8 +126,13 @@ def classifier_loaded_data_handler(classifier, X, y):
     plt.clf()
     ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
 
+    dim = 3
+    feature_count = X.shape[1]
+    if(dim > feature_count ):
+        print 'cannot perform PCA'
+        return
     plt.cla()
-    pca = decomposition.PCA(n_components=3)
+    pca = decomposition.PCA(n_components=dim)
     pca.fit(X)
     X = pca.transform(X)
 
@@ -83,10 +158,11 @@ def classifier_loaded_data_handler(classifier, X, y):
     plt.show()
 
 
-def get_next_best_feature(classifier, data_path, selected_idxs):
-    # type: (AbstractClassifier, str, list) -> (int,int)
+def get_next_best_feature(classifier, selected_idxs, data_loader=None):
+    # type: (AbstractClassifier, list, AbstractDataLoader) -> (int,int)
+    data_loader = data_loader or get_default_data_loader()
 
-    input_data = DataLoader.from_csv(data_path)
+    input_data = data_loader.load()
     orig_x = deepcopy(input_data.x_mat)
 
     selected_idxs = set(selected_idxs)
@@ -95,6 +171,7 @@ def get_next_best_feature(classifier, data_path, selected_idxs):
     idxs_to_check = col_idxs - selected_idxs
 
     results = []
+    classifier.event_data_loaded.clear()
     for col_idx in idxs_to_check:
         features_idxs = list(selected_idxs.union({col_idx}))
         input_data.x_mat = deepcopy(orig_x)
@@ -118,12 +195,11 @@ def get_next_best_feature(classifier, data_path, selected_idxs):
 
 def run_best_n_fitures(n=5, classifier=None):
     classifier = classifier or GaussianDiscriminantAnalysis()#lc_coursera()
-    path = os.path.join(os.path.curdir, CSV_NAME)
-    selected_idxs = []
 
+    selected_idxs = []
     scores = []
     while (len(selected_idxs)) < n:
-        next_best, score = get_next_best_feature(classifier, path, selected_idxs)
+        next_best, score = get_next_best_feature(classifier, selected_idxs)
         if next_best is None:
             logger.warn("Got a none value for next best index. aborting...")
             break
@@ -143,18 +219,20 @@ def run_best_n_fitures(n=5, classifier=None):
     return selected_idxs
 
 
-def run_classifier(logc):
+def run_classifier(logc, data_loader=None):
+    data_loader = data_loader or get_default_data_loader()
     logc.event_data_loaded += classifier_loaded_data_handler
-    path = os.path.join(os.path.curdir, CSV_NAME)
-    data = DataLoader.from_csv(path)
+
+    data = data_loader.load()
     logc.set_data(data)
     # Visualyzer.display_heat_map(logc.normalized_data, logc.ys)
-    percentage_for_300 = 0.528
-    logc.train(training_set_size_percentage=percentage_for_300)
+    # training_set_percentage  = percentage_for_300 = 0.528
+    training_set_percentage = 0.7
+    logc.train(training_set_size_percentage=training_set_percentage)
 
     # verifying...----------------------------------
 
-    sliced_data = logc.slice_data(training_set_size_percentage=percentage_for_300, normalized=False)
+    sliced_data = logc.slice_data(training_set_size_percentage=training_set_percentage , normalized=False)
 
     # get the not yet normed data set that was used for training
     test_set = sliced_data.test_set
@@ -164,12 +242,21 @@ def run_classifier(logc):
 
     score = logc.get_model_score(test_set, ground_truth, prediction=ys)
     # assert score == logc.score, "Got difference in score:\n{0}\n{1}".format(score,logc.score)
-    try:
-        print ("{0}: alpha: {1}; iterations: {2}".format(logc, logc.gradient_step_size, logc.iterations))
-    except:
-        pass
+    # try:
+    #     print ("{0}: alpha: {1}; iterations: {2}".format(logc, logc.gradient_step_size, logc.iterations))
+    # except:
+    #     pass
     str()
 
 
+
+
+
 if __name__ == "__main__":
+    # import pickle
+    # with open('points.pickle','r') as f:
+    #     points = pickle.load(f)
+    # xa, ya, za = points
+    # Visualyzer.plotSufrfce(xa, ya, [z*100 for z in za])
+    main_SVM()
     main()

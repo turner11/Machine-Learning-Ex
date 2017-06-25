@@ -11,7 +11,7 @@ from LogisticRegression.AbstractLogisticClassifier import AbstractLogisticClassi
 class LogisticClassifier(AbstractLogisticClassifier):
     """"""
 
-    def __init__(self, gradient_step_size=1):
+    def __init__(self, gradient_step_size=None):
         """"""
         super(self.__class__, self).__init__(gradient_step_size)
 

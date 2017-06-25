@@ -12,14 +12,15 @@ class AbstractLogisticClassifier(AbstractClassifier):
     """"""
 
     DEFAULT_THRESHOLD = 0.5
+    DEFAULT__GRAD_STEP = 0.01
 
     def __init__(self, gradient_step_size=0.01):
         """"""
         super(AbstractLogisticClassifier, self).__init__()
         self.threshold = self.DEFAULT_THRESHOLD
 
-        self.iterations = 500
-        self.gradient_step_size = gradient_step_size
+        self.iterations = 1000
+        self.gradient_step_size = gradient_step_size or self.DEFAULT__GRAD_STEP
 
 
 
