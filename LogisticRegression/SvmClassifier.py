@@ -15,7 +15,7 @@ class SvmClassifier(AbstractClassifier):
         #     decision_function_shape=None, degree=3, gamma='auto', kernel='rbf',
         #     max_iter=-1, probability=False, random_state=None, shrinking=True,
         #     tol=0.001, verbose=False)
-        self.clf = svm.SVC(C=1.0, kernel='rbf', degree=3,cache_size=1000)
+        self.clf = svm.SVC(C=1.0, kernel='rbf',cache_size=1000, gamma ='auto')
 
     def _train(self, t_samples, t_y):
         a = self.clf.fit(t_samples, t_y)

@@ -34,7 +34,7 @@ class Visualyzer:
 
 
     @classmethod
-    def plotSufrfce(cls, x, y, z,xlabel='X',ylabel='Y',zlabel='Z'):
+    def plotSufrfce(cls, x, y, z,xlabel='X',ylabel='Y',zlabel='Z',click_callback=None, block=False):
 
         import matplotlib.pyplot as plt
         from matplotlib.ticker import MaxNLocator
@@ -61,8 +61,54 @@ class Visualyzer:
         ax.set_ylabel(ylabel)
         ax.set_zlabel(zlabel)
 
+        if click_callback is not None:
+            cid = fig.canvas.mpl_connect('button_press_event', click_callback )
+            # cid = fig.canvas.mpl_connect('pick_event', click_callback )
 
         fig.tight_layout()
 
-        plt.show()  # or:
+        plt.show(block=block)  # or:
+        plt.savefig("X{0}  Y{1}  Z{2}")
+
+    @classmethod
+    def PlotPCA(cls, X, y, dim):
+        import numpy as np
+        import matplotlib.pyplot as plt
+        from mpl_toolkits.mplot3d import Axes3D
+
+        from sklearn import decomposition
+        centers = [[1, 1], [-1, -1], [1, -1]]
+        fig = plt.figure(1, figsize=(4, 3))
+        plt.clf()
+        ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
+
+        feature_count = X.shape[1]
+        if (dim > feature_count):
+            print 'cannot perform PCA'
+            return
+        plt.cla()
+        pca = decomposition.PCA(n_components=dim)
+        pca.fit(X)
+        X = pca.transform(X)
+
+        unique_labels = np.unique(y)
+        labels = [("Label: " + str(lbl), lbl) for lbl in unique_labels]
+
+        for name, label in labels:
+            ax.text3D(X[y == label, 0].mean(),
+                      X[y == label, 1].mean() + 1.5,
+                      X[y == label, 2].mean(), name,
+                      horizontalalignment='center',
+                      bbox=dict(alpha=.5, edgecolor='w', facecolor='w'))
+        # Reorder the labels to have colors matching the cluster results
+        y = np.choose(y, [1, 2, 0]).astype(np.float)
+
+        cm = plt.cm.get_cmap('RdYlBu')  # plt.cm.spectral
+        ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=y, cmap=cm)
+
+        ax.w_xaxis.set_ticklabels([])
+        ax.w_yaxis.set_ticklabels([])
+        ax.w_zaxis.set_ticklabels([])
+
+        plt.show()
 
