@@ -6,7 +6,7 @@ from LogisticRegression.DataLoaders.ClassifyingData import ClassifyingData
 from Utils.Event import EventHook
 
 draw_plots = True
-
+TRAINING_SET_SIZE_PERCENTAGE = 0.6
 SlicedData = namedtuple('SlicedData', 'training_set training_y test_set test_y')
 
 
@@ -43,6 +43,9 @@ class AbstractClassifier(object):
     """"""
 
     @property
+    def training_set_size_percentage(self):
+        return TRAINING_SET_SIZE_PERCENTAGE
+    @property
     def feature_count(self):
         # column count
         return self.normalized_data.shape[1]
@@ -50,6 +53,9 @@ class AbstractClassifier(object):
     @property
     def samples_count(self):
         # rows count
+        if len(self.data) == 0:
+            return 0
+
         return len(self.data[:, 0])
 
     @property
@@ -117,10 +123,7 @@ class AbstractClassifier(object):
         prediction = self._predict(normed_data)
         return np.array(prediction).reshape(-1)
 
-    def slice_data(self, training_set_size_percentage=0.6, trainingset_size=None, normalized=True):
-        if trainingset_size is None:
-            if training_set_size_percentage is None or training_set_size_percentage <= 0 or training_set_size_percentage >= 1:
-                raise Exception("percentage must be within the (0,1) range")
+    def slice_data(self, training_set_size_percentage=0.6, normalized=True):
 
         trainingset_size = int(self.samples_count * training_set_size_percentage)
         test_set_size = self.samples_count-trainingset_size
@@ -139,7 +142,7 @@ class AbstractClassifier(object):
 
         return SlicedData(training_set, train_y, test_set, test_y)
 
-    def train(self, training_set_size_percentage=0.6, trainingset_size=None):
+    def train(self, training_set_size_percentage=0.7, trainingset_size=None):
         sliced_data = self.slice_data(training_set_size_percentage, trainingset_size)
 
         model = self._train(sliced_data.training_set, sliced_data.training_y)

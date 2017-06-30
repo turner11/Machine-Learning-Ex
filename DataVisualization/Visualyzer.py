@@ -34,7 +34,7 @@ class Visualyzer:
 
 
     @classmethod
-    def plotSufrfce(cls, x, y, z,xlabel='X',ylabel='Y',zlabel='Z',click_callback=None, block=False):
+    def plotSufrfce(cls, x, y, z,xlabel='X',ylabel='Y',zlabel='Z',click_callback=None, block=False, file_name=None):
 
         import matplotlib.pyplot as plt
         from matplotlib.ticker import MaxNLocator
@@ -67,8 +67,9 @@ class Visualyzer:
 
         fig.tight_layout()
 
-        plt.show(block=block)  # or:
-        plt.savefig("X{0}  Y{1}  Z{2}")
+        if file_name is not None:
+            plt.show(block=block)  # or:
+            plt.savefig("{0}_X_{1}_Y{2} _Z{3}".format(file_name,xlabel,ylabel,zlabel))
 
     @classmethod
     def PlotPCA(cls, X, y, dim):

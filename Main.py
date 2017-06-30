@@ -157,11 +157,11 @@ def run_classifier(logc, data_loader=None):
 
 if __name__ == "__main__":
 
-    import pickle
-    with open('points.pickle','r') as f:
-        points = pickle.load(f)
-    xa, ya, za = points
-    Visualyzer.plotSufrfce_EXP(xa, ya,za)
+    # import pickle
+    # with open('points.pickle','r') as f:
+    #     points = pickle.load(f)
+    # xa, ya, za = points
+    # Visualyzer.plotSufrfce_EXP(xa, ya,za)
     BenchmarkSVM.run()
     if False:
         main()
