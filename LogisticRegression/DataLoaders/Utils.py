@@ -4,4 +4,4 @@ from LogisticRegression.DataLoaders.CreditDataLoader import CreditDataLoader
 
 def get_default_data_loader():
     return CreditDataLoader()
-    # return CancerDataLoader()
+    return CancerDataLoader()

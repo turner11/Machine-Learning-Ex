@@ -106,6 +106,7 @@ class AbstractClassifier(object):
         self._model = None
         self.score = None
 
+
     def _predict(self, normed_data):
         raise NotImplementedError("prediction must be implemented by concrete classifier")
 
@@ -142,8 +143,8 @@ class AbstractClassifier(object):
 
         return SlicedData(training_set, train_y, test_set, test_y)
 
-    def train(self, training_set_size_percentage=0.7, trainingset_size=None):
-        sliced_data = self.slice_data(training_set_size_percentage, trainingset_size)
+    def train(self, training_set_size_percentage=0.7):
+        sliced_data = self.slice_data(training_set_size_percentage)
 
         model = self._train(sliced_data.training_set, sliced_data.training_y)
         self._model = model

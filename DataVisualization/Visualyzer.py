@@ -34,11 +34,12 @@ class Visualyzer:
 
 
     @classmethod
-    def plotSufrfce(cls, x, y, z,xlabel='X',ylabel='Y',zlabel='Z',click_callback=None, block=False, file_name=None):
+    def plotSufrfce(cls, x, y, z,xlabel='X',ylabel='Y',zlabel='Z',click_callback=None, block=False, title=None, file_name=None):
 
         import matplotlib.pyplot as plt
         from matplotlib.ticker import MaxNLocator
         from matplotlib import cm
+        from mpl_toolkits.mplot3d import axes3d, Axes3D  # <-- Note the capitalization!
 
         Xs = np.array(x)
         Ys = np.array(y)
@@ -47,10 +48,17 @@ class Visualyzer:
         # ======
         ## plot:
 
-        fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
+        fig = plt.figure(title or file_name or  "NA")
+        ax = Axes3D(fig)
+        if title:
+            plt.title(title)
 
-        surf = ax.plot_trisurf(Xs, Ys, Zs, cmap=cm.jet, linewidth=0)
+
+
+
+        surf = ax.plot_trisurf(Xs, Ys, Zs, cmap=cm.jet, linewidth=0
+                                ,antialiased=False)
+
         fig.colorbar(surf)
 
         ax.xaxis.set_major_locator(MaxNLocator(5))
@@ -61,15 +69,17 @@ class Visualyzer:
         ax.set_ylabel(ylabel)
         ax.set_zlabel(zlabel)
 
+
+
         if click_callback is not None:
             cid = fig.canvas.mpl_connect('button_press_event', click_callback )
             # cid = fig.canvas.mpl_connect('pick_event', click_callback )
 
-        fig.tight_layout()
+        # fig.tight_layout()
 
         if file_name is not None:
             plt.show(block=block)  # or:
-            plt.savefig("{0}_X_{1}_Y{2} _Z{3}".format(file_name,xlabel,ylabel,zlabel))
+            plt.savefig("{0}.jpg".format(file_name))
 
     @classmethod
     def PlotPCA(cls, X, y, dim):
