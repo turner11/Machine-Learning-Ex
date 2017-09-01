@@ -1,7 +1,7 @@
 from collections import defaultdict
 
-from LogisticRegression.AbstractClassifier import AbstractClassifier
-from LogisticRegression import rootLogger as logger
+from Classifiers.AbstractClassifier import AbstractClassifier
+from Classifiers import rootLogger as logger
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

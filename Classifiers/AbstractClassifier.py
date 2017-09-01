@@ -1,8 +1,8 @@
 from collections import namedtuple
-from LogisticRegression import rootLogger as logger
+from Classifiers import rootLogger as logger
 import numpy as np
 
-from LogisticRegression.DataLoaders.ClassifyingData import ClassifyingData
+from Classifiers.DataLoaders.ClassifyingData import ClassifyingData
 from Utils.Event import EventHook
 
 draw_plots = True

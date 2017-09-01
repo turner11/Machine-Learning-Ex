@@ -3,7 +3,7 @@
 import sys
 import numpy as np
 
-from LogisticRegression.AbstractClassifier import AbstractClassifier
+from Classifiers.AbstractClassifier import AbstractClassifier
 
 
 class GaussianDiscriminantAnalysis(AbstractClassifier):

@@ -5,11 +5,11 @@ import os
 
 
 from DataVisualization.Visualyzer import Visualyzer
-from LogisticRegression.DataLoaders.Utils import get_default_data_loader
-from LogisticRegression.SvmClassifier import SvmClassifier
+from Classifiers.DataLoaders.Utils import get_default_data_loader
+from Classifiers.SvmClassifier import SvmClassifier
 import numpy as np
 
-from LogisticRegression import rootLogger as logger
+from Classifiers import rootLogger as logger
 from Utils.utils import get_full_plot_file_name, get_plots_folder
 
 Point = namedtuple("Point","Kernal, c, f_measure")

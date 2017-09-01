@@ -1,11 +1,11 @@
 from collections import namedtuple
 
-from LogisticRegression import rootLogger as logger
+from Classifiers import rootLogger as logger
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-from LogisticRegression.AbstractClassifier import AbstractClassifier, draw_plots
+from Classifiers.AbstractClassifier import AbstractClassifier, draw_plots
 
 
 class AbstractLogisticClassifier(AbstractClassifier):

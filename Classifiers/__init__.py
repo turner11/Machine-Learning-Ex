@@ -5,7 +5,7 @@ import logging
 
 
 
-LOGNAME = "LogisticRegression"
+LOGNAME = "classifiers"
 # logging.basicConfig(#filename=LOGNAME ,
 #                             filemode='a'
 #                             ,format='%(asctime)s %(message)s (%(levelname)s)'# %(name)s

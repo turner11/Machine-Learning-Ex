@@ -2,7 +2,7 @@
 import numpy as np
 from sklearn import svm
 
-from LogisticRegression.AbstractClassifier import AbstractClassifier
+from Classifiers.AbstractClassifier import AbstractClassifier
 
 
 class SvmClassifier(AbstractClassifier):

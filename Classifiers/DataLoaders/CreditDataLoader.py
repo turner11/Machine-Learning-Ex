@@ -1,6 +1,6 @@
 import os
 import numpy as np
-from LogisticRegression.DataLoaders.AbstractDataLoader import AbstractDataLoader
+from Classifiers.DataLoaders.AbstractDataLoader import AbstractDataLoader
 
 
 class CreditDataLoader(AbstractDataLoader):

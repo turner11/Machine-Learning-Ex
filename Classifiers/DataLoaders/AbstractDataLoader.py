@@ -1,8 +1,8 @@
-from LogisticRegression import rootLogger as logger
+from Classifiers import rootLogger as logger
 import pandas as pd
 import numpy as np
 
-from LogisticRegression.DataLoaders.ClassifyingData import ClassifyingData
+from Classifiers.DataLoaders.ClassifyingData import ClassifyingData
 
 
 class AbstractDataLoader(object):

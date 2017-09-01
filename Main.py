@@ -5,28 +5,28 @@ from copy import deepcopy
 
 import BenchmarkSVM
 from DataVisualization.Visualyzer import Visualyzer
-from LogisticRegression.DataLoaders import AbstractDataLoader, CancerDataLoader, ClassifyingData,final_project_data_loader
+from Classifiers.DataLoaders import AbstractDataLoader, CancerDataLoader, ClassifyingData,final_project_data_loader
 
-from LogisticRegression.DataLoaders import CancerDataLoader
-from LogisticRegression.DataLoaders.Utils import get_default_data_loader
-from LogisticRegression.SvmClassifier import SvmClassifier
-from LogisticRegression.builin_LR import Bultin_LR
-from LogisticRegression.gda_downloaded import GaussianDiscriminantAnalysis
-from LogisticRegression import rootLogger as logger, AbstractClassifier
+from Classifiers.DataLoaders import CancerDataLoader
+from Classifiers.DataLoaders.Utils import get_default_data_loader
+from Classifiers.SvmClassifier import SvmClassifier
+from Classifiers.builin_LR import Builtin_LR
+from Classifiers.gda_downloaded import GaussianDiscriminantAnalysis
+from Classifiers import rootLogger as logger, AbstractClassifier
 
 import numpy as np
 
 
-from LogisticRegression.LogisticClassifier import LogisticClassifier as lc
-from LogisticRegression.LogisticClassifier_coursera import LogisticClassifier_coursera as lc_coursera
-from LogisticRegression.GaussianGenerativeClassifier import GaussianGenerativeClassifier
+from Classifiers.LogisticClassifier import LogisticClassifier as lc
+from Classifiers.LogisticClassifier_coursera import LogisticClassifier_coursera as lc_coursera
+from Classifiers.GaussianGenerativeClassifier import GaussianGenerativeClassifier
 
 
 
 
 def main():
     n_features = 5
-    run_best_n_fitures(n=n_features, classifier=Bultin_LR())
+    run_best_n_fitures(n=n_features, classifier=Builtin_LR())
     return
     run_best_n_fitures(n=n_features , classifier=lc_coursera())
     return

@@ -1,6 +1,6 @@
 import os
 
-from LogisticRegression.DataLoaders.AbstractDataLoader import AbstractDataLoader
+from Classifiers.DataLoaders.AbstractDataLoader import AbstractDataLoader
 
 
 class FinalProjectDataLoader(AbstractDataLoader):

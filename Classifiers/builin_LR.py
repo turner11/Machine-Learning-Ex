@@ -1,6 +1,6 @@
-from LogisticRegression.AbstractLogisticClassifier import AbstractLogisticClassifier
+from Classifiers.AbstractLogisticClassifier import AbstractLogisticClassifier
 from sklearn.linear_model import LogisticRegression
-class Bultin_LR(AbstractLogisticClassifier):
+class Builtin_LR(AbstractLogisticClassifier):
     """"""
 
     def __init__(self, gradient_step_size=None):
