@@ -138,3 +138,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 .idea/workspace.xml
+
+# plots
+plots/*
+
+# data files
+LogisticRegression/DataLoaders/*.csv
