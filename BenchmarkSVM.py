@@ -1,5 +1,6 @@
 from collections import namedtuple, defaultdict
 import pickle
+import os
 
 
 
@@ -9,6 +10,8 @@ from LogisticRegression.SvmClassifier import SvmClassifier
 import numpy as np
 
 from LogisticRegression import rootLogger as logger
+from Utils.utils import get_full_plot_file_name, get_plots_folder
+
 Point = namedtuple("Point","Kernal, c, f_measure")
 Point_3D = namedtuple("Point_3D","Kernal, c, gamma, f_measure")
 
@@ -25,6 +28,8 @@ def run():
     is_first = True
     i =1
     count = len(Cs) * len(kernels)
+
+    folder = get_plots_folder()
     for kernel in kernels:
         logger.info("======================================= Running SVM for kernel: {0} ======================================= ".format(kernel))
         classifier = SvmClassifier()
@@ -47,16 +52,18 @@ def run():
 
         points = sorted(points,key=lambda p:p.f_measure,reverse=True)
         file_name = "points_"+kernel+".pickle"
-        with open(file_name, 'w') as f:
+        full_path = os.path.join(folder, file_name)
+        with open(full_path, 'w') as f:
             pickle.dump(points, f)
 
 
     file_name = 'telemetry'
+    full_path = os.path.join(folder,file_name)
     # with open(file_name, 'r') as f:
     #     telemetry = pickle.load(f)
 
     # telemetry[classifier.clf.kernel] = s_values
-    with open(file_name, 'w') as f:
+    with open(full_path, 'w') as f:
         pickle.dump(points, f)
 
     # import pickle
@@ -110,7 +117,8 @@ def _run_svm_3d(classifier, Cs,kernel):
     base_file_name = "points3D_" + kernel
     Visualyzer.plotSufrfce(x, y, z, xlabel="gamma", ylabel="C", zlabel="F Measurew",block=False,file_name=base_file_name +".plot")
     points = sorted(points, key=lambda p: p.f_measure, reverse=True)
-    file_name = base_file_name+ ".pickle"
+    folder = get_plots_folder()
+    file_name = os.path.join(folder,base_file_name+ ".pickle")
     with open(file_name, 'w') as f:
         pickle.dump(points, f)
     str()
@@ -122,7 +130,6 @@ def __get_pairs(l1, l2):
 
 
 if __name__ == "__main__":
-    import os
     import re
     import itertools
     import matplotlib.pyplot as plt
@@ -183,10 +190,11 @@ if __name__ == "__main__":
             fs = [p.f_measure for p in srtd]
 
             best = max(srtd, key=lambda p: p.f_measure if not np.isnan(p.f_measure) else -1)
-            base_file_name = "plots_3d_{0}".format(kernel)
+            file_name = get_full_plot_file_name("plots_3d_{0}".format(kernel))
+
             title = "{0}: Best - C:{1:.3f}; gamma:{2:.3f}; f_measure: {3:.3f}".format(kernel, best.c, best.gamma, best.f_measure)
             Visualyzer.plotSufrfce(x=gs, y=cs, z=fs, xlabel="gamma", ylabel="C", zlabel="F Measurew", block=False,title=title,
-                                   file_name=base_file_name + ".plot")
+                                   file_name=file_name)
         str()
 
     # import numpy as np

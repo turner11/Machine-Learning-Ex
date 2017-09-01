@@ -5,7 +5,7 @@ from copy import deepcopy
 
 import BenchmarkSVM
 from DataVisualization.Visualyzer import Visualyzer
-from LogisticRegression.DataLoaders import AbstractDataLoader, CancerDataLoader, ClassifyingData
+from LogisticRegression.DataLoaders import AbstractDataLoader, CancerDataLoader, ClassifyingData,final_project_data_loader
 
 from LogisticRegression.DataLoaders import CancerDataLoader
 from LogisticRegression.DataLoaders.Utils import get_default_data_loader

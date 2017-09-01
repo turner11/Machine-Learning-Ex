@@ -1,7 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
-class Visualyzer:
+from Utils.utils import get_plots_folder
+
+
+class Visualyzer(object):
     """"""
 
 
@@ -76,10 +80,11 @@ class Visualyzer:
             # cid = fig.canvas.mpl_connect('pick_event', click_callback )
 
         # fig.tight_layout()
-
         if file_name is not None:
+            folder = get_plots_folder()
+            full_path = os.path.join(folder, "{0}.jpg".format(file_name))
             plt.show(block=block)  # or:
-            plt.savefig("{0}.jpg".format(file_name))
+            plt.savefig(full_path)
 
     @classmethod
     def PlotPCA(cls, X, y, dim):
