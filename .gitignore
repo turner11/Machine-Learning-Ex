@@ -143,4 +143,4 @@ $RECYCLE.BIN/
 plots/*
 
 # data files
-LogisticRegression/DataLoaders/*.csv
+Classifiers/DataLoaders/creditcard.csv
