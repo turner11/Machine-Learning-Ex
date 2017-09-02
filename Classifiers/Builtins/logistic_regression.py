@@ -5,7 +5,7 @@ class Logistic_Regression(AbstractLogisticClassifier):
 
     def __init__(self, gradient_step_size=None):
         """"""
-        super(self.__class__, self).__init__(gradient_step_size)
+        super(Logistic_Regression, self).__init__(gradient_step_size)
         self.logistic = LogisticRegression(max_iter = self.iterations, solver="sag")
         pass
 

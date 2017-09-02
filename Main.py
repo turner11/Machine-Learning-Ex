@@ -11,6 +11,10 @@ from run_scripts.find_best_features import run_best_n_fitures
 
 
 def main():
+    from run_scripts.final_project_main import final_project_main
+    final_project_main()
+
+    return
     n_features = 4
     run_best_n_fitures(n=n_features, classifier=bi_rf())
 
