@@ -5,7 +5,8 @@ import numpy as np
 from Classifiers.DataLoaders.ClassifyingData import ClassifyingData
 from Utils.Event import EventHook
 
-draw_plots = True
+draw_plots = False
+draw_data=True
 TRAINING_SET_SIZE_PERCENTAGE = 0.6
 SlicedData = namedtuple('SlicedData', 'training_set training_y test_set test_y')
 
@@ -95,6 +96,7 @@ class AbstractClassifier(object):
         self.event_data_loaded = EventHook()
         super(AbstractClassifier, self).__init__()
 
+
         self.__input_data = ClassifyingData("Null Object 0", "Null Object 1", [], np.array([]))
 
         self.__data = None
@@ -123,6 +125,7 @@ class AbstractClassifier(object):
         normed_data = data if is_data_normalized else self.normalize_data(data)
         prediction = self._predict(normed_data)
         return np.array(prediction).reshape(-1)
+
 
     def slice_data(self, training_set_size_percentage=0.6, normalized=True):
 
@@ -200,9 +203,18 @@ class AbstractClassifier(object):
         self.__features_avgs = self.data.mean(axis=0)  # input - by column
         self.__features_std = self.data.std(axis=0)
 
+        # from sklearn.model_selection import train_test_split
+        # train_test_split(X, y, test_size=.4, random_state=42)
+
+
+
         self.__normalized_data = self.normalize_data(self.data)
         logger.info("Got {0} features for {1} samples".format(self.feature_count, self.samples_count))
         self.event_data_loaded(self, self.normalized_data, self.ys)
+
+        if draw_data:
+            from DataVisualization.Visualyzer import Visualyzer
+            Visualyzer.PlotPCA(self.normalized_data, self.ys, dim=3)
 
     def __str__(self):
         return str(self.__class__.__name__)

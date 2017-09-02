@@ -6,7 +6,7 @@ import os
 
 from DataVisualization.Visualyzer import Visualyzer
 from Classifiers.DataLoaders.Utils import get_default_data_loader
-from Classifiers.SvmClassifier import SvmClassifier
+from Classifiers.Builtins import SvmClassifier
 import numpy as np
 
 from Classifiers import rootLogger as logger

@@ -7,12 +7,10 @@ from Utils.utils import get_plots_folder
 
 class Visualyzer(object):
     """"""
-
-
-
+    current_data = None
     def __init__(self, ):
         """"""
-        super(self.__class__, self).init()
+        super(self.__class__, self).__init__()
 
     @classmethod
     def display_heat_map(cls, dataa, tags):
@@ -88,20 +86,34 @@ class Visualyzer(object):
 
     @classmethod
     def PlotPCA(cls, X, y, dim):
-        import numpy as np
         import matplotlib.pyplot as plt
         from mpl_toolkits.mplot3d import Axes3D
-
         from sklearn import decomposition
-        centers = [[1, 1], [-1, -1], [1, -1]]
-        fig = plt.figure(1, figsize=(4, 3))
-        plt.clf()
-        ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
+
+        X = np.asarray(X)
+        y = np.asarray(y)
+        try:
+            c_x, c_y = cls.current_data or ((np.asarray([np.inf]*X.shape[0])),np.asarray([np.inf]*X.shape[1]))
+            same_x = X.shape == c_x.shape and (X == c_x).all()
+            same_y =  y.shape == c_y.shape and  (y == c_y).all()
+            if same_x and same_y:
+                # dont plot data again...
+                return
+
+            cls.current_data = (X,y)
+        except Exception as ex:
+            raise
+
 
         feature_count = X.shape[1]
         if (dim > feature_count):
             print 'cannot perform PCA'
             return
+
+        fig = plt.figure(1, figsize=(4, 3))
+        plt.clf()
+        ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
+
         plt.cla()
         pca = decomposition.PCA(n_components=dim)
         pca.fit(X)
@@ -126,5 +138,8 @@ class Visualyzer(object):
         ax.w_yaxis.set_ticklabels([])
         ax.w_zaxis.set_ticklabels([])
 
+
         plt.show()
+
+
 

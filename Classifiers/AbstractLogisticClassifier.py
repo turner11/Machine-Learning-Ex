@@ -22,9 +22,6 @@ class AbstractLogisticClassifier(AbstractClassifier):
         self.iterations = 1000
         self.gradient_step_size = gradient_step_size or self.DEFAULT__GRAD_STEP
 
-
-
-
     def normalize_data(self, data):
         normed = super(AbstractLogisticClassifier, self).normalize_data(data)
         with_ones = np.zeros((normed.shape[0], normed.shape[1] + 1))  # cerating the new matrix
