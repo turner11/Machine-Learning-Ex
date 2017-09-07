@@ -117,9 +117,9 @@ class AbstractClassifier(object):
         self.input_data = input_data
 
     def normalize_data(self, data):
-        # from sklearn.preprocessing import StandardScaler
-        # normed  = StandardScaler().fit_transform(data)
-        normed = (data - self.__features_avgs) / self.__features_std
+        from sklearn.preprocessing import StandardScaler
+        normed  = StandardScaler().fit_transform(data)
+        # normed = (data - self.__features_avgs) / self.__features_std
         # Adding 1 as the first feature for all
         return np.matrix(normed)
 
