@@ -1,3 +1,4 @@
+from Classifiers.AbstractClassifier import AbstractClassifier
 from Classifiers.Builtins.abstract_builtin_classifier import AbstractBuiltinClassifier
 from Classifiers.DataLoaders.Utils import get_default_data_loader
 from Classifiers import rootLogger as logger
@@ -5,8 +6,13 @@ from Classifiers import rootLogger as logger
 
 def final_project_main():
     classifiers = AbstractBuiltinClassifier.get_all_classifiers()
-    # compare_pca(classifiers)
-    # return
+
+    from Classifiers.Builtins.bernoulli_rbm import Bernoulli_RBM
+    from Classifiers.Builtins.gaussian_process import Gaussian_Process
+    from Classifiers.Builtins.logistic_regression import Logistic_Regression
+    classifiers = [c for c in classifiers if c.__class__ not in [Bernoulli_RBM, Gaussian_Process, Logistic_Regression]]
+    compare_pca(classifiers)
+    return
     data_loader = get_default_data_loader()
     data = data_loader.load()
     for clf in classifiers:
@@ -16,7 +22,7 @@ def final_project_main():
 
 
 def compare_results_full_data(classifiers):
-    # type: (AbstractClassifier) -> None
+    # type: ([AbstractClassifier]) -> None
     results = {}
     fails = {}
     for classifier in classifiers:
@@ -63,13 +69,19 @@ def compare_pca(classifiers):
     logger.debug("Starting mesh")
     xx, yy = np.meshgrid(np.arange(x_min, x_max, H_MESH_STEP),
                          np.arange(y_min, y_max, H_MESH_STEP))
+
     logger.debug("Mesh ended")
+    mesh_x, mesh_y = xx.ravel(), yy.ravel()
 
     # just plot the dataset first
     cm = plt.cm.RdBu
     cm_bright = ListedColormap(['#FF0000', '#0000FF'])
+    plot_rows = 2
     # ax = plt.subplot(len(datasets), len(classifiers) + 1, i)
-    ax = plt.subplot(1, len(classifiers) + 1, i)
+    # ax = plt.subplot(plot_rows, len(classifiers) + 1, i)
+    next_subplot = lambda ind: plt.subplot(plot_rows, len(classifiers)//plot_rows + 1, i)
+    ax = next_subplot(i)
+    # ax = plt.subplot(1, len(classifiers) + 1, i)
     if True:  # ds_cnt == 0:
         ax.set_title("Input data")
 
@@ -78,7 +90,7 @@ def compare_pca(classifiers):
     ax.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap=cm_bright,
                edgecolors='k')
     # and testing points
-    ax.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap=cm_bright, alpha=0.6,
+    ax.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap=cm_bright, alpha=0.4,
                edgecolors='k')
     ax.set_xlim(xx.min(), xx.max())
     ax.set_ylim(yy.min(), yy.max())
@@ -89,20 +101,15 @@ def compare_pca(classifiers):
     # iterate over classifiers
     for clf in classifiers:
         name = str(clf)
-        logger.debug("Starting classifier: {0}".format(clf))
+        logger.debug("=============================  ({0}\{1}) Starting classifier: '{2}'   =============================".format(classifiers.index(clf)+1,len(classifiers),clf))
         try:
             # ax = plt.subplot(len(datasets), len(classifiers) + 1, i)
-            ax = plt.subplot(1, len(classifiers) + 1, i)
+            ax = next_subplot(i)
+            logger.info("Training....")
             clf.train()
+            logger.info("Testing....")
             score = clf.get_model_score(X_test, y_test)
-
-            # Plot the decision boundary. For that, we will assign a color to each
-            # point in the mesh [x_min, x_max]x[y_min, y_max].
-            # if hasattr(clf, "decision_function"):
-            #     Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
-            # else:
-            #     Z = clf.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
-            Z = clf.classify(np.c_[xx.ravel(), yy.ravel()])
+            Z = clf.classify(np.c_[mesh_x, mesh_y])
 
             # Put the result into a color plot
             Z = Z.reshape(xx.shape)
@@ -113,7 +120,7 @@ def compare_pca(classifiers):
                        edgecolors='k')
             # and testing points
             ax.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap=cm_bright,
-                       edgecolors='k', alpha=0.6)
+                       edgecolors='k', alpha=0.5)
 
             ax.set_xlim(xx.min(), xx.max())
             ax.set_ylim(yy.min(), yy.max())
@@ -121,9 +128,10 @@ def compare_pca(classifiers):
             ax.set_yticks(())
             # if ds_cnt == 0:
             if True:
-                ax.set_title(name)
+                # ax.set_title(name,rotation='vertical',x=-0.1,y=0.5)
+                ax.set_title(name, size=10)
             # from Classifiers.AbstractClassifier import ModelScore
-            ax.text(xx.max() - .3, yy.min() + .3, ('%.2f' % score.f_measure).lstrip('0'),
+            ax.text(xx.max() - .3, yy.min() + .3, ('{0:.2f}'.format(score.f_measure)).lstrip('0'),
                     size=15, horizontalalignment='right')
             i += 1
         except Exception as ex:

@@ -26,7 +26,7 @@ class SvmClassifier(AbstractBuiltinClassifier):
         return clf
 
     def __str__(self):
-        return "{0}: (C={1}, kernel={2}, degree={3},gamma ={4})"\
+        return "{0}: (C={1},k={2},d={3},g={4})"\
                     .format(super(SvmClassifier,self).__str__()
                             ,self.clf.C
                             , self.clf.kernel
