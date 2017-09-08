@@ -65,9 +65,9 @@ def compare_pca(classifiers):
     i = 1
 
 
-
-    x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5
-    y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
+    margin = min(H_MESH_STEP, .5)
+    x_min, x_max = X[:, 0].min() - margin , X[:, 0].max() + margin
+    y_min, y_max = X[:, 1].min() - margin , X[:, 1].max() + margin
     logger.debug("Starting mesh")
     xx, yy = np.meshgrid(np.arange(x_min, x_max, H_MESH_STEP),
                          np.arange(y_min, y_max, H_MESH_STEP))
