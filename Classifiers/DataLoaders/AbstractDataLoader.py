@@ -29,9 +29,7 @@ class AbstractDataLoader(object):
             # get the tags
             class_clm = m.shape[1]-1 if np.inf ==  self.classification_column else self.classification_column
             ys_raw = m[:, class_clm]
-            val_0_str = ys_raw[0]
-            val_1_str = next(x for x in ys_raw if x != val_0_str)
-            ys = [0 if x == val_0_str else 1 for x in ys_raw]
+            ys = [0 if x ==  ys_raw[0] else 1 for x in ys_raw]
             ys = np.array(ys).transpose()
 
             # make data hold only numerical values
@@ -44,7 +42,7 @@ class AbstractDataLoader(object):
                 m = m[idxs]
                 ys = ys[idxs]
 
-            return ClassifyingData(val_0_str, val_1_str, ys, m)
+            return ClassifyingData(ys, m)
 
         except Exception as ex:
             logger.error("Failed to read data:\t{0}".format(str(ex)))

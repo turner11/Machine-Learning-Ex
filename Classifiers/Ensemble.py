@@ -4,6 +4,7 @@ import numpy as np
 from Classifiers.AbstractClassifier import AbstractClassifier, ModelScore
 from Classifiers.AbstractLogisticClassifier import AbstractLogisticClassifier
 from Classifiers.Builtins.abstract_builtin_classifier import AbstractBuiltinClassifier
+from Classifiers import rootLogger as logger
 
 
 class Ensemble(AbstractClassifier):
@@ -26,7 +27,9 @@ class Ensemble(AbstractClassifier):
     def _predict(self, normed_data):
         predictions = []
         for clf in self.classifiers:
+            logger.debug("{0} classifying using instance: {1}".format(self, clf))
             p = clf.classify(normed_data)
+            logger.debug("{0} Done".format(clf))
             predictions.append(p)
 
         prediction = self.__consolidate_predications(predictions)

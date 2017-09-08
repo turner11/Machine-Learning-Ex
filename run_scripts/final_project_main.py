@@ -1,5 +1,6 @@
 from Classifiers.AbstractClassifier import AbstractClassifier
 from Classifiers.Builtins.abstract_builtin_classifier import AbstractBuiltinClassifier
+from Classifiers.DataLoaders.ClassifyingData import ClassifyingData
 from Classifiers.DataLoaders.Utils import get_default_data_loader
 from Classifiers import rootLogger as logger
 from Classifiers.Ensemble import Ensemble
@@ -51,16 +52,19 @@ def compare_pca(classifiers):
 
     pca_loader = FinalProjectDataLoaderPCA()
     data = pca_loader.load()
+
+    X, y = data.x_mat, data.ys
+    X_train, X_test, y_train, y_test = \
+        train_test_split(X, y, test_size=.4, random_state=42)
+
+    only_train_data = ClassifyingData(ys=y_train,x_mat=X_train)
     for clf in classifiers:
-        clf.set_data(data)
+        clf.set_data(only_train_data)
 
     figure = plt.figure(figsize=(27, 9))
     i = 1
-    # iterate over datasets
-    X, y = data.x_mat, data.ys
-    # X = StandardScaler().fit_transform(X)
-    X_train, X_test, y_train, y_test = \
-        train_test_split(X, y, test_size=.4, random_state=42)
+
+
 
     x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5
     y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
@@ -104,7 +108,7 @@ def compare_pca(classifiers):
             # ax = plt.subplot(len(datasets), len(classifiers) + 1, i)
             ax = next_subplot(i)
             logger.info("Training....")
-            clf.train()
+            clf.train(training_set_size_percentage=1)
             logger.info("Testing....")
             score = clf.get_model_score(X_test, y_test)
             Z = clf.classify(np.c_[mesh_x, mesh_y])
@@ -115,10 +119,10 @@ def compare_pca(classifiers):
 
             # Plot also the training points
             ax.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap=cm_bright,
-                       edgecolors='k')
+                       edgecolors='k',alpha=0.5)
             # and testing points
             ax.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap=cm_bright,
-                       edgecolors='k', alpha=0.5)
+                       edgecolors='k')
 
             ax.set_xlim(xx.min(), xx.max())
             ax.set_ylim(yy.min(), yy.max())
@@ -134,6 +138,7 @@ def compare_pca(classifiers):
             i += 1
         except Exception as ex:
             logger.warn("got an error for classifier '{0}': {1}".format(clf, ex))
+            raise
 
     plt.tight_layout()
     plt.show(block=True)

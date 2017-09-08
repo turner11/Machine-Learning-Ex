@@ -35,9 +35,6 @@ class AbstractBuiltinClassifier(AbstractClassifier):
     @classmethod
     def get_all_classifiers(cls):
         # type: () -> [AbstractClassifier]
-        from Classifiers.Builtins import Logistic_Regression
-        lr = Logistic_Regression()
-
         from Classifiers.Builtins.svm_classifier import SvmClassifier
         linear_svm = SvmClassifier()
         linear_svm.set_classifier(kernel="linear", C=0.025)
@@ -46,7 +43,7 @@ class AbstractBuiltinClassifier(AbstractClassifier):
         rbf_svm.set_classifier(kernel='rbf', gamma=2, C=1)
 
         subs = [s() for s in cls.__subclasses__()]
-        additionals = [linear_svm, rbf_svm, lr]
+        additionals = [linear_svm, rbf_svm]
         return subs + additionals
 
     @classmethod
@@ -55,10 +52,9 @@ class AbstractBuiltinClassifier(AbstractClassifier):
         classifiers = cls.get_all_classifiers()
         from Classifiers.Builtins.bernoulli_rbm import Bernoulli_RBM
         from Classifiers.Builtins.gaussian_process import Gaussian_Process
-        from Classifiers.Builtins.logistic_regression import Logistic_Regression
         classifiers = [c for c in classifiers if
-                       c.__class__ not in [Bernoulli_RBM, Gaussian_Process]]#, Logistic_Regression]]
-        return sorted(classifiers,key=lambda c:isinstance(c, Logistic_Regression),reverse=True)
+                       c.__class__ not in [Bernoulli_RBM, Gaussian_Process]]
+        return classifiers
 
     # def __str__(self):
     #     return self.name

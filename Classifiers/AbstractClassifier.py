@@ -97,7 +97,7 @@ class AbstractClassifier(object):
         super(AbstractClassifier, self).__init__()
 
 
-        self.__input_data = ClassifyingData("Null Object 0", "Null Object 1", [], np.array([]))
+        self.__input_data = ClassifyingData([], np.array([]),"Null Object 0", "Null Object 1")
 
         self.__data = None
         self.__normalized_data = None
@@ -131,22 +131,30 @@ class AbstractClassifier(object):
 
     def slice_data(self, training_set_size_percentage=0.7, normalized=True):
 
-        trainingset_size = int(self.samples_count * training_set_size_percentage)
-        test_set_size = self.samples_count-trainingset_size
-
+        from sklearn.cross_validation import train_test_split
         data_to_use = self.normalized_data if normalized else self.data
-        all_idxs =set(range(self.samples_count))
-        training_idxs = sorted(np.random.choice(list(all_idxs), size=trainingset_size))
-        test_idsx =  list(all_idxs - set(training_idxs ))
-        # type: (np.ndarray, np.ndarray) -> np.ndarray
 
-        training_set = data_to_use[training_idxs, :]
-        train_y = self.ys[training_idxs]
+        test_size = 1-training_set_size_percentage
+        X_train, X_test, y_train, y_test = \
+            train_test_split(data_to_use, self.ys, test_size=test_size, random_state=42)
 
-        test_set = data_to_use[test_idsx, :]
-        test_y = self.ys[test_idsx]
+        return SlicedData(X_train, y_train, X_test, y_test)
 
-        return SlicedData(training_set, train_y, test_set, test_y)
+        # trainingset_size = int(self.samples_count * training_set_size_percentage)
+        # test_set_size = self.samples_count-trainingset_size
+        #
+        # all_idxs =set(range(self.samples_count))
+        # training_idxs = sorted(np.random.choice(list(all_idxs), size=trainingset_size))
+        # test_idsx =  list(all_idxs - set(training_idxs ))
+        # # type: (np.ndarray, np.ndarray) -> np.ndarray
+        #
+        # training_set = data_to_use[training_idxs, :]
+        # train_y = self.ys[training_idxs]
+        #
+        # test_set = data_to_use[test_idsx, :]
+        # test_y = self.ys[test_idsx]
+        #
+        # return SlicedData(training_set, train_y, test_set, test_y)
 
     def train(self, training_set_size_percentage=0.7, show_logs=True):
         sliced_data = self.slice_data(training_set_size_percentage)
@@ -154,17 +162,18 @@ class AbstractClassifier(object):
         model = self._train(sliced_data.training_set, sliced_data.training_y)
         self._model = model
 
-        model_score = self.get_model_score(sliced_data.test_set, sliced_data.test_y)
-        if show_logs:
-            self.log_score(model_score, prefix="Score for test set")
+        if sliced_data.test_set:
+            model_score = self.get_model_score(sliced_data.test_set, sliced_data.test_y)
+            if show_logs:
+                self.log_score(model_score, prefix="Score for test set")
 
-        self.score = model_score
+            self.score = model_score
 
         if show_logs:
             train_score = self.get_model_score(sliced_data.training_set, sliced_data.training_y)
             self.log_score(train_score, prefix="Score for training set:")
 
-        return self._model
+        return self._model, sliced_data
 
     def get_model_score(self, test_set, test_y, prediction=None):
         # type: (np.ndarray, np.ndarray, np.ndarray) -> ModelScore
