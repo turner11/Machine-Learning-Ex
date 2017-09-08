@@ -2,6 +2,7 @@
 import numpy as np
 
 from Classifiers.AbstractClassifier import AbstractClassifier, ModelScore
+from Classifiers.AbstractLogisticClassifier import AbstractLogisticClassifier
 from Classifiers.Builtins.abstract_builtin_classifier import AbstractBuiltinClassifier
 
 

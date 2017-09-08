@@ -129,7 +129,7 @@ class AbstractClassifier(object):
         return np.array(prediction).reshape(-1)
 
 
-    def slice_data(self, training_set_size_percentage=0.6, normalized=True):
+    def slice_data(self, training_set_size_percentage=0.7, normalized=True):
 
         trainingset_size = int(self.samples_count * training_set_size_percentage)
         test_set_size = self.samples_count-trainingset_size

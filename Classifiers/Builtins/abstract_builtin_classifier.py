@@ -57,8 +57,8 @@ class AbstractBuiltinClassifier(AbstractClassifier):
         from Classifiers.Builtins.gaussian_process import Gaussian_Process
         from Classifiers.Builtins.logistic_regression import Logistic_Regression
         classifiers = [c for c in classifiers if
-                       c.__class__ not in [Bernoulli_RBM, Gaussian_Process, Logistic_Regression]]
-        return classifiers
+                       c.__class__ not in [Bernoulli_RBM, Gaussian_Process]]#, Logistic_Regression]]
+        return sorted(classifiers,key=lambda c:isinstance(c, Logistic_Regression),reverse=True)
 
     # def __str__(self):
     #     return self.name

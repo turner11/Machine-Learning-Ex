@@ -136,4 +136,4 @@ def compare_pca(classifiers):
             logger.warn("got an error for classifier '{0}': {1}".format(clf, ex))
 
     plt.tight_layout()
-    plt.show()
+    plt.show(block=True)

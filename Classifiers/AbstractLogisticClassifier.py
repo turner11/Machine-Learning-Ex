@@ -24,10 +24,14 @@ class AbstractLogisticClassifier(AbstractClassifier):
 
     def normalize_data(self, data):
         normed = super(AbstractLogisticClassifier, self).normalize_data(data)
-        with_ones = np.zeros((normed.shape[0], normed.shape[1] + 1))  # cerating the new matrix
-        with_ones[:, 1:] = normed  # populating all but first column
-        with_ones[:, 0:1] = 1  # adding 1's in first column
+        with_ones = self.add_one_column(normed)
         return np.matrix(with_ones)
+
+    def add_one_column(self, m):
+        with_ones = np.zeros((m.shape[0], m.shape[1] + 1))  # cerating the new matrix
+        with_ones[:, 1:] = m  # populating all but first column
+        with_ones[:, 0:1] = 1  # adding 1's in first column
+        return with_ones
 
     def _predict(self, normed_data):
         hx = normed_data * self._model.transpose()
