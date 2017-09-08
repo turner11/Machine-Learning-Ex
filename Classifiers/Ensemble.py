@@ -14,12 +14,13 @@ class Ensemble(AbstractClassifier):
         super(Ensemble, self).__init__()
         self.classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
 
-    def train(self, training_set_size_percentage=0.7, show_logs=True):
+
+    def _train(self, t_samples, t_y):
         models = []
         for clf in self.classifiers:
-            curr_model = clf.train(training_set_size_percentage=training_set_size_percentage, show_logs=False)
-            models.append(curr_model)
-
+            model = clf._train(t_samples, t_y)
+            models.append(model)
+        return models
 
     def _predict(self, normed_data):
         predictions = []
