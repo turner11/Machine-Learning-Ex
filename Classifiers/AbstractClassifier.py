@@ -148,19 +148,21 @@ class AbstractClassifier(object):
 
         return SlicedData(training_set, train_y, test_set, test_y)
 
-    def train(self, training_set_size_percentage=0.7):
+    def train(self, training_set_size_percentage=0.7, show_logs=True):
         sliced_data = self.slice_data(training_set_size_percentage)
 
         model = self._train(sliced_data.training_set, sliced_data.training_y)
         self._model = model
 
         model_score = self.get_model_score(sliced_data.test_set, sliced_data.test_y)
-        self.log_score(model_score, prefix="Score for test set")
+        if show_logs:
+            self.log_score(model_score, prefix="Score for test set")
 
         self.score = model_score
 
-        train_score = self.get_model_score(sliced_data.training_set, sliced_data.training_y)
-        self.log_score(train_score, prefix="Score for training set:")
+        if show_logs:
+            train_score = self.get_model_score(sliced_data.training_set, sliced_data.training_y)
+            self.log_score(train_score, prefix="Score for training set:")
 
         return self._model
 

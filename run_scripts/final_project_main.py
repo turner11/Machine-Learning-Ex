@@ -2,15 +2,13 @@ from Classifiers.AbstractClassifier import AbstractClassifier
 from Classifiers.Builtins.abstract_builtin_classifier import AbstractBuiltinClassifier
 from Classifiers.DataLoaders.Utils import get_default_data_loader
 from Classifiers import rootLogger as logger
+from Classifiers.Ensemble import Ensemble
 
 
 def final_project_main():
-    classifiers = AbstractBuiltinClassifier.get_all_classifiers()
+    classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
+    classifiers.insert(0, Ensemble())
 
-    from Classifiers.Builtins.bernoulli_rbm import Bernoulli_RBM
-    from Classifiers.Builtins.gaussian_process import Gaussian_Process
-    from Classifiers.Builtins.logistic_regression import Logistic_Regression
-    classifiers = [c for c in classifiers if c.__class__ not in [Bernoulli_RBM, Gaussian_Process, Logistic_Regression]]
     compare_pca(classifiers)
     return
     data_loader = get_default_data_loader()

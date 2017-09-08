@@ -1,5 +1,4 @@
 # coding=utf-8
-import numpy as np
 
 
 from Classifiers.AbstractClassifier import AbstractClassifier
@@ -25,11 +24,9 @@ class AbstractBuiltinClassifier(AbstractClassifier):
         if self.samples_count > 0:
             self.train()
 
-
     def _train(self, t_samples, t_y):
         a = self.clf.fit(t_samples, t_y)
         return a
-
 
     def _predict(self, normed_data):
         p = self.clf.predict(normed_data)
@@ -51,6 +48,17 @@ class AbstractBuiltinClassifier(AbstractClassifier):
         subs = [s() for s in cls.__subclasses__()]
         additionals = [linear_svm, rbf_svm, lr]
         return subs + additionals
+
+    @classmethod
+    def get_all_working_classifiers(cls):
+        # type: () -> [AbstractClassifier]
+        classifiers = cls.get_all_classifiers()
+        from Classifiers.Builtins.bernoulli_rbm import Bernoulli_RBM
+        from Classifiers.Builtins.gaussian_process import Gaussian_Process
+        from Classifiers.Builtins.logistic_regression import Logistic_Regression
+        classifiers = [c for c in classifiers if
+                       c.__class__ not in [Bernoulli_RBM, Gaussian_Process, Logistic_Regression]]
+        return classifiers
 
     # def __str__(self):
     #     return self.name
