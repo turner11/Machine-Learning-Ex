@@ -20,17 +20,26 @@ class Ensemble(AbstractClassifier):
     def _train(self, t_samples, t_y):
         models = []
         for clf in self.classifiers:
-            model = clf._train(t_samples, t_y)
-            models.append(model)
+            try:
+                model = clf._train(t_samples, t_y)
+                models.append(model)
+            except:
+                logger.error("{0} got an error while training internal {1}".format(self,clf))
+                raise
         return models
 
     def _predict(self, normed_data):
         predictions = []
         for clf in self.classifiers:
-            logger.debug("{0} classifying using instance: {1}".format(self, clf))
-            p = clf.classify(normed_data)
-            logger.debug("{0} Done".format(clf))
-            predictions.append(p)
+            try:
+                logger.debug("{0} classifying using instance: {1}".format(self, clf))
+                p = clf.classify(normed_data)
+                logger.debug("{0} Done".format(clf))
+                predictions.append(p)
+            except:
+                logger.error("{0} got an error while predicting using internal {1}".format(self,clf))
+                raise
+
 
         prediction = self.__consolidate_predications(predictions)
         return prediction

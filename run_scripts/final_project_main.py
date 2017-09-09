@@ -1,19 +1,29 @@
+import os
+
 from Classifiers.AbstractClassifier import AbstractClassifier
 from Classifiers.Builtins.abstract_builtin_classifier import AbstractBuiltinClassifier
 from Classifiers.DataLoaders.ClassifyingData import ClassifyingData
 from Classifiers.DataLoaders.Utils import get_default_data_loader
 from Classifiers import rootLogger as logger
 from Classifiers.Ensemble import Ensemble
+from Utils.utils import get_full_plot_file_name
+from run_scripts.find_best_features import run_best_n_fitures
 
 
 def final_project_main():
     classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
     classifiers.insert(0, Ensemble())
 
+
+    n_features = 10
+    for clf in classifiers:
+        run_best_n_fitures(n=n_features, classifier=clf)
+    # return
     compare_pca(classifiers)
-    return
+    # return
     data_loader = get_default_data_loader()
     data = data_loader.load()
+    data.normalize()
     for clf in classifiers:
         clf.set_data(data)
 
@@ -32,11 +42,19 @@ def compare_results_full_data(classifiers):
             results[classifier] = score
         except Exception as ex:
             fails[classifier] = ex
+            raise
     msg_fails = "\n".join(["{0}: \t\t\t{1}".format(c, fails[c]) for c in fails.keys()])
     res = sorted([(clf, score) for clf, score in results.items()], key=lambda tpl: tpl[1].f_measure, reverse=True)
     msg_results = "\n".join(["{0} ;  ({1})".format(score, clf) for clf, score in res])
     logger.info("\n\nFails:\n{0}".format(msg_fails))
     logger.info("\n\nScors:\n{0}".format(msg_results))
+
+    fn = get_full_plot_file_name("classifier_comparison",add_time_stamp=True)
+    summary_file_name = os.path.splitext(fn)[0] + '.txt'
+    with open(summary_file_name, "w") as f:
+        f.write(msg_results)
+
+
 
 
 def compare_pca(classifiers):
@@ -48,7 +66,7 @@ def compare_pca(classifiers):
     from sklearn.preprocessing import StandardScaler
     from matplotlib.colors import ListedColormap
 
-    H_MESH_STEP = .5  # step size in the mesh
+    H_MESH_STEP = .4  # step size in the mesh
 
     pca_loader = FinalProjectDataLoaderPCA()
     data = pca_loader.load()
@@ -136,9 +154,16 @@ def compare_pca(classifiers):
             ax.text(xx.max() - .3, yy.min() + .3, ('{0:.2f}'.format(score.f_measure)).lstrip('0'),
                     size=15, horizontalalignment='right')
             i += 1
+            logger.info("{0}: Done".format(clf))
+        except MemoryError as ex:
+            logger.error("got a memory error for classifier '{0}' (mesh step was {1}): {2}".format(clf,H_MESH_STEP, ex))
+            raise
         except Exception as ex:
             logger.warn("got an error for classifier '{0}': {1}".format(clf, ex))
             raise
 
+    logger.info("Done {0} classifiers".format(len(classifiers)))
     plt.tight_layout()
-    plt.show(block=True)
+    plt.show(block=False)
+    fn = get_full_plot_file_name("classifiers_boundaries",add_time_stamp=True)
+    plt.savefig(fn)

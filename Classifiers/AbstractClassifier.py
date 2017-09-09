@@ -2,13 +2,12 @@ from collections import namedtuple
 from Classifiers import rootLogger as logger
 import numpy as np
 
-from Classifiers.DataLoaders.ClassifyingData import ClassifyingData
+from Classifiers.DataLoaders.ClassifyingData import ClassifyingData, NULL_OBJECT
 from Utils.Event import EventHook
 
 draw_plots = False
-draw_data=True
+draw_data = True
 TRAINING_SET_SIZE_PERCENTAGE = 0.6
-SlicedData = namedtuple('SlicedData', 'training_set training_y test_set test_y')
 
 
 class ModelScore(object):
@@ -44,43 +43,39 @@ class AbstractClassifier(object):
     """"""
 
     @property
-    def training_set_size_percentage(self):
-        return TRAINING_SET_SIZE_PERCENTAGE
-    @property
     def feature_count(self):
+        # type: () -> int
         # column count
-        return self.normalized_data.shape[1]
+        return self.input_data.feature_count
 
     @property
     def samples_count(self):
-        # rows count
-        if len(self.data) == 0:
-            return 0
-
-        return len(self.data[:, 0])
+        # type: () -> int
+        return self.input_data.samples_count
 
     @property
     def data(self):
+        # type: () -> np.matrix
         return self.input_data.x_mat
 
     @property
-    def normalized_data(self):
-        return self.__normalized_data
-
-    @property
     def val_0_str(self):
+        # type: () -> str
         return self.input_data.val_0_str
 
     @property
     def val_1_str(self):
+        # type: () -> str
         return self.input_data.val_1_str
 
     @property
     def ys(self):
+        # type: () -> np.ndarray
         return self.input_data.ys
 
     @property
     def input_data(self):
+        # type: () -> ClassifyingData
         return self.__input_data
 
     @input_data.setter
@@ -96,73 +91,37 @@ class AbstractClassifier(object):
         self.event_data_loaded = EventHook()
         super(AbstractClassifier, self).__init__()
 
-
-        self.__input_data = ClassifyingData([], np.array([]),"Null Object 0", "Null Object 1")
+        self.__input_data = NULL_OBJECT
 
         self.__data = None
-        self.__normalized_data = None
-
-        self.__features_avgs = None
-        self.__features_std = None
-
         self._model = None
         self.score = None
 
-
-    def _predict(self, normed_data):
+    def _predict(self, data):
+        # type: (ClassifyingData) -> np.ndarray
         raise NotImplementedError("prediction must be implemented by concrete classifier")
 
     def set_data(self, input_data):
         # type: (ClassifyingData) -> None
         self.input_data = input_data
 
-    def normalize_data(self, data):
-        from sklearn.preprocessing import StandardScaler
-        normed  = StandardScaler().fit_transform(data)
-        # normed = (data - self.__features_avgs) / self.__features_std
-        # Adding 1 as the first feature for all
-        return np.matrix(normed)
-
-    def classify(self, data, is_data_normalized=False):
-        normed_data = data if is_data_normalized else self.normalize_data(data)
-        prediction = self._predict(normed_data)
+    def classify(self, data):
+        # type: (np.matrix) -> np.ndarray
+        affective_data = data
+        if isinstance(data, ClassifyingData):
+            data.normalize()
+            affective_data = data.x_mat
+        prediction = self._predict(affective_data)
         return np.array(prediction).reshape(-1)
 
-
-    def slice_data(self, training_set_size_percentage=0.7, normalized=True):
-
-        from sklearn.cross_validation import train_test_split
-        data_to_use = self.normalized_data if normalized else self.data
-
-        test_size = 1-training_set_size_percentage
-        X_train, X_test, y_train, y_test = \
-            train_test_split(data_to_use, self.ys, test_size=test_size, random_state=42)
-
-        return SlicedData(X_train, y_train, X_test, y_test)
-
-        # trainingset_size = int(self.samples_count * training_set_size_percentage)
-        # test_set_size = self.samples_count-trainingset_size
-        #
-        # all_idxs =set(range(self.samples_count))
-        # training_idxs = sorted(np.random.choice(list(all_idxs), size=trainingset_size))
-        # test_idsx =  list(all_idxs - set(training_idxs ))
-        # # type: (np.ndarray, np.ndarray) -> np.ndarray
-        #
-        # training_set = data_to_use[training_idxs, :]
-        # train_y = self.ys[training_idxs]
-        #
-        # test_set = data_to_use[test_idsx, :]
-        # test_y = self.ys[test_idsx]
-        #
-        # return SlicedData(training_set, train_y, test_set, test_y)
-
     def train(self, training_set_size_percentage=0.7, show_logs=True):
-        sliced_data = self.slice_data(training_set_size_percentage)
+        # type: (float, bool) -> (object,ClassifyingData)
+        sliced_data = self.input_data.slice_data(training_set_size_percentage)
 
         model = self._train(sliced_data.training_set, sliced_data.training_y)
         self._model = model
 
-        if sliced_data.test_set:
+        if sliced_data.test_set.size > 0:
             model_score = self.get_model_score(sliced_data.test_set, sliced_data.test_y)
             if show_logs:
                 self.log_score(model_score, prefix="Score for test set")
@@ -176,8 +135,9 @@ class AbstractClassifier(object):
         return self._model, sliced_data
 
     def get_model_score(self, test_set, test_y, prediction=None):
-        # type: (np.ndarray, np.ndarray, np.ndarray) -> ModelScore
-        prediction = prediction if prediction is not None else  self.classify(test_set, is_data_normalized=True)
+        # type: (np.matrix, np.ndarray, np.ndarray) -> ModelScore
+        prediction = prediction if prediction is not None \
+            else  self.classify(test_set)
 
         pos = np.array(test_y == 1)
         neg = np.array(test_y == 0)
@@ -213,21 +173,13 @@ class AbstractClassifier(object):
         logger.info(line_sep)
 
     def __data_loaded_handler(self):
-        self.__features_avgs = self.data.mean(axis=0)  # input - by column
-        self.__features_std = self.data.std(axis=0)
-
-        # from sklearn.model_selection import train_test_split
-        # train_test_split(X, y, test_size=.4, random_state=42)
-
-
-
-        self.__normalized_data = self.normalize_data(self.data)
+        self.input_data.normalize()
         logger.info("Got {0} features for {1} samples".format(self.feature_count, self.samples_count))
-        self.event_data_loaded(self, self.normalized_data, self.ys)
+        self.event_data_loaded(self, self.data, self.ys)
 
         if draw_data:
             from DataVisualization.Visualyzer import Visualyzer
-            Visualyzer.PlotPCA(self.normalized_data, self.ys, dim=3)
+            Visualyzer.PlotPCA(self.data, self.ys, dim=3)
 
     def __str__(self):
         return str(self.__class__.__name__)

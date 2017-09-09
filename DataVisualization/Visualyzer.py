@@ -139,7 +139,7 @@ class Visualyzer(object):
         ax.w_zaxis.set_ticklabels([])
 
 
-        plt.show()
+        plt.show(block=False)
 
 
 

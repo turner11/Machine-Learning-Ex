@@ -1,12 +1,14 @@
 from copy import deepcopy
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 from Classifiers.AbstractClassifier import AbstractClassifier
 from Classifiers.DataLoaders.AbstractDataLoader import AbstractDataLoader
 from Classifiers.DataLoaders.Utils import get_default_data_loader
 from Classifiers.gda_downloaded import GaussianDiscriminantAnalysis
 from Classifiers import rootLogger as logger
+from Utils.utils import get_full_plot_file_name
 
 
 def get_next_best_feature(classifier, selected_idxs, data_loader=None):
@@ -14,6 +16,7 @@ def get_next_best_feature(classifier, selected_idxs, data_loader=None):
     data_loader = data_loader or get_default_data_loader()
 
     input_data = data_loader.load()
+    input_data.normalize()
     orig_x = deepcopy(input_data.x_mat)
 
     selected_idxs = set(selected_idxs)
@@ -26,7 +29,7 @@ def get_next_best_feature(classifier, selected_idxs, data_loader=None):
     for col_idx in idxs_to_check:
         features_idxs = list(selected_idxs.union({col_idx}))
         input_data.x_mat = deepcopy(orig_x)
-        input_data.x_mat = np.array([c[features_idxs] for c in input_data.x_mat])
+        input_data.x_mat = input_data.x_mat[:,features_idxs]  #np.array([c[features_idxs] for c in input_data.x_mat])
         classifier.set_data(input_data)
         # Visualyzer.display_heat_map(logc.normalized_data, logc.ys)
         percentage_for_300 = 0.528
@@ -59,8 +62,10 @@ def run_best_n_fitures(n=5, classifier=None):
 
     logger.info("Top {0} fetures: {1}".format(len(selected_idxs),selected_idxs))
     summary = "\n".join(["{0}: {1}%".format(idx+1, sc) for ((idx,  f), sc) in zip(enumerate(selected_idxs),scores)])
-    logger.info("\nFinal results for {0}:\nfeatures{1}\ngrade for number of features:\n{2}"
-                .format(classifier, selected_idxs,summary ))
+
+    full_msg = "\nFinal results for {0}:\nfeatures{1}\ngrade for number of features:\n{2}".format(classifier, selected_idxs,summary )
+    logger.info(full_msg)
+
 
     plt.figure()  # new figure
     ax = plt.plot(range(1,len(scores)+1),scores)
@@ -68,5 +73,12 @@ def run_best_n_fitures(n=5, classifier=None):
     plt.ylim([0.9, 1])
     plt.draw()
     plt.show()
+
+    fn = get_full_plot_file_name("n_features_{0}".format(classifier))
+    plt.savefig(fn)
+
+    summary_file_name = os.path.splitext(fn)[0]+'.txt'
+    with open(summary_file_name,"w") as f:
+        f.write(full_msg)
 
     return selected_idxs
