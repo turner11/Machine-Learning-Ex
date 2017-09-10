@@ -39,12 +39,13 @@ class AbstractBuiltinClassifier(AbstractClassifier):
         linear_svm = SvmClassifier()
         linear_svm.set_classifier(kernel="linear", C=0.025)
 
-        rbf_svm = SvmClassifier()
-        rbf_svm.set_classifier(kernel='rbf', gamma=2, C=1)
+        # rbf_svm = SvmClassifier()
+        # rbf_svm.set_classifier(kernel='rbf', gamma=2, C=1)
 
         subs = [s() for s in cls.__subclasses__()]
-        additionals = [linear_svm, rbf_svm]
-        return subs + additionals
+        additionals = [linear_svm]#, rbf_svm]
+        ret =  subs + additionals
+        return ret
 
     @classmethod
     def get_all_working_classifiers(cls):
@@ -52,9 +53,22 @@ class AbstractBuiltinClassifier(AbstractClassifier):
         classifiers = cls.get_all_classifiers()
         from Classifiers.Builtins.bernoulli_rbm import Bernoulli_RBM
         from Classifiers.Builtins.gaussian_process import Gaussian_Process
+        from Classifiers.Builtins.ada_boost import AdaBoost
+        from Classifiers.Builtins.gaussian_nb import Gaussian_NB
+        from Classifiers.Builtins.random_forest import Random_Forest
+        from Classifiers.Builtins.DecisionTree import DecisionTree
         classifiers = [c for c in classifiers if
-                       c.__class__ not in [Bernoulli_RBM, Gaussian_Process]]
+                       c.__class__ not in [Bernoulli_RBM, Gaussian_Process
+                                           ##from here, just testing if better of without...
+                                           # ,AdaBoost
+                                           # ,Gaussian_NB
+                                           # ,Random_Forest
+                                           # ,DecisionTree
+                                           ]]
+
+
         return classifiers
+
 
     # def __str__(self):
     #     return self.name

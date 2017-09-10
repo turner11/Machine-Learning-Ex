@@ -9,7 +9,7 @@ class SvmClassifier(AbstractBuiltinClassifier):
 
     def __init__(self):
         super(SvmClassifier, self).__init__()
-        self.set_classifier(C=1.0, kernel='rbf', degree=4,gamma='auto')
+        self.set_classifier(C=0.5, kernel='rbf', degree=6,gamma='auto')
 
     def _get_classifier_internal(self, C=None, kernel=None, degree=None,gamma =None):
         # SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,

@@ -17,8 +17,6 @@ class AbstractDataLoader(object):
         self.classification_column = classification_column
         self.filter_data_func = filter_data_func or (lambda m,ys: None)
 
-
-
     def load(self):
         # type: (str, int, function) -> ClassifyingData
         try:

@@ -23,7 +23,3 @@ class FinalProjectDataLoaderPCA(AbstractDataLoader):
         X_pca = pca.transform(X)
         classifying_data.x_mat = X_pca
         return classifying_data
-
-
-
-

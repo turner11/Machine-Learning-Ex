@@ -11,15 +11,16 @@ from run_scripts.find_best_features import run_best_n_fitures
 
 
 def final_project_main():
+
     classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
     classifiers.insert(0, Ensemble())
 
 
-    n_features = 10
-    for clf in classifiers:
-        run_best_n_fitures(n=n_features, classifier=clf)
-    # return
-    compare_pca(classifiers)
+    # n_features = 10
+    # for clf in classifiers:
+    #     run_best_n_fitures(n=n_features, classifier=clf)
+    # # return
+    # compare_pca(classifiers)
     # return
     data_loader = get_default_data_loader()
     data = data_loader.load()

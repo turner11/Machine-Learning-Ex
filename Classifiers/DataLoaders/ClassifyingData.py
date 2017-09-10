@@ -23,7 +23,7 @@ class ClassifyingData(object):
         """"""
         super(self.__class__, self).__init__()
         self.ys = ys
-        self.x_mat = np.matrix(x_mat)
+        self.x_mat = np.asmatrix(x_mat)
 
         self.__is_normalized = False
 
@@ -46,9 +46,6 @@ class ClassifyingData(object):
         # self.__features_avgs = self.data.mean(axis=0)  # input - by column
         # self.__features_std = self.data.std(axis=0)
         # normed = (data - self.__features_avgs) / self.__features_std
-
-
-
 
     def slice_data(self, training_set_size_percentage=0.7):
         from sklearn.cross_validation import train_test_split
@@ -74,6 +71,10 @@ class ClassifyingData(object):
         # test_y = self.ys[test_idsx]
         #
         # return SlicedData(training_set, train_y, test_set, test_y)
+
+
+    def get_mask(self,classifier):
+        return None #this is replaced dynamically by data loader
 
 
 

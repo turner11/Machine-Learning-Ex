@@ -13,7 +13,7 @@ from Utils.utils import get_full_plot_file_name
 
 def get_next_best_feature(classifier, selected_idxs, data_loader=None):
     # type: (AbstractClassifier, list, AbstractDataLoader) -> (int,int)
-    data_loader = data_loader or get_default_data_loader()
+    data_loader = data_loader or get_default_data_loader(set_mask=False)
 
     input_data = data_loader.load()
     input_data.normalize()

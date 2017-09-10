@@ -17,6 +17,7 @@ class ModelScore(object):
         self.accuracy = accuracy
         self.f_measure = f_measure
 
+
     def __str__(self):
         return "precision: {0:.4f}\t" \
                "recall: {1:.4f}\t" \
@@ -46,7 +47,7 @@ class AbstractClassifier(object):
     def feature_count(self):
         # type: () -> int
         # column count
-        return self.input_data.feature_count
+        return self.data.shape[1]
 
     @property
     def samples_count(self):
@@ -56,7 +57,12 @@ class AbstractClassifier(object):
     @property
     def data(self):
         # type: () -> np.matrix
-        return self.input_data.x_mat
+        data = self.input_data.x_mat
+        if data is not None \
+                and self._data_mask is not None \
+                and data.shape[1] > max(self._data_mask):
+            data = data[:,self._data_mask]
+        return data
 
     @property
     def val_0_str(self):
@@ -80,7 +86,9 @@ class AbstractClassifier(object):
 
     @input_data.setter
     def input_data(self, value):
+        # type: (ClassifyingData) -> None
         self.__input_data = value
+        self._data_mask = value.get_mask(self)
         self.__event_data_loaded_internal()
 
     def __init__(self, draw_plots=False):
@@ -94,6 +102,7 @@ class AbstractClassifier(object):
         self.__input_data = NULL_OBJECT
 
         self.__data = None
+        self._data_mask = None
         self._model = None
         self.score = None
 
@@ -174,8 +183,8 @@ class AbstractClassifier(object):
 
     def __data_loaded_handler(self):
         self.input_data.normalize()
-        logger.info("Got {0} features for {1} samples".format(self.feature_count, self.samples_count))
         self.event_data_loaded(self, self.data, self.ys)
+        logger.info("Got {0} features for {1} samples".format(self.feature_count, self.samples_count))
 
         if draw_data:
             from DataVisualization.Visualyzer import Visualyzer
