@@ -31,7 +31,7 @@ class Visualyzer(object):
         # Values against each labels
         ax.set_xticklabels(tags, minor=True, fontsize=5)
         ax.set_yticklabels(y_labels, minor=False, fontsize=10)
-        plt.show()
+        plt.show(block=False)
 
 
 
