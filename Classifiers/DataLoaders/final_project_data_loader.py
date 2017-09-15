@@ -23,7 +23,8 @@ class FinalProjectDataLoader(AbstractDataLoader):
 
     @staticmethod
     def get_mask(classifier):
-        if classmethod is None:
+        return None
+        if classifier is None:
             return None
         from Classifiers.Builtins.ada_boost import AdaBoost
         from Classifiers.Builtins.quadratic_discriminant_analysis import Quadratic_Discriminant_Analysis
@@ -34,17 +35,22 @@ class FinalProjectDataLoader(AbstractDataLoader):
         from Classifiers.Builtins.gaussian_nb import Gaussian_NB
         from Classifiers.Builtins.random_forest import Random_Forest
         from Classifiers.Builtins.DecisionTree import DecisionTree
+        from Classifiers.Builtins.LDA import LDA
         masks = {
-            Quadratic_Discriminant_Analysis: [7, 9, 4]
-            , Logistic_Regression: [7, 9, 16]
+            Quadratic_Discriminant_Analysis: [7, 9, 4, 5, 18, 1, 15, 6, 8, 11, 3, 19, 2, 13, 17, 16, 14, 12, 0, 10][0:17]
+            , Logistic_Regression: [7, 9, 16, 11, 15, 8, 1, 4, 5, 6, 0, 14, 17, 12, 2, 18, 10, 3, 13, 19][0:12]
             , Ensemble:None
-            , K_Neighbors: [3, 4, 2, 12, 1, 18, 7, 19]
-            , AdaBoost: [7, 1, 18, 4, 19, 11, 5, 9, 16]
-            # , Gaussian_NB: [7, 13, 19]
-            , Random_Forest: [7, 11, 10, 8, 17, 14, 1]
-            , DecisionTree: [7, 1, 18, 4]
+            , AdaBoost: [7, 1, 15, 6, 14, 5, 0, 19, 12, 8, 3, 11, 13, 16, 17, 2, 10, 9, 4, 18][0:17] #Overfit alarm!
+            , Random_Forest: [2, 16, 6, 10, 5, 8, 15, 3, 14, 0, 1, 4, 9, 19, 12, 17, 11, 13, 18, 7][0:9]
+            , DecisionTree: [7, 8, 15, 19, 14, 6, 10, 12, 9, 0, 11, 3, 2, 16, 13, 17, 5, 4, 18, 1][0:15]
+            , K_Neighbors: [3, 4, 0, 1, 18, 2, 6, 13, 10, 12, 7, 14, 16, 9, 19, 8, 11, 5, 17, 15][0:14]
+            , LDA:[7, 17, 3, 1, 0, 6, 8, 9, 16, 2, 4, 5, 10, 11, 13, 18, 14, 19, 15, 12][0:11]
+            , SvmClassifier: {
+                               'rbf': [7, 9, 14, 1, 15, 5, 4, 6, 16, 17, 13, 8, 19, 2, 0, 10, 11, 3, 12, 18][0:6],
+                                'linear': [7, 0, 19, 1, 4, 3, 11, 5, 2, 8, 13, 15, 16, 17, 9, 10, 14, 12, 18, 6][0:12]
+                             }
+            , Gaussian_NB: [7, 13, 19, 9, 10, 0, 4, 14, 1, 6, 8, 2, 16, 11, 18, 3, 17, 12, 15, 5][0:7] #TODO: Is it doing any good??
             # , SvmClassifier: {'rbf': [7, 9, 14, 15, 1, 5, 4], 'linear': [7, 0, 19, 1, 4, 3, 11, 5]}
-            , SvmClassifier: {'rbf': [7, 9, 14, 1, 15, 5], 'linear': [7, 0, 19, 1, 4, 3, 11, 5]}
         }
 
         clf_class = classifier.__class__
@@ -56,7 +62,7 @@ class FinalProjectDataLoader(AbstractDataLoader):
             else:
                 ret = mask
 
-        return ret
+        return ret or None
 
 
 
