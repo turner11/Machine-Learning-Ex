@@ -1,5 +1,9 @@
 import os
 
+
+
+
+
 from Classifiers.AbstractClassifier import AbstractClassifier
 from Classifiers.Builtins.abstract_builtin_classifier import AbstractBuiltinClassifier
 from Classifiers.DataLoaders.ClassifyingData import ClassifyingData
@@ -7,21 +11,27 @@ from Classifiers.DataLoaders.Utils import get_default_data_loader
 from Classifiers import rootLogger as logger
 from Classifiers.Ensemble import Ensemble
 from Utils.utils import get_full_plot_file_name
+from cloudpickle.utils import to_cloud_pickle, from_cloud_pickle
 from run_scripts.find_best_features import run_best_n_fitures
 
 
 def final_project_main():
+    #
+    # classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
+    # # classifiers.insert(0, Ensemble())
+    # n_features = 20
+    # for clf in classifiers:
+    #     run_best_n_fitures(n=n_features, classifier=clf)
+    # return
+
+    classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
+    classifiers.insert(0, Ensemble())
+    compare_pca(classifiers)
+    # return
 
     classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
     classifiers.insert(0, Ensemble())
 
-
-    # n_features = 10
-    # for clf in classifiers:
-    #     run_best_n_fitures(n=n_features, classifier=clf)
-    # # return
-    # compare_pca(classifiers)
-    # return
     data_loader = get_default_data_loader()
     data = data_loader.load()
     data.normalize()
@@ -41,11 +51,16 @@ def compare_results_full_data(classifiers):
             classifier.train(training_set_size_percentage=0.8)
             score = classifier.score
             results[classifier] = score
+
+            model_fn = get_full_plot_file_name("{0}.classifier".format(classifier), add_time_stamp=True)
+
+            # Save the trained model
+            to_cloud_pickle(model_fn,classifier)
         except Exception as ex:
             fails[classifier] = ex
             raise
     msg_fails = "\n".join(["{0}: \t\t\t{1}".format(c, fails[c]) for c in fails.keys()])
-    res = sorted([(clf, score) for clf, score in results.items()], key=lambda tpl: tpl[1].f_measure, reverse=True)
+    res = sorted([(clf, score) for clf, score in results.items()], key=lambda tpl: tpl[1].accuracy, reverse=True)
     msg_results = "\n".join(["{0} ;  ({1})".format(score, clf) for clf, score in res])
     logger.info("\n\nFails:\n{0}".format(msg_fails))
     logger.info("\n\nScors:\n{0}".format(msg_results))
@@ -152,7 +167,7 @@ def compare_pca(classifiers):
                 # ax.set_title(name,rotation='vertical',x=-0.1,y=0.5)
                 ax.set_title(name, size=10)
             # from Classifiers.AbstractClassifier import ModelScore
-            ax.text(xx.max() - .3, yy.min() + .3, ('{0:.2f}'.format(score.f_measure)).lstrip('0'),
+            ax.text(xx.max() - .3, yy.min() + .3, ('{0:.2f}'.format(score.accuracy)).lstrip('0'),
                     size=15, horizontalalignment='right')
             i += 1
             logger.info("{0}: Done".format(clf))
