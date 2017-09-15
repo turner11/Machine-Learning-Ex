@@ -1,6 +1,5 @@
 import os
 import string
-import unicodedata
 validFilenameChars = "-_.() %s%s" % (string.ascii_letters, string.digits)
 
 
@@ -12,14 +11,14 @@ def get_plots_folder(base_folder=None):
     return folder
 
 
-def get_full_plot_file_name(file_name, base_folder=None, add_time_stamp=False):
+def get_full_plot_file_name(file_name, base_folder=None, add_time_stamp=False, suffix="_plot.png"):
     if add_time_stamp:
         import time
         timestr = time.strftime("%Y%m%d_%H%M%S")
         file_name = timestr+"_"+file_name
 
     sanitized = removeDisallowedFilenameChars(file_name)
-    fn = os.path.join(get_plots_folder(base_folder),sanitized+ "_plot.png")
+    fn = os.path.join(get_plots_folder(base_folder),sanitized+ suffix)
 
     return fn
 
