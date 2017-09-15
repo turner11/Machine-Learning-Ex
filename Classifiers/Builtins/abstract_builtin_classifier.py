@@ -38,13 +38,15 @@ class AbstractBuiltinClassifier(AbstractClassifier):
         from Classifiers.Builtins.svm_classifier import SvmClassifier
         linear_svm = SvmClassifier()
         linear_svm.set_classifier(kernel="linear", C=0.025)
+        # from . import *
 
         # rbf_svm = SvmClassifier()
         # rbf_svm.set_classifier(kernel='rbf', gamma=2, C=1)
 
         subs = [s() for s in cls.__subclasses__()]
+        subs = [s for s in subs if str(s).lower() != "namexxx"]
         additionals = [linear_svm]#, rbf_svm]
-        ret =  subs + additionals
+        ret =  sorted(subs + additionals, key=lambda s: str(s))
         return ret
 
     @classmethod
