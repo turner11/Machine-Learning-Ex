@@ -23,7 +23,7 @@ class FinalProjectDataLoader(AbstractDataLoader):
 
     @staticmethod
     def get_mask(classifier):
-        return None
+
         if classifier is None:
             return None
         from Classifiers.Builtins.ada_boost import AdaBoost
