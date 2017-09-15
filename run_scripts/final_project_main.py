@@ -1,9 +1,5 @@
 import os
 
-
-
-
-
 from Classifiers.AbstractClassifier import AbstractClassifier
 from Classifiers.Builtins.abstract_builtin_classifier import AbstractBuiltinClassifier
 from Classifiers.DataLoaders.ClassifyingData import ClassifyingData
@@ -52,7 +48,7 @@ def compare_results_full_data(classifiers):
             score = classifier.score
             results[classifier] = score
 
-            model_fn = get_full_plot_file_name("{0}.classifier".format(classifier), add_time_stamp=True)
+            model_fn = get_full_plot_file_name("{0}.classifier".format(classifier), add_time_stamp=True,suffix="")
 
             # Save the trained model
             to_cloud_pickle(model_fn,classifier)
@@ -65,7 +61,7 @@ def compare_results_full_data(classifiers):
     logger.info("\n\nFails:\n{0}".format(msg_fails))
     logger.info("\n\nScors:\n{0}".format(msg_results))
 
-    fn = get_full_plot_file_name("classifier_comparison",add_time_stamp=True)
+    fn = get_full_plot_file_name("classifier_comparison",add_time_stamp=True,suffix="")
     summary_file_name = os.path.splitext(fn)[0] + '.txt'
     with open(summary_file_name, "w") as f:
         f.write(msg_results)
