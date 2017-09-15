@@ -137,11 +137,12 @@ class AbstractClassifier(object):
 
             self.score = model_score
 
+        train_score = None
         if show_logs:
             train_score = self.get_model_score(sliced_data.training_set, sliced_data.training_y)
             self.log_score(train_score, prefix="Score for training set:")
 
-        return self._model, sliced_data
+        return self._model, sliced_data, train_score
 
     def get_model_score(self, test_set, test_y, prediction=None):
         # type: (np.matrix, np.ndarray, np.ndarray) -> ModelScore
