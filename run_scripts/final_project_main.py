@@ -1,17 +1,22 @@
 import os
+import matplotlib.pyplot as plt
 
 from Classifiers.AbstractClassifier import AbstractClassifier
 from Classifiers.Builtins.abstract_builtin_classifier import AbstractBuiltinClassifier
-from Classifiers.DataLoaders.ClassifyingData import ClassifyingData
+from Classifiers.DataLoaders.ClassifyingData import ClassifyingData, SlicedData
 from Classifiers.DataLoaders.Utils import get_default_data_loader
 from Classifiers import rootLogger as logger
 from Classifiers.Ensemble import Ensemble
-from Utils.utils import get_full_plot_file_name
+from Utils.utils import get_full_plot_file_name, get_file_name, get_classifiers_folder
 from cloudpickle.utils import to_cloud_pickle, from_cloud_pickle
 from run_scripts.find_best_features import run_best_n_fitures
 
 
+
+
 def final_project_main():
+    adapt_ensemble_threshold()
+    return
     #
     # classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
     # # classifiers.insert(0, Ensemble())
@@ -48,7 +53,7 @@ def compare_results_full_data(classifiers):
             score = classifier.score
             results[classifier] = score
 
-            model_fn = get_full_plot_file_name("{0}.classifier".format(classifier), add_time_stamp=True,suffix="")
+            model_fn = get_file_name("{0}.classifier".format(classifier),base_folder=get_classifiers_folder())
 
             # Save the trained model
             to_cloud_pickle(model_fn,classifier)
@@ -61,10 +66,47 @@ def compare_results_full_data(classifiers):
     logger.info("\n\nFails:\n{0}".format(msg_fails))
     logger.info("\n\nScors:\n{0}".format(msg_results))
 
-    fn = get_full_plot_file_name("classifier_comparison",add_time_stamp=True,suffix="")
+    fn = get_file_name("classifier_comparison")
     summary_file_name = os.path.splitext(fn)[0] + '.txt'
     with open(summary_file_name, "w") as f:
         f.write(msg_results)
+
+
+def adapt_ensemble_threshold():
+    clf = Ensemble()
+    data_loader = get_default_data_loader()
+    data = data_loader.load()
+    data.normalize()
+    sliced_data = data.slice_data(training_set_size_percentage=0.6)
+    train_data = ClassifyingData(sliced_data.training_y,sliced_data.training_set)
+
+
+    clf.set_data(train_data )
+    clf.train(training_set_size_percentage=1)
+
+    scores = []
+    rng = [v/100.0 for v in range(10,105,5)]
+    # rng = [v / 100.0 for v in range(75, 95, 1)]
+    for thresh in rng:
+        clf.threshold = thresh
+        score = clf.get_model_score(sliced_data.test_set, sliced_data.test_y)
+        scores.append(score)
+
+    accuracies = [s.accuracy for s in scores]
+
+    plt.clf()
+    ax = plt.plot(rng, accuracies, color="blue")
+    plt.title("Ensemble accuracy by threshold")
+    plt.ylim([0.9, 1])
+    plt.xlim([rng[0],rng[-1]])
+    plt.xticks(rng)
+    plt.draw()
+    plt.show(block=False)
+    fn = get_file_name("Ensamble_by_thresh")
+    plt.savefig(fn)
+
+
+
 
 
 
@@ -177,5 +219,5 @@ def compare_pca(classifiers):
     logger.info("Done {0} classifiers".format(len(classifiers)))
     plt.tight_layout()
     plt.show(block=False)
-    fn = get_full_plot_file_name("classifiers_boundaries",add_time_stamp=True)
+    fn = get_full_plot_file_name("classifiers_boundaries")
     plt.savefig(fn)

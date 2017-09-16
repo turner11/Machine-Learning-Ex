@@ -10,7 +10,7 @@ from Classifiers.Builtins import SvmClassifier
 import numpy as np
 
 from Classifiers import rootLogger as logger
-from Utils.utils import get_full_plot_file_name, get_plots_folder
+from Utils.utils import get_full_plot_file_name, get_plots_folder,get_file_name
 
 Point = namedtuple("Point","Kernal, c, f_measure")
 Point_3D = namedtuple("Point_3D","Kernal, c, gamma, f_measure")

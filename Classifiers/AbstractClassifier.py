@@ -121,7 +121,8 @@ class AbstractClassifier(object):
             data.normalize()
             affective_data = data.x_mat
         prediction = self._predict(affective_data)
-        return np.array(prediction).reshape(-1)
+        return np.array(prediction)
+        # return np.array(prediction).reshape(-1)
 
     def train(self, training_set_size_percentage=0.7, show_logs=True):
         # type: (float, bool) -> (object,ClassifyingData)

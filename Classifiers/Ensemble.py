@@ -10,11 +10,12 @@ from Classifiers import rootLogger as logger
 class Ensemble(AbstractClassifier):
     @property
     def name(self):
-        return self.clf.__class__.__name__
+        return self.__class__.__name__
 
-    def __init__(self):
+    def __init__(self,threshold=0.825):
         super(Ensemble, self).__init__()
         self.classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
+        self.threshold = threshold
 
 
     def _train(self, t_samples, t_y):
@@ -47,18 +48,19 @@ class Ensemble(AbstractClassifier):
     def __consolidate_predications(self, predictions):
         all_predictions_same_length = len(set([len(p) for p in predictions])) == 1
         assert all_predictions_same_length
-        threshold = 0.5
+
         m = np.matrix(predictions)
         avgs = np.mean(m, axis=0)
-        my_prediction = avgs > threshold
+        my_prediction = avgs > self.threshold
         #convert to int...
         my_prediction = my_prediction*1
         return my_prediction
 
     def set_data(self, input_data):
+        # type: (ClassifyingData) -> None
         super(Ensemble, self).set_data(input_data)
         for clf in self.classifiers:
             clf.set_data(input_data)
 
     def __repr__(self):
-        return "{0}()".format(self.__class__.__name__)
+        return "{0}()".format(self.name)

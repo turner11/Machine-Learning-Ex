@@ -1,22 +1,33 @@
 import os
 import string
 validFilenameChars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+sub_folder_name=None
 
+def get_classifiers_folder():
+    return os.path.join(get_plots_folder(),"classifiers/")
 
 def get_plots_folder(base_folder=None):
     base_folder = base_folder or os.getcwd()
-    folder =  os.path.join(base_folder, "plots"+os.sep)
+    folder = os.path.join(base_folder, "plots"+os.sep)
+
+    if sub_folder_name is None:
+        global sub_folder_name
+        import time
+        timestr = time.strftime("%Y%m%d_%H%M%S")
+        sub_folder_name = timestr
+
+    folder = os.path.join(folder, sub_folder_name+os.sep)
+
     if not os.path.exists(folder):
         os.mkdir(folder)
     return folder
 
 
-def get_full_plot_file_name(file_name, base_folder=None, add_time_stamp=False, suffix="_plot.png"):
-    if add_time_stamp:
-        import time
-        timestr = time.strftime("%Y%m%d_%H%M%S")
-        file_name = timestr+"_"+file_name
+def get_full_plot_file_name(file_name, base_folder=None):
+    return get_file_name(file_name, base_folder,suffix="_plot.png" )
 
+
+def get_file_name(file_name, base_folder=None,suffix=""):
     sanitized = removeDisallowedFilenameChars(file_name)
     fn = os.path.join(get_plots_folder(base_folder),sanitized+ suffix)
 

@@ -48,9 +48,10 @@ class ClassifyingData(object):
         # normed = (data - self.__features_avgs) / self.__features_std
 
     def slice_data(self, training_set_size_percentage=0.7):
+        # type: (float) -> SlicedData
         from sklearn.cross_validation import train_test_split
 
-        test_size = 1-training_set_size_percentage
+        test_size = 1.0-training_set_size_percentage
         X_train, X_test, y_train, y_test = \
             train_test_split(self.x_mat, self.ys, test_size=test_size, random_state=42)
 

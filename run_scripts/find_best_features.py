@@ -8,7 +8,7 @@ from Classifiers.DataLoaders.AbstractDataLoader import AbstractDataLoader
 from Classifiers.DataLoaders.Utils import get_default_data_loader
 from Classifiers.gda_downloaded import GaussianDiscriminantAnalysis
 from Classifiers import rootLogger as logger
-from Utils.utils import get_full_plot_file_name
+from Utils.utils import get_full_plot_file_name,get_file_name
 
 
 def get_next_best_feature(classifier, selected_idxs, data_loader=None):
@@ -89,7 +89,7 @@ def run_best_n_fitures(n=5, classifier=None, plot_block=False):
     plt.draw()
     plt.show(block=plot_block)
 
-    fn = get_full_plot_file_name("n_features_{0}".format(classifier))
+    fn = get_file_name("n_features_{0}".format(classifier))
     plt.savefig(fn)
 
     summary_file_name = os.path.splitext(fn)[0]+'.txt'
