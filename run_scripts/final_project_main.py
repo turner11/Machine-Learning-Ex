@@ -15,8 +15,8 @@ from run_scripts.find_best_features import run_best_n_fitures
 
 
 def final_project_main():
-    adapt_ensemble_threshold()
-    return
+    # adapt_ensemble_threshold()
+    # return
     #
     # classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
     # # classifiers.insert(0, Ensemble())
@@ -77,7 +77,7 @@ def adapt_ensemble_threshold():
     data_loader = get_default_data_loader()
     data = data_loader.load()
     data.normalize()
-    sliced_data = data.slice_data(training_set_size_percentage=0.6)
+    sliced_data = data.slice_data(training_set_size_percentage=0.7)
     train_data = ClassifyingData(sliced_data.training_y,sliced_data.training_set)
 
 
@@ -98,7 +98,7 @@ def adapt_ensemble_threshold():
     ax = plt.plot(rng, accuracies, color="blue")
     plt.title("Ensemble accuracy by threshold")
     plt.ylim([0.9, 1])
-    plt.xlim([rng[0],rng[-1]])
+    # plt.xlim([0.6,rng[-1]])
     plt.xticks(rng)
     plt.draw()
     plt.show(block=False)

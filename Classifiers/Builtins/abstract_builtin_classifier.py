@@ -1,5 +1,5 @@
 # coding=utf-8
-
+import numpy as np
 
 from Classifiers.AbstractClassifier import AbstractClassifier
 
@@ -29,7 +29,24 @@ class AbstractBuiltinClassifier(AbstractClassifier):
         return a
 
     def _predict(self, normed_data):
-        p = self.clf.predict(normed_data)
+        # p = self.clf.predict(normed_data)
+        if hasattr(self.clf,'predict_proba'):
+            p = self.clf.predict_proba(normed_data)
+        else:
+            p_raw = self.clf.predict(normed_data)
+            p = []
+
+            for pred in p_raw:
+                if pred:
+                    p0 = 0
+                    p1 = 1
+                else:
+                    p0 = 1
+                    p1 = 0
+                p.append(np.asarray([p0,p1]))
+            p = np.asarray(p)
+
+
         return p
 
     @classmethod
