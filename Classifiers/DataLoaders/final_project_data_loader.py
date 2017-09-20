@@ -36,10 +36,16 @@ class FinalProjectDataLoader(AbstractDataLoader):
         from Classifiers.Builtins.random_forest import Random_Forest
         from Classifiers.Builtins.DecisionTree import DecisionTree
         from Classifiers.Builtins.LDA import LDA
+        from Classifiers.Builtins.MPL import NNetwork
         masks = {
             Quadratic_Discriminant_Analysis: [7, 9, 4, 5, 18, 1, 15, 6, 8, 11, 3, 19, 2, 13, 17, 16, 14, 12, 0, 10][0:17]
             , Logistic_Regression: [7, 9, 16, 11, 15, 8, 1, 4, 5, 6, 0, 14, 17, 12, 2, 18, 10, 3, 13, 19][0:12]
             , Ensemble:None
+            , NNetwork:[7, 13, 9, 1, 4, 11, 17, 5, 6, 8, 16, 2, 10, 12, 3, 0, 18, 19, 15, 14][0:14]
+            #[7, 9, 11, 1, 2, 4, 5, 17, 8, 0, 15, 10, 6, 13, 16, 19, 12, 18, 14, 3][0:7]
+            # [7, 9, 5, 8, 1, 17, 11, 10, 3, 4, 12, 0, 19, 6, 2, 18, 15, 13, 16, 14]
+
+
             , AdaBoost: [7, 1, 15, 6, 14, 5, 0, 19, 12, 8, 3, 11, 13, 16, 17, 2, 10, 9, 4, 18][0:17] #Overfit alarm!
             , Random_Forest: [2, 16, 6, 10, 5, 8, 15, 3, 14, 0, 1, 4, 9, 19, 12, 17, 11, 13, 18, 7][0:9]
             , DecisionTree: [7, 8, 15, 19, 14, 6, 10, 12, 9, 0, 11, 3, 2, 16, 13, 17, 5, 4, 18, 1][0:15]
@@ -49,6 +55,7 @@ class FinalProjectDataLoader(AbstractDataLoader):
                                'rbf': [7, 9, 14, 1, 15, 5, 4, 6, 16, 17, 13, 8, 19, 2, 0, 10, 11, 3, 12, 18][0:6],
                                 'linear': [7, 0, 19, 1, 4, 3, 11, 5, 2, 8, 13, 15, 16, 17, 9, 10, 14, 12, 18, 6][0:12]
                              }
+
             , Gaussian_NB: [7, 13, 19, 9, 10, 0, 4, 14, 1, 6, 8, 2, 16, 11, 18, 3, 17, 12, 15, 5][0:7] #TODO: Is it doing any good??
             # , SvmClassifier: {'rbf': [7, 9, 14, 15, 1, 5, 4], 'linear': [7, 0, 19, 1, 4, 3, 11, 5]}
         }

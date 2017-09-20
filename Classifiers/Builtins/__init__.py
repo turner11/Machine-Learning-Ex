@@ -8,7 +8,9 @@ from Classifiers.Builtins import logistic_regression, \
     k_neighbors, \
     gaussian_nb, \
     quadratic_discriminant_analysis,\
-    LDA
+    LDA,\
+    MPL
+
 
 
 
@@ -24,6 +26,7 @@ K_Neighbors = k_neighbors.K_Neighbors
 GaussianNB = gaussian_nb.GaussianNB
 Quadratic_Discriminant_Analysis = quadratic_discriminant_analysis.Quadratic_Discriminant_Analysis
 LDA = LDA.LDA
+NNetwork = MPL.NNetwork
 
 
 # from os.path import dirname, basename, isfile

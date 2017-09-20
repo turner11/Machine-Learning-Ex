@@ -19,13 +19,24 @@ class ModelScore(object):
 
 
     def __str__(self):
-        return "precision: {0:.4f}\t" \
-               "recall: {1:.4f}\t" \
-               "accuracy: {2:.4f}\t" \
-               "f_measure: {3:.4f}\t".format(self.precision,
-                                             self.recall,
-                                             self.accuracy,
-                                             self.f_measure)
+        try:
+            str =  "precision: {0:.4f}\t" \
+                   "recall: {1:.4f}\t" \
+                   "accuracy: {2:.4f}\t" \
+                   "f_measure: {3:.4f}\t".format(self.precision,
+                                                 self.recall,
+                                                 self.accuracy,
+                                                 self.f_measure)
+        except:
+            # in case of nones...
+            str = "precision: {0}\t" \
+                  "recall: {1}\t" \
+                  "accuracy: {2}\t" \
+                  "f_measure: {3}\t".format(self.precision,
+                                                self.recall,
+                                                self.accuracy,
+                                                self.f_measure)
+        return str
 
     def __eq__(self, other):
         eq = self.precision == other.precision and \

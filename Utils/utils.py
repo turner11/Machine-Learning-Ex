@@ -4,22 +4,25 @@ validFilenameChars = "-_.() %s%s" % (string.ascii_letters, string.digits)
 sub_folder_name=None
 
 def get_classifiers_folder():
-    return os.path.join(get_plots_folder(),"classifiers/")
+    return get_plots_folder()+os.sep + "classifiers"+os.sep
 
 def get_plots_folder(base_folder=None):
     base_folder = base_folder or os.getcwd()
-    folder = os.path.join(base_folder, "plots"+os.sep)
+    folder = base_folder+os.sep+ "plots"+os.sep
 
+    global sub_folder_name
+    sub_folder_name = "20170920_074659"
     if sub_folder_name is None:
-        global sub_folder_name
         import time
         timestr = time.strftime("%Y%m%d_%H%M%S")
         sub_folder_name = timestr
 
     folder = os.path.join(folder, sub_folder_name+os.sep)
+    # return "C:\\Users\\Avi\\PycharmProjects\\exML\\Machine-Learning-Ex\\plots\\20170920_074659"
 
     if not os.path.exists(folder):
-        os.mkdir(folder)
+        # import shutil
+        os.makedirs(folder)
     return folder
 
 

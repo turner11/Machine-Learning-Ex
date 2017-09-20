@@ -12,7 +12,7 @@ class Ensemble(AbstractClassifier):
     def name(self):
         return self.__class__.__name__
 
-    def __init__(self,threshold=0.7):
+    def __init__(self,threshold=0.82):
         super(Ensemble, self).__init__()
         self.classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
         self.threshold = threshold
@@ -49,35 +49,28 @@ class Ensemble(AbstractClassifier):
         all_predictions_same_length = len(set([len(p) for p in predictions])) == 1
         assert all_predictions_same_length
 
-        predictors_count = len(predictions)
-        all_predictors = range(0,predictors_count)
-        determnistic_idxs = [i for i, p_set in enumerate(predictions) if len(np.unique(p_set)) == 2]
-        indexes_to_include = all_predictors \
-                            if len(determnistic_idxs)*1.0 /predictors_count > 0.5 \
-                            else [idx for idx in all_predictors if idx not in determnistic_idxs]
-        preds = []
-        predictions_count = len(predictions[0])
-        for idx in range(0,predictions_count ):
-            preds_1 = np.asarray([p[idx][1] for p in predictions])
-            preds_1 = preds_1[indexes_to_include]
-            decsision = np.average(preds_1) > self.threshold
-            preds.append(decsision)
-
-        return np.asarray(preds) *1
-
-
-
-
-
-
-
-
         m = np.matrix(predictions)
         avgs = np.mean(m, axis=0)
         my_prediction = avgs > self.threshold
         #convert to int...
-        my_prediction = my_prediction*1
+        my_prediction = np.asarray(my_prediction*1).reshape(-1)
         return my_prediction
+
+        # predictors_count = len(predictions)
+        # all_predictors = range(0, predictors_count)
+        # determnistic_idxs = [i for i, p_set in enumerate(predictions) if len(np.unique(p_set)) == 2]
+        # indexes_to_include = all_predictors \
+        #     if len(determnistic_idxs) * 1.0 / predictors_count > 0.5 \
+        #     else [idx for idx in all_predictors if idx not in determnistic_idxs]
+        # preds = []
+        # predictions_count = len(predictions[0])
+        # for idx in range(0, predictions_count):
+        #     preds_1 = np.asarray([p[idx][1] for p in predictions])
+        #     preds_1 = preds_1[indexes_to_include]
+        #     decsision = np.average(preds_1) > self.threshold
+        #     preds.append(decsision)
+        #
+        # return np.asarray(preds) * 1
 
     def set_data(self, input_data):
         # type: (ClassifyingData) -> None

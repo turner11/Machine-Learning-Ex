@@ -29,22 +29,15 @@ class AbstractBuiltinClassifier(AbstractClassifier):
         return a
 
     def _predict(self, normed_data):
+        p = self.clf.predict(normed_data)
+        return p
+
+    def predict_proba(self, normed_data):
         # p = self.clf.predict(normed_data)
         if hasattr(self.clf,'predict_proba'):
             p = self.clf.predict_proba(normed_data)
         else:
-            p_raw = self.clf.predict(normed_data)
-            p = []
-
-            for pred in p_raw:
-                if pred:
-                    p0 = 0
-                    p1 = 1
-                else:
-                    p0 = 1
-                    p1 = 0
-                p.append(np.asarray([p0,p1]))
-            p = np.asarray(p)
+            p = None
 
 
         return p
@@ -70,20 +63,30 @@ class AbstractBuiltinClassifier(AbstractClassifier):
     def get_all_working_classifiers(cls):
         # type: () -> [AbstractClassifier]
         classifiers = cls.get_all_classifiers()
-        from Classifiers.Builtins.bernoulli_rbm import Bernoulli_RBM
-        from Classifiers.Builtins.gaussian_process import Gaussian_Process
         from Classifiers.Builtins.ada_boost import AdaBoost
+        from Classifiers.Builtins.quadratic_discriminant_analysis import Quadratic_Discriminant_Analysis
+        from Classifiers.Builtins.logistic_regression import Logistic_Regression
+        from Classifiers.Builtins.svm_classifier import SvmClassifier
+        from Classifiers.Ensemble import Ensemble
+        from Classifiers.Builtins.k_neighbors import K_Neighbors
         from Classifiers.Builtins.gaussian_nb import Gaussian_NB
         from Classifiers.Builtins.random_forest import Random_Forest
         from Classifiers.Builtins.DecisionTree import DecisionTree
-        classifiers = [c for c in classifiers if
-                       c.__class__ not in [Bernoulli_RBM, Gaussian_Process
-                                           ##from here, just testing if better of without...
-                                           # ,AdaBoost
-                                           # ,Gaussian_NB
-                                           # ,Random_Forest
-                                           # ,DecisionTree
-                                           ]]
+        from Classifiers.Builtins.LDA import LDA
+        from Classifiers.Builtins.MPL import NNetwork
+        # classifiers = [c for c in classifiers if
+        #                c.__class__ not in [Bernoulli_RBM, Gaussian_Process
+        #                                    ##from here, just testing if better of without...
+        #                                    # ,AdaBoost
+        #                                    # ,Gaussian_NB
+        #                                     ,Random_Forest
+        #                                     ,DecisionTree
+        #                                    ]]
+
+        from Classifiers.Ensemble import Ensemble
+        classifiers = [c for c in classifiers
+                       if c.__class__ in [Ensemble, Logistic_Regression,Quadratic_Discriminant_Analysis]
+                       or (isinstance(c, SvmClassifier) and c.clf.c == 0.025 and c.clf.d == 6)]
 
 
         return classifiers

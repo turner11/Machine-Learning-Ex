@@ -12,12 +12,54 @@ from cloudpickle.utils import to_cloud_pickle, from_cloud_pickle
 from run_scripts.find_best_features import run_best_n_fitures
 
 
+def find_NN_layers():
+    from Classifiers.Builtins import MPL
+    # layrs_structurs = [10,20,30,40,50,60,70,80,90,100,
+    #                    (10,10,10), (20,20,20),(30,30,30),(10,20,30),(30,20,10),(40,40,40),(50,60,70),
+    #                     (20, 40, 20),(40,20,20),
+    #                    (35,20),(55,80),(70,25)]
+    import itertools
+    rng = range(5,16)
+    tpl_1 = set(itertools.combinations(rng, 1))
+    tpl_2 = set(itertools.combinations(rng, 2))
+    tpl_3 = set(itertools.combinations(rng, 3))
+    tpl_4 = set(itertools.combinations(rng, 4))
+    layrs_structurs =tpl_1.union(tpl_2).union(tpl_3).union(tpl_4)
+
+    res ={}
+    l = len(layrs_structurs)
+    for i,strct in enumerate(layrs_structurs):
+        classifier = MPL.NNetwork(hidden_layer_sizes=strct)
+        print ("testing '{0}' ({1}/{2})".format(classifier,i+1,l))
+        model_fn = get_file_name("{0}.classifier".format(classifier), base_folder=get_classifiers_folder())
+        if os.path.exists(model_fn):
+            print "classifier exists for '{0}'. Continuing...".format(classifier)
+            continue
+        try:
+            iindices, max = run_best_n_fitures(classifier=classifier)
+            res[strct] = (iindices, max)
+            print("max accuracy for {0} was {1}".format(classifier,max))
+
+            # Save the trained model
+            to_cloud_pickle(model_fn, classifier)
+        except Exception as ex:
+            print("an error accurred for {0}: {1}".format(classifier, ex))
+
+    print (res)
+
+    fn = get_file_name("nn_layres") + '.pickle'
+    with open(fn, "w") as f:
+        f.write(res)
+
 
 
 def final_project_main():
+    find_NN_layers()
+    return
+
     # adapt_ensemble_threshold()
     # return
-    #
+
     # classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
     # # classifiers.insert(0, Ensemble())
     # n_features = 20
@@ -53,10 +95,10 @@ def compare_results_full_data(classifiers):
             score = classifier.score
             results[classifier] = score
 
-            model_fn = get_file_name("{0}.classifier".format(classifier),base_folder=get_classifiers_folder())
+            model_fn = get_file_name("{0}.classifier".format(classifier), base_folder=get_classifiers_folder())
 
             # Save the trained model
-            to_cloud_pickle(model_fn,classifier)
+            to_cloud_pickle(model_fn, classifier)
         except Exception as ex:
             fails[classifier] = ex
             raise
@@ -78,14 +120,13 @@ def adapt_ensemble_threshold():
     data = data_loader.load()
     data.normalize()
     sliced_data = data.slice_data(training_set_size_percentage=0.7)
-    train_data = ClassifyingData(sliced_data.training_y,sliced_data.training_set)
+    train_data = ClassifyingData(sliced_data.training_y, sliced_data.training_set)
 
-
-    clf.set_data(train_data )
+    clf.set_data(train_data)
     clf.train(training_set_size_percentage=1)
 
     scores = []
-    rng = [v/100.0 for v in range(10,105,5)]
+    rng = [v / 100.0 for v in range(10, 105, 5)]
     # rng = [v / 100.0 for v in range(75, 95, 1)]
     for thresh in rng:
         clf.threshold = thresh
@@ -106,11 +147,6 @@ def adapt_ensemble_threshold():
     plt.savefig(fn)
 
 
-
-
-
-
-
 def compare_pca(classifiers):
     # type: ([AbstractBuiltinClassifier]) -> None
     from Classifiers.DataLoaders.final_project_data_loader_PCA import FinalProjectDataLoaderPCA
@@ -127,19 +163,18 @@ def compare_pca(classifiers):
 
     X, y = data.x_mat, data.ys
     X_train, X_test, y_train, y_test = \
-        train_test_split(X, y, test_size=.4, random_state=42)
+        train_test_split(X, y, test_size=.3, random_state=42)
 
-    only_train_data = ClassifyingData(ys=y_train,x_mat=X_train)
+    only_train_data = ClassifyingData(ys=y_train, x_mat=X_train)
     for clf in classifiers:
         clf.set_data(only_train_data)
 
     figure = plt.figure(figsize=(27, 9))
     i = 1
 
-
     margin = min(H_MESH_STEP, .5)
-    x_min, x_max = X[:, 0].min() - margin , X[:, 0].max() + margin
-    y_min, y_max = X[:, 1].min() - margin , X[:, 1].max() + margin
+    x_min, x_max = X[:, 0].min() - margin, X[:, 0].max() + margin
+    y_min, y_max = X[:, 1].min() - margin, X[:, 1].max() + margin
     logger.debug("Starting mesh")
     xx, yy = np.meshgrid(np.arange(x_min, x_max, H_MESH_STEP),
                          np.arange(y_min, y_max, H_MESH_STEP))
@@ -153,7 +188,7 @@ def compare_pca(classifiers):
     plot_rows = 2
     # ax = plt.subplot(len(datasets), len(classifiers) + 1, i)
     # ax = plt.subplot(plot_rows, len(classifiers) + 1, i)
-    next_subplot = lambda ind: plt.subplot(plot_rows, len(classifiers)//plot_rows + 1, i)
+    next_subplot = lambda ind: plt.subplot(plot_rows, len(classifiers) // plot_rows + 1, i)
     ax = next_subplot(i)
     # ax = plt.subplot(1, len(classifiers) + 1, i)
     if True:  # ds_cnt == 0:
@@ -175,7 +210,9 @@ def compare_pca(classifiers):
     # iterate over classifiers
     for clf in classifiers:
         name = str(clf)
-        logger.debug("=============================  ({0}\{1}) Starting classifier: '{2}'   =============================".format(classifiers.index(clf)+1,len(classifiers),clf))
+        logger.debug(
+            "=============================  ({0}\{1}) Starting classifier: '{2}'   =============================".format(
+                classifiers.index(clf) + 1, len(classifiers), clf))
         try:
             # ax = plt.subplot(len(datasets), len(classifiers) + 1, i)
             ax = next_subplot(i)
@@ -191,7 +228,7 @@ def compare_pca(classifiers):
 
             # Plot also the training points
             ax.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap=cm_bright,
-                       edgecolors='k',alpha=0.5)
+                       edgecolors='k', alpha=0.5)
             # and testing points
             ax.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap=cm_bright,
                        edgecolors='k')
@@ -210,7 +247,8 @@ def compare_pca(classifiers):
             i += 1
             logger.info("{0}: Done".format(clf))
         except MemoryError as ex:
-            logger.error("got a memory error for classifier '{0}' (mesh step was {1}): {2}".format(clf,H_MESH_STEP, ex))
+            logger.error(
+                "got a memory error for classifier '{0}' (mesh step was {1}): {2}".format(clf, H_MESH_STEP, ex))
             raise
         except Exception as ex:
             logger.warn("got an error for classifier '{0}': {1}".format(clf, ex))
