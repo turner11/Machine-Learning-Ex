@@ -140,7 +140,7 @@ $RECYCLE.BIN/
 .idea/workspace.xml
 
 # plots
-plots/*
+# plots/*
 
 # data files
 Classifiers/DataLoaders/creditcard.csv

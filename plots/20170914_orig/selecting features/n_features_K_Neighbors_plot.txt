@@ -1,0 +1,24 @@
+
+Final results for K_Neighbors:
+features[3, 4, 0, 1, 18, 2, 6, 13, 10, 12, 7, 14, 16, 9, 19, 8, 11, 5, 17, 15]
+grade for number of features:
+1: precision: 0.8919	recall: 0.9083	accuracy: 0.8836	f_measure: 0.9000	%
+2: precision: 0.8829	recall: 0.9159	accuracy: 0.8836	f_measure: 0.8991	%
+3: precision: 0.8919	recall: 0.9340	accuracy: 0.8995	f_measure: 0.9124	%
+4: precision: 0.8919	recall: 0.9252	accuracy: 0.8942	f_measure: 0.9083	%
+5: precision: 0.9459	recall: 0.9211	accuracy: 0.9206	f_measure: 0.9333	%
+6: precision: 0.9550	recall: 0.9298	accuracy: 0.9312	f_measure: 0.9422	%
+7: precision: 0.9550	recall: 0.9381	accuracy: 0.9365	f_measure: 0.9464	%
+8: precision: 0.9459	recall: 0.9459	accuracy: 0.9365	f_measure: 0.9459	%
+9: precision: 0.9369	recall: 0.9541	accuracy: 0.9365	f_measure: 0.9455	%
+10: precision: 0.9279	recall: 0.9537	accuracy: 0.9312	f_measure: 0.9406	%
+11: precision: 0.9099	recall: 0.9528	accuracy: 0.9206	f_measure: 0.9309	%
+12: precision: 0.9279	recall: 0.9537	accuracy: 0.9312	f_measure: 0.9406	%
+13: precision: 0.9369	recall: 0.9541	accuracy: 0.9365	f_measure: 0.9455	%
+14: precision: 0.9279	recall: 0.9626	accuracy: 0.9365	f_measure: 0.9450	%
+15: precision: 0.9279	recall: 0.9626	accuracy: 0.9365	f_measure: 0.9450	%
+16: precision: 0.9279	recall: 0.9626	accuracy: 0.9365	f_measure: 0.9450	%
+17: precision: 0.9369	recall: 0.9455	accuracy: 0.9312	f_measure: 0.9412	%
+18: precision: 0.9279	recall: 0.9626	accuracy: 0.9365	f_measure: 0.9450	%
+19: precision: 0.9279	recall: 0.9626	accuracy: 0.9365	f_measure: 0.9450	%
+20: precision: 0.9279	recall: 0.9537	accuracy: 0.9312	f_measure: 0.9406	%

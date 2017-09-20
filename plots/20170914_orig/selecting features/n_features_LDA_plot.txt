@@ -1,0 +1,24 @@
+
+Final results for LDA:
+features[7, 17, 3, 1, 0, 6, 8, 9, 16, 2, 4, 5, 10, 11, 13, 18, 14, 19, 15, 12]
+grade for number of features:
+1: precision: 0.9009	recall: 0.9091	accuracy: 0.8889	f_measure: 0.9050	%
+2: precision: 0.9459	recall: 0.9211	accuracy: 0.9206	f_measure: 0.9333	%
+3: precision: 0.9459	recall: 0.9130	accuracy: 0.9153	f_measure: 0.9292	%
+4: precision: 0.9369	recall: 0.9286	accuracy: 0.9206	f_measure: 0.9327	%
+5: precision: 0.9369	recall: 0.9630	accuracy: 0.9418	f_measure: 0.9498	%
+6: precision: 0.9369	recall: 0.9630	accuracy: 0.9418	f_measure: 0.9498	%
+7: precision: 0.9369	recall: 0.9630	accuracy: 0.9418	f_measure: 0.9498	%
+8: precision: 0.9459	recall: 0.9545	accuracy: 0.9418	f_measure: 0.9502	%
+9: precision: 0.9459	recall: 0.9633	accuracy: 0.9471	f_measure: 0.9545	%
+10: precision: 0.9459	recall: 0.9633	accuracy: 0.9471	f_measure: 0.9545	%
+11: precision: 0.9459	recall: 0.9633	accuracy: 0.9471	f_measure: 0.9545	%
+12: precision: 0.9459	recall: 0.9633	accuracy: 0.9471	f_measure: 0.9545	%
+13: precision: 0.9459	recall: 0.9633	accuracy: 0.9471	f_measure: 0.9545	%
+14: precision: 0.9459	recall: 0.9633	accuracy: 0.9471	f_measure: 0.9545	%
+15: precision: 0.9459	recall: 0.9633	accuracy: 0.9471	f_measure: 0.9545	%
+16: precision: 0.9459	recall: 0.9633	accuracy: 0.9471	f_measure: 0.9545	%
+17: precision: 0.9459	recall: 0.9633	accuracy: 0.9471	f_measure: 0.9545	%
+18: precision: 0.9459	recall: 0.9633	accuracy: 0.9471	f_measure: 0.9545	%
+19: precision: 0.9279	recall: 0.9626	accuracy: 0.9365	f_measure: 0.9450	%
+20: precision: 0.9189	recall: 0.9623	accuracy: 0.9312	f_measure: 0.9401	%

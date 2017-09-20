@@ -1,0 +1,24 @@
+
+Final results for Quadratic_Discriminant_Analysis:
+features[7, 9, 4, 5, 18, 1, 15, 6, 8, 11, 3, 19, 2, 13, 17, 16, 14, 12, 0, 10]
+grade for number of features:
+1: precision: 0.9009	recall: 0.9174	accuracy: 0.8942	f_measure: 0.9091	%
+2: precision: 0.9459	recall: 0.9375	accuracy: 0.9312	f_measure: 0.9417	%
+3: precision: 0.9550	recall: 0.9464	accuracy: 0.9418	f_measure: 0.9507	%
+4: precision: 0.9459	recall: 0.9459	accuracy: 0.9365	f_measure: 0.9459	%
+5: precision: 0.9459	recall: 0.9375	accuracy: 0.9312	f_measure: 0.9417	%
+6: precision: 0.9189	recall: 0.9714	accuracy: 0.9365	f_measure: 0.9444	%
+7: precision: 0.9099	recall: 0.9712	accuracy: 0.9312	f_measure: 0.9395	%
+8: precision: 0.9099	recall: 0.9712	accuracy: 0.9312	f_measure: 0.9395	%
+9: precision: 0.9189	recall: 0.9714	accuracy: 0.9365	f_measure: 0.9444	%
+10: precision: 0.9279	recall: 0.9717	accuracy: 0.9418	f_measure: 0.9493	%
+11: precision: 0.9189	recall: 0.9714	accuracy: 0.9365	f_measure: 0.9444	%
+12: precision: 0.9189	recall: 0.9714	accuracy: 0.9365	f_measure: 0.9444	%
+13: precision: 0.9279	recall: 0.9537	accuracy: 0.9312	f_measure: 0.9406	%
+14: precision: 0.9279	recall: 0.9537	accuracy: 0.9312	f_measure: 0.9406	%
+15: precision: 0.9369	recall: 0.9630	accuracy: 0.9418	f_measure: 0.9498	%
+16: precision: 0.9369	recall: 0.9811	accuracy: 0.9524	f_measure: 0.9585	%
+17: precision: 0.9369	recall: 0.9811	accuracy: 0.9524	f_measure: 0.9585	%
+18: precision: 0.9279	recall: 0.9717	accuracy: 0.9418	f_measure: 0.9493	%
+19: precision: 0.9279	recall: 0.9626	accuracy: 0.9365	f_measure: 0.9450	%
+20: precision: 0.9099	recall: 0.9439	accuracy: 0.9153	f_measure: 0.9266	%

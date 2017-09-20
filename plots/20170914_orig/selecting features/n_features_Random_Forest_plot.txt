@@ -1,0 +1,24 @@
+
+Final results for Random_Forest:
+features[2, 16, 6, 10, 5, 8, 15, 3, 14, 0, 1, 4, 9, 19, 12, 17, 11, 13, 18, 7]
+grade for number of features:
+1: precision: 0.8739	recall: 0.8818	accuracy: 0.8571	f_measure: 0.8778	%
+2: precision: 0.8919	recall: 0.9340	accuracy: 0.8995	f_measure: 0.9124	%
+3: precision: 0.9279	recall: 0.9279	accuracy: 0.9153	f_measure: 0.9279	%
+4: precision: 0.9189	recall: 0.9444	accuracy: 0.9206	f_measure: 0.9315	%
+5: precision: 0.8919	recall: 0.9706	accuracy: 0.9206	f_measure: 0.9296	%
+6: precision: 0.8919	recall: 0.9612	accuracy: 0.9153	f_measure: 0.9252	%
+7: precision: 0.8919	recall: 0.9612	accuracy: 0.9153	f_measure: 0.9252	%
+8: precision: 0.9099	recall: 0.9528	accuracy: 0.9206	f_measure: 0.9309	%
+9: precision: 0.9279	recall: 0.9626	accuracy: 0.9365	f_measure: 0.9450	%
+10: precision: 0.8829	recall: 0.9608	accuracy: 0.9101	f_measure: 0.9202	%
+11: precision: 0.8829	recall: 0.9703	accuracy: 0.9153	f_measure: 0.9245	%
+12: precision: 0.8919	recall: 0.9706	accuracy: 0.9206	f_measure: 0.9296	%
+13: precision: 0.8919	recall: 0.9612	accuracy: 0.9153	f_measure: 0.9252	%
+14: precision: 0.8829	recall: 0.9515	accuracy: 0.9048	f_measure: 0.9159	%
+15: precision: 0.8919	recall: 0.9612	accuracy: 0.9153	f_measure: 0.9252	%
+16: precision: 0.8829	recall: 0.9515	accuracy: 0.9048	f_measure: 0.9159	%
+17: precision: 0.8829	recall: 0.9608	accuracy: 0.9101	f_measure: 0.9202	%
+18: precision: 0.9099	recall: 0.9712	accuracy: 0.9312	f_measure: 0.9395	%
+19: precision: 0.8829	recall: 0.9608	accuracy: 0.9101	f_measure: 0.9202	%
+20: precision: 0.8829	recall: 0.9245	accuracy: 0.8889	f_measure: 0.9032	%

@@ -1,0 +1,24 @@
+
+Final results for NNetwork(hidden_layer_sizes=(6, 8, 11, 12)):
+features[7, 3, 9, 11, 1, 4, 12, 13, 0, 8, 5, 15, 19, 2, 10, 6, 17, 14, 16, 18]
+grade for number of features:
+1: precision: 0.8919	recall: 0.9167	accuracy: 0.8889	f_measure: 0.9041	%
+2: precision: 0.9459	recall: 0.9211	accuracy: 0.9206	f_measure: 0.9333	%
+3: precision: 0.9459	recall: 0.9211	accuracy: 0.9206	f_measure: 0.9333	%
+4: precision: 0.9369	recall: 0.9286	accuracy: 0.9206	f_measure: 0.9327	%
+5: precision: 0.9099	recall: 0.9619	accuracy: 0.9259	f_measure: 0.9352	%
+6: precision: 0.9279	recall: 0.9717	accuracy: 0.9418	f_measure: 0.9493	%
+7: precision: 0.9369	recall: 0.9630	accuracy: 0.9418	f_measure: 0.9498	%
+8: precision: 0.9459	recall: 0.9545	accuracy: 0.9418	f_measure: 0.9502	%
+9: precision: 0.9279	recall: 0.9537	accuracy: 0.9312	f_measure: 0.9406	%
+10: precision: 0.9550	recall: 0.9550	accuracy: 0.9471	f_measure: 0.9550	%
+11: precision: 0.9459	recall: 0.9545	accuracy: 0.9418	f_measure: 0.9502	%
+12: precision: 0.9099	recall: 0.9619	accuracy: 0.9259	f_measure: 0.9352	%
+13: precision: 0.9279	recall: 0.9626	accuracy: 0.9365	f_measure: 0.9450	%
+14: precision: 0.9189	recall: 0.9623	accuracy: 0.9312	f_measure: 0.9401	%
+15: precision: 0.9459	recall: 0.9459	accuracy: 0.9365	f_measure: 0.9459	%
+16: precision: 0.9099	recall: 0.9619	accuracy: 0.9259	f_measure: 0.9352	%
+17: precision: 0.9189	recall: 0.9444	accuracy: 0.9206	f_measure: 0.9315	%
+18: precision: 0.9279	recall: 0.9537	accuracy: 0.9312	f_measure: 0.9406	%
+19: precision: 0.9189	recall: 0.9714	accuracy: 0.9365	f_measure: 0.9444	%
+20: precision: 0.9099	recall: 0.9352	accuracy: 0.9101	f_measure: 0.9224	%

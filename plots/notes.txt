@@ -1,0 +1,10 @@
+a = {}
+b = sorted([(strct,tpl[1]) for strct,tpl in a.items()],key=lambda t: t[1])
+
+
+8,11,12,13
+6,7,9,12
+10,11,15
+11,14,15
+6,8,9,15
+7,9,13
