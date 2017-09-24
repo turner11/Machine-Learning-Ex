@@ -11,7 +11,7 @@ def get_plots_folder(base_folder=None):
     folder = base_folder+os.sep+ "plots"+os.sep
 
     global sub_folder_name
-    sub_folder_name = "20170920_074659"
+    # sub_folder_name = "20170920_074659"
     if sub_folder_name is None:
         import time
         timestr = time.strftime("%Y%m%d_%H%M%S")
