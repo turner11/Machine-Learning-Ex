@@ -115,7 +115,7 @@ def scrape_nn_results():
     s_res = sorted(res,key=lambda stat:stat.highest_score, reverse=True)
     best = s_res[0:10]
 
-    imagess_f = [(best, stat.file[0:-3]+"png") for stat in best]
+    imagess_f = [(stat, stat.file[0:-3]+"png") for stat in best]
 
 
     import matplotlib.pyplot as plt
@@ -128,13 +128,15 @@ def scrape_nn_results():
     imgplot = plt.imshow(img)
     def onclick(args=None):
         global idx
-        idx = (idx+1) %len(imagess_f)
+
+        idx = ((idx+1) if args.button == 1 else (idx -1)) %len(imagess_f)
         stat, img_file = imagess_f[idx]
         img = mpimg.imread(img_file )
         # imgplot = plt.imshow(img)
         imgplot.set_data(img)
         plt.show()
-        plt.title("Highest: {0}".format(stat))
+        plt.title("Highest: {0}".format(stat.highest_score))
+        # print str(args)
         fig.canvas.draw()
 
         print str(stat)#str(idx) + str(args) + "aaaaaaaaaaaaaaaaaaaaa"
