@@ -20,9 +20,13 @@ class AbstractDataLoader(object):
     def load(self):
         # type: (str, int, function) -> ClassifyingData
         try:
-            logger.info("Loading csv data from: {0}".format(self.data_path))
-            csv = pd.read_csv(self.data_path, header=self.header_row )
-            m = csv.values
+            logger.info("Loading data from: {0}".format(self.data_path))
+            try:
+                loaded_data = pd.read_excel(self.data_path, header=self.header_row)
+            except:
+                loaded_data = pd.read_csv(self.data_path, header=self.header_row )
+
+            m = loaded_data .values
 
             # get the tags
             class_clm = m.shape[1]-1 if np.inf ==  self.classification_column else self.classification_column
