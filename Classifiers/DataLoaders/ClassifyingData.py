@@ -28,7 +28,7 @@ class ClassifyingData(object):
         self.__is_normalized = False
 
         self.val_0_str = val_0_str or ys[0]
-        self.val_1_str = val_1_str or next(x for x in ys if x != val_0_str)
+        self.val_1_str = val_1_str or next(x for x in ys if x != self.val_0_str)
 
         self.origin_data = origin_data
 
