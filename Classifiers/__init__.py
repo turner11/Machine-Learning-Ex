@@ -30,7 +30,7 @@ consoleHandler = logging.StreamHandler()
 consoleHandler.setFormatter(logFormatter)
 rootLogger.addHandler(consoleHandler)
 
-
-rootLogger.warn("a warning")
-# logger.error("some error")
-# logger.info("some info")
+#
+# rootLogger.warn("a warning")
+# rootLogger.error("some error")
+# rootLogger.info("some info")

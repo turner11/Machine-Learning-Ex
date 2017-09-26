@@ -20,7 +20,7 @@ class AbstractDataLoader(object):
     def load(self):
         # type: (str, int, function) -> ClassifyingData
         try:
-            logger.info("Loading data from: {0}".format(self.data_path))
+            logger.debug("Loading data from: {0}".format(self.data_path))
             try:
                 loaded_data = pd.read_excel(self.data_path, header=self.header_row)
             except:
