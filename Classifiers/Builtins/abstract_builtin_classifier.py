@@ -1,7 +1,8 @@
 # coding=utf-8
-import numpy as np
+import os
 
 from Classifiers.AbstractClassifier import AbstractClassifier
+from Utils.os_utils import File
 
 
 class AbstractBuiltinClassifier(AbstractClassifier):
@@ -56,7 +57,34 @@ class AbstractBuiltinClassifier(AbstractClassifier):
         subs = [s() for s in cls.__subclasses__()]
         subs = [s for s in subs if str(s).lower() != "namexxx"]
         additionals = [linear_svm]#, rbf_svm]
+        ens_path = os.path.join(os.getcwd(), 'plots\\20170926_082631\\classifiers\\plots\\20170926_082631\\best\\')
+        file_names =os.listdir(ens_path)
+        ensembles = [File.get_pickle(os.path.join(ens_path,fn)) for fn in file_names]
+
+        ens_thresholds = {'best_Ensemble_20.classifier': 0.8,
+                          'less_overfit_Ensemble_28.classifier': 0.6,
+                          'Ensemble_52.classifier':0.5,
+                          'Ensemble_45.classifier': 0.6,
+                          'Ensemble_25.classifier': 0.8,
+                          'Ensemble_57.classifier': 0.8,
+                          'Ensemble_54.classifier': 0.8,
+                          }
+        assert len(ens_thresholds) == len(ensembles)
+
+        for i, e in enumerate(ensembles):
+            e.source_file = file_names [i]
+            e.threshold = ens_thresholds[e.source_file]
+
+
+
+
+
+        additionals += ensembles
         ret =  sorted(subs + additionals, key=lambda s: str(s))
+
+
+
+
         return ret
 
     @classmethod
@@ -86,7 +114,7 @@ class AbstractBuiltinClassifier(AbstractClassifier):
         from Classifiers.Ensemble import Ensemble
         classifiers = [c for c in classifiers
                        if c.__class__ in [Ensemble, Logistic_Regression,Quadratic_Discriminant_Analysis]
-                       or (isinstance(c, SvmClassifier) and c.clf.c == 0.025 and c.clf.d == 6)]
+                       or (isinstance(c, SvmClassifier) and c.clf.C == 0.025 and c.clf.degree == 6)]
 
 
         return classifiers

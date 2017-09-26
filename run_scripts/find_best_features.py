@@ -100,49 +100,4 @@ def run_best_n_fitures(n=np.inf, classifier=None, plot_block=False):
     return selected_idxs,max_acc
 
 
-def scrape_nn_results():
-    import re
-    folder = "C:\\Users\\Avi\\PycharmProjects\\exML\\Machine-Learning-Ex\\plots\\20170920_074659\\"
-    files = [folder +fn for fn in os.listdir(folder) if fn.endswith('txt')]
-    file_contents = {fn: get_text(fn) for fn in files}
-    from collections import namedtuple
-    def get_acc_from_content(txt):
-        accuracies = [l.split('\t')[2].split(' ')[1].strip() for l in txt.split('\n')[4:]]
-        return max([float(ac) for ac in accuracies])
-
-    NnStats = namedtuple("NnStats",["features", "highest_score", "file","content"])
-    res = [NnStats(re.search(r"\[(.*)\]", t).group(),get_acc_from_content(t),file,t) for file,t in file_contents.items()]
-    s_res = sorted(res,key=lambda stat:stat.highest_score, reverse=True)
-    best = s_res[0:10]
-
-    imagess_f = [(stat, stat.file[0:-3]+"png") for stat in best]
-
-
-    import matplotlib.pyplot as plt
-    import matplotlib.image as mpimg
-    fn = imagess_f[0][1]
-    print fn
-    img = mpimg.imread(fn)
-    fig, ax = plt.subplots()
-    idx =0
-    imgplot = plt.imshow(img)
-    def onclick(args=None):
-        global idx
-
-        idx = ((idx+1) if args.button == 1 else (idx -1)) %len(imagess_f)
-        stat, img_file = imagess_f[idx]
-        img = mpimg.imread(img_file )
-        # imgplot = plt.imshow(img)
-        imgplot.set_data(img)
-        plt.show()
-        plt.title("Highest: {0}".format(stat.highest_score))
-        # print str(args)
-        fig.canvas.draw()
-
-        print str(stat)#str(idx) + str(args) + "aaaaaaaaaaaaaaaaaaaaa"
-    connection_id = fig.canvas.mpl_connect('button_press_event', onclick)
-    # fig.canvas.mpl_connect('pick_event', onpick)
-    plt.show()
-
-
 

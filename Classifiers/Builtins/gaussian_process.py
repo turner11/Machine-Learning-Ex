@@ -33,6 +33,8 @@ class Gaussian_Process(AbstractBuiltinClassifier):
         # normalize = True
         # nugget = 10. * np.finfo(float).eps
         # random_state = NoneRandomForestClassifier
+
+        # GaussianProcessRegressor
         return GaussianProcess(regr=regr
                                 ,corr=corr
                                 ,beta0=beta0

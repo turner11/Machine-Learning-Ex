@@ -12,9 +12,9 @@ class Ensemble(AbstractClassifier):
     def name(self):
         return self.__class__.__name__
 
-    def __init__(self,threshold=0.82):
+    def __init__(self,threshold=0.82, classifiers=None):
         super(Ensemble, self).__init__()
-        self.classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
+        self.classifiers = classifiers or AbstractBuiltinClassifier.get_all_working_classifiers()
         self.threshold = threshold
 
 
@@ -63,7 +63,7 @@ class Ensemble(AbstractClassifier):
         #     if len(determnistic_idxs) * 1.0 / predictors_count > 0.5 \
         #     else [idx for idx in all_predictors if idx not in determnistic_idxs]
         # preds = []
-        # predictions_count = len(predictions[0])
+        # predictions_count = len(predictons[0])
         # for idx in range(0, predictions_count):
         #     preds_1 = np.asarray([p[idx][1] for p in predictions])
         #     preds_1 = preds_1[indexes_to_include]
@@ -79,4 +79,5 @@ class Ensemble(AbstractClassifier):
             clf.set_data(input_data)
 
     def __repr__(self):
-        return "{0}()".format(self.name)
+        return "{0}({1})".format(self.name, ", i".join([str(c) for c in self.classifiers]))
+        # return "{0}()".format(self.name)

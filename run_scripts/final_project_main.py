@@ -1,5 +1,10 @@
 import os
+
+import itertools
+
+import cPickle
 import matplotlib.pyplot as plt
+
 
 from Classifiers.AbstractClassifier import AbstractClassifier
 from Classifiers.Builtins.abstract_builtin_classifier import AbstractBuiltinClassifier
@@ -7,55 +12,21 @@ from Classifiers.DataLoaders.ClassifyingData import ClassifyingData, SlicedData
 from Classifiers.DataLoaders.Utils import get_default_data_loader
 from Classifiers import rootLogger as logger
 from Classifiers.Ensemble import Ensemble
+from Utils.os_utils import File
 from Utils.utils import get_full_plot_file_name, get_file_name, get_classifiers_folder
 from cloudpickle.utils import to_cloud_pickle, from_cloud_pickle
 from run_scripts.find_best_features import run_best_n_fitures
 
 
-def find_NN_layers():
-    from Classifiers.Builtins import MPL
-    # layrs_structurs = [10,20,30,40,50,60,70,80,90,100,
-    #                    (10,10,10), (20,20,20),(30,30,30),(10,20,30),(30,20,10),(40,40,40),(50,60,70),
-    #                     (20, 40, 20),(40,20,20),
-    #                    (35,20),(55,80),(70,25)]
-    import itertools
-    rng = range(5,16)
-    tpl_1 = set(itertools.combinations(rng, 1))
-    tpl_2 = set(itertools.combinations(rng, 2))
-    tpl_3 = set(itertools.combinations(rng, 3))
-    tpl_4 = set(itertools.combinations(rng, 4))
-    layrs_structurs =tpl_1.union(tpl_2).union(tpl_3).union(tpl_4)
-
-    res ={}
-    l = len(layrs_structurs)
-    for i,strct in enumerate(layrs_structurs):
-        classifier = MPL.NNetwork(hidden_layer_sizes=strct)
-        print ("testing '{0}' ({1}/{2})".format(classifier,i+1,l))
-        model_fn = get_file_name("{0}.classifier".format(classifier), base_folder=get_classifiers_folder())
-        if os.path.exists(model_fn):
-            print "classifier exists for '{0}'. Continuing...".format(classifier)
-            continue
-        try:
-            iindices, max = run_best_n_fitures(classifier=classifier)
-            res[strct] = (iindices, max)
-            print("max accuracy for {0} was {1}".format(classifier,max))
-
-            # Save the trained model
-            to_cloud_pickle(model_fn, classifier)
-        except Exception as ex:
-            print("an error accurred for {0}: {1}".format(classifier, ex))
-
-    print (res)
-
-    fn = get_file_name("nn_layres") + '.pickle'
-    with open(fn, "w") as f:
-        f.write(res)
-
 
 
 def final_project_main():
-    find_NN_layers()
-    return
+    # view_folder_images('C:\\Users\\Avi\\PycharmProjects\\exML\\Machine-Learning-Ex\\plots\\20170926_093917')
+    # return
+    # find_NN_layers()
+    # return
+
+    # find_bset_classifiers_combination()
 
     # adapt_ensemble_threshold()
     # return
@@ -67,13 +38,13 @@ def final_project_main():
     #     run_best_n_fitures(n=n_features, classifier=clf)
     # return
 
-    classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
-    classifiers.insert(0, Ensemble())
-    compare_pca(classifiers)
+    # classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
+    # classifiers.insert(0, Ensemble())
+    # compare_pca(classifiers)
     # return
 
     classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
-    classifiers.insert(0, Ensemble())
+    # classifiers.insert(0, Ensemble())
 
     data_loader = get_default_data_loader()
     data = data_loader.load()
@@ -83,19 +54,22 @@ def final_project_main():
 
     compare_results_full_data(classifiers)
 
-
 def compare_results_full_data(classifiers):
     # type: ([AbstractClassifier]) -> None
     results = {}
     fails = {}
-    for classifier in classifiers:
+    length = len(classifiers)
+    for idx, classifier in enumerate(classifiers):
         try:
-            logger.info("Starting to classify using {0}')".format(classifier))
+            classifier_unique_name = "{0}_{1}".format(classifier, idx)
+            logger.info("Starting to classify using '{0}' ({1}/{2})".format(classifier, idx+1,length ))
             classifier.train(training_set_size_percentage=0.8)
             score = classifier.score
-            results[classifier] = score
+            results[classifier_unique_name] = score
 
-            model_fn = get_file_name("{0}.classifier".format(classifier), base_folder=get_classifiers_folder())
+            logger.info("for '{0}' accuracy was: {1}".format(classifier_unique_name, score.accuracy))
+
+            model_fn = get_file_name("{0}.classifier".format(classifier_unique_name), base_folder=get_classifiers_folder())
 
             # Save the trained model
             to_cloud_pickle(model_fn, classifier)
@@ -113,38 +87,56 @@ def compare_results_full_data(classifiers):
     with open(summary_file_name, "w") as f:
         f.write(msg_results)
 
+    pickle_fn = os.path.splitext(fn)[0] + '.pickle'
+    with open(pickle_fn, "w") as f:
+        cPickle.dump(results,f)
+
 
 def adapt_ensemble_threshold():
-    clf = Ensemble()
+    classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
+    enss = [clf for clf in classifiers if isinstance(clf,Ensemble)]
+
     data_loader = get_default_data_loader()
     data = data_loader.load()
     data.normalize()
-    sliced_data = data.slice_data(training_set_size_percentage=0.7)
+    sliced_data = data.slice_data(training_set_size_percentage=0.8)
     train_data = ClassifyingData(sliced_data.training_y, sliced_data.training_set)
 
-    clf.set_data(train_data)
-    clf.train(training_set_size_percentage=1)
 
-    scores = []
-    rng = [v / 100.0 for v in range(10, 105, 5)]
-    # rng = [v / 100.0 for v in range(75, 95, 1)]
-    for thresh in rng:
-        clf.threshold = thresh
-        score = clf.get_model_score(sliced_data.test_set, sliced_data.test_y)
-        scores.append(score)
+    for i, clf in enumerate(enss):
+        clf.set_data(train_data)
+        clf.train(training_set_size_percentage=1)
 
-    accuracies = [s.accuracy for s in scores]
 
-    plt.clf()
-    ax = plt.plot(rng, accuracies, color="blue")
-    plt.title("Ensemble accuracy by threshold")
-    plt.ylim([0.9, 1])
-    # plt.xlim([0.6,rng[-1]])
-    plt.xticks(rng)
-    plt.draw()
-    plt.show(block=False)
-    fn = get_file_name("Ensamble_by_thresh")
-    plt.savefig(fn)
+
+        scores = []
+        rng = [v / 100.0 for v in range(10, 105, 5)]
+        # rng = [v / 100.0 for v in range(75, 95, 1)]
+        for thresh in rng:
+            clf.threshold = thresh
+            score = clf.get_model_score(sliced_data.test_set, sliced_data.test_y)
+            scores.append(score)
+
+        accuracies = [s.accuracy for s in scores]
+
+
+        plt.clf()
+        fig = plt.gcf()
+        ax = plt.plot(rng, accuracies, color="blue")
+        max_acc = max(accuracies)
+        best_thresh =rng[accuracies.index(max_acc)]
+        max_points = [(rng[idx], acc) for idx, acc in enumerate(accuracies) if acc == max_acc]
+
+        plt.scatter([p[0] for p in max_points], [p[1] for p in max_points], color='green')
+        text = "{0}-{1}_{2} ".format(best_thresh,max_acc,clf.source_file)
+        plt.title("Ensemble accuracy by threshold: {0}".format(text))
+        plt.ylim([0.9, 1])
+        # plt.xlim([0.6,rng[-1]])
+        plt.xticks(rng)
+        plt.draw()
+        plt.show(block=False)
+        fn = get_file_name("Ensamble_by_thresh_"+text)+".png"
+        plt.savefig(fn)
 
 
 def compare_pca(classifiers):
@@ -259,3 +251,172 @@ def compare_pca(classifiers):
     plt.show(block=False)
     fn = get_full_plot_file_name("classifiers_boundaries")
     plt.savefig(fn)
+
+
+def find_NN_layers():
+    from Classifiers.Builtins import MPL
+    # layrs_structurs = [10,20,30,40,50,60,70,80,90,100,
+    #                    (10,10,10), (20,20,20),(30,30,30),(10,20,30),(30,20,10),(40,40,40),(50,60,70),
+    #                     (20, 40, 20),(40,20,20),
+    #                    (35,20),(55,80),(70,25)]
+
+    rng = range(5,16)
+    tpl_1 = set(itertools.combinations(rng, 1))
+    tpl_2 = set(itertools.combinations(rng, 2))
+    tpl_3 = set(itertools.combinations(rng, 3))
+    tpl_4 = set(itertools.combinations(rng, 4))
+    layrs_structurs =tpl_1.union(tpl_2).union(tpl_3).union(tpl_4)
+
+    res ={}
+    l = len(layrs_structurs)
+    for i,strct in enumerate(layrs_structurs):
+        classifier = MPL.NNetwork(hidden_layer_sizes=strct)
+        print ("testing '{0}' ({1}/{2})".format(classifier,i+1,l))
+        model_fn = get_file_name("{0}.classifier".format(classifier), base_folder=get_classifiers_folder())
+        if os.path.exists(model_fn):
+            print "classifier exists for '{0}'. Continuing...".format(classifier)
+            continue
+        try:
+            iindices, max = run_best_n_fitures(classifier=classifier)
+            res[strct] = (iindices, max)
+            print("max accuracy for {0} was {1}".format(classifier,max))
+
+            # Save the trained model
+            to_cloud_pickle(model_fn, classifier)
+        except Exception as ex:
+            print("an error accurred for {0}: {1}".format(classifier, ex))
+
+    print (res)
+
+    fn = get_file_name("nn_layres") + '.pickle'
+    with open(fn, "w") as f:
+        f.write(res)
+
+
+def scrape_nn_results():
+    nn_results = get_nn_results()
+    plot_nn_results(nn_results)
+
+
+def get_nn_results():
+    import re
+    folder = "C:\\Users\\Avi\\PycharmProjects\\exML\\Machine-Learning-Ex\\plots\\20170920_074659\\"
+    files = [folder + fn for fn in os.listdir(folder) if fn.endswith('txt')]
+    file_contents = {fn: File.get_text(fn) for fn in files}
+    from collections import namedtuple
+    def get_acc_from_content(txt):
+        accuracies = [l.split('\t')[2].split(' ')[1].strip() for l in txt.split('\n')[4:]]
+        accuracies = [float(a) for a in accuracies]
+        max_ac =  max([float(ac) for i, ac in enumerate(accuracies)])
+        i_feature = accuracies.index(max_ac) +1
+        return i_feature, max_ac
+
+    NnStats = namedtuple("NnStats", ["features", "highest_score",'feature_count', "file", "hidden_layer_sizes", "content"])
+
+    res = [NnStats(re.search(r"\[(.*)\]", t).group(), get_acc_from_content(t)[1],get_acc_from_content(t)[0], file, re.search(r"\(\d[\d]*[_\d[\d]*]*\)",file).group(),t) for file, t in
+           file_contents.items()]
+    s_res = sorted(res, key=lambda stat: stat.highest_score, reverse=True)
+    return s_res
+
+plot_idx = 0
+def plot_nn_results(nn_results):
+    best = nn_results[0:10]
+    imagess_f = [(stat, stat.file[0:-3] + "png") for stat in best]
+    import matplotlib.pyplot as plt
+    import matplotlib.image as mpimg
+    fn = imagess_f[0][1]
+    print fn
+    img = mpimg.imread(fn)
+    fig, ax = plt.subplots()
+    imgplot = plt.imshow(img)
+
+
+    def onclick(args=None):
+        # print str(args)
+        global plot_idx
+        plot_idx = ((plot_idx  + 1) if args.button == 1 else (plot_idx  - 1)) % len(imagess_f)
+        stat, img_file = imagess_f[plot_idx ]
+        img = mpimg.imread(img_file)
+        # imgplot = plt.imshow(img)
+        imgplot.set_data(img)
+        plt.show()
+        plt.title("Highest: {0}".format(stat.highest_score))
+        fig.canvas.draw()
+        # print str(dir(stat))
+        print "'{0}': {1}[0:{2}]".format(stat.hidden_layer_sizes, stat.features, stat.feature_count)  # str(idx) + str(args) + "aaaaaaaaaaaaaaaaaaaaa"
+
+    connection_id = fig.canvas.mpl_connect('button_press_event', onclick)
+    # fig.canvas.mpl_connect('pick_event', onpick)
+    plt.show()
+
+
+def find_bset_classifiers_combination():
+    classifiers = AbstractBuiltinClassifier.get_all_working_classifiers()
+    nn_results = get_nn_results()
+    # best = [s for s in nn_results if s.highest_score >= nn_results[10].highest_score]
+    best = nn_results [:5]
+    sub_folder = '\\classifiers\\plots\\20170920_074659\\'
+    nn_classifers_path = [os.path.dirname(b.file)+sub_folder+os.path.basename(b.file.replace('n_features_',''))[:-5]+").classifier" for b in best]
+    def load_clasifier(path):
+        with open(path, 'r') as f:
+            c = cPickle.load(f)
+        return c
+    nn_classifers = [load_clasifier(p) for p in nn_classifers_path]
+    classifiers.extend(nn_classifers)
+
+    set_lengths = [4]
+    tpls = []
+    for l in set_lengths:
+        curr_tpls = set(itertools.combinations(classifiers, l))
+        tpls.extend(curr_tpls)
+    # scrape_nn_results()
+    data_loader = get_default_data_loader()
+    data = data_loader.load()
+    data.normalize()
+    enss = [Ensemble(classifiers =tpl) for tpl in tpls]
+    for clf in enss:
+        clf.set_data(data)
+
+    compare_results_full_data(enss)
+
+
+def view_folder_images(folder):
+    global idx
+    idx = 1
+    import matplotlib.pyplot as plt
+    import matplotlib.image as mpimg
+    files = os.listdir(folder)
+    paths = [os.path.join(folder,fn) for fn in files]
+    fig, ax = plt.subplots()
+
+    def load_image(fn):
+        img = mpimg.imread(fn)
+        # fig, ax = plt.subplots()
+        imgplot = plt.imshow(img)
+        imgplot.set_data(img)
+        fig.canvas.draw()
+
+    load_image(paths[0])
+
+    def onclick(args=None):
+        # print str(args)
+        global idx
+        idx = ((idx+ 1) if args.button == 1 else (idx  - 1)) % len(paths)
+        img_file = paths[idx ]
+        load_image(img_file)
+        plt.show()
+        plt.title("{0}".format(os.path.basename(img_file)))
+        print "Index: {0}/{1}".format(idx+1,len(paths))
+        print img_file
+
+
+
+
+    connection_id = fig.canvas.mpl_connect('button_press_event', onclick)
+    # fig.canvas.mpl_connect('pick_event', onpick)
+    plt.show()
+
+
+
+
+
