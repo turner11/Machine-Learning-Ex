@@ -1,6 +1,6 @@
 import os
 
-import cPickle
+import pickle
 
 
 class File(object):

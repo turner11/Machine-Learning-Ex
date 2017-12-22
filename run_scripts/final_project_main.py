@@ -2,7 +2,7 @@ import os
 
 import itertools
 
-import cPickle
+import pickle
 import matplotlib.pyplot as plt
 
 
@@ -274,7 +274,7 @@ def find_NN_layers():
         print ("testing '{0}' ({1}/{2})".format(classifier,i+1,l))
         model_fn = get_file_name("{0}.classifier".format(classifier), base_folder=get_classifiers_folder())
         if os.path.exists(model_fn):
-            print "classifier exists for '{0}'. Continuing...".format(classifier)
+            print("classifier exists for '{0}'. Continuing...".format(classifier))
             continue
         try:
             iindices, max = run_best_n_fitures(classifier=classifier)
@@ -325,7 +325,7 @@ def plot_nn_results(nn_results):
     import matplotlib.pyplot as plt
     import matplotlib.image as mpimg
     fn = imagess_f[0][1]
-    print fn
+    print(fn)
     img = mpimg.imread(fn)
     fig, ax = plt.subplots()
     imgplot = plt.imshow(img)
@@ -343,7 +343,8 @@ def plot_nn_results(nn_results):
         plt.title("Highest: {0}".format(stat.highest_score))
         fig.canvas.draw()
         # print str(dir(stat))
-        print "'{0}': {1}[0:{2}]".format(stat.hidden_layer_sizes, stat.features, stat.feature_count)  # str(idx) + str(args) + "aaaaaaaaaaaaaaaaaaaaa"
+        print("'{0}': {1}[0:{2}]".format(stat.hidden_layer_sizes, stat.features,
+                                         stat.feature_count))  # str(idx) + str(args) + "aaaaaaaaaaaaaaaaaaaaa"
 
     connection_id = fig.canvas.mpl_connect('button_press_event', onclick)
     # fig.canvas.mpl_connect('pick_event', onpick)
@@ -406,11 +407,8 @@ def view_folder_images(folder):
         load_image(img_file)
         plt.show()
         plt.title("{0}".format(os.path.basename(img_file)))
-        print "Index: {0}/{1}".format(idx+1,len(paths))
-        print img_file
-
-
-
+        print("Index: {0}/{1}".format(idx + 1, len(paths)))
+        print(img_file)
 
     connection_id = fig.canvas.mpl_connect('button_press_event', onclick)
     # fig.canvas.mpl_connect('pick_event', onpick)

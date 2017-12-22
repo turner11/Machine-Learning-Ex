@@ -18,11 +18,11 @@ pp = Preprocessor()
 crps_ham = pp.init_lists(DATA_PATH,LBL_HAM)
 crps_spam = pp.init_lists(DATA_PATH,LBL_SPAM)
 
-print "Ham: "+crps_ham[0]
-print "Spam: "+crps_spam[0]
+print("Ham: " + crps_ham[0])
+print("Spam: " + crps_spam[0])
 
 tok_ham = pp.batch_tokeniz(crps_ham)
 tok_spam = pp.batch_tokeniz(crps_spam)
 
-print "Ham: " + " ".join(tok_ham[0])
-print "Spam: " + " ".join(tok_spam[0])
+print("Ham: " + " ".join(tok_ham[0]))
+print("Spam: " + " ".join(tok_spam[0]))

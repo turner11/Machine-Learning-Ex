@@ -85,7 +85,7 @@ def run():
         msg = "gamma: {0};  C: {1};  f-measure: {2}".format(kernel, c, f_measure)
         fig = event.canvas.figure
         fig.set_label(msg)
-        print msg
+        print(msg)
 
     # Visualyzer.plotSufrfce(x, y, z, xlabel="gamma", ylabel="C", zlabel="F Measurew", click_callback=onclick,
     #                        block=True)

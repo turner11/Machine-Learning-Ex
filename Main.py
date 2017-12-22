@@ -9,6 +9,8 @@ from run_scripts.find_best_features import run_best_n_fitures
 
 
 def main():
+    n_features = 4
+    run_best_n_fitures(n=n_features, classifier=bi_rf())
     if len(sys.argv) > 1:
         # C:\Users\Avi\Anaconda2\python.exe  C:\Users\Avi\PycharmProjects\exML\Machine-Learning-Ex\Main.py c:\a.xls
         from Classifiers.DataLoaders.final_project_data_loader import FinalProjectDataLoader

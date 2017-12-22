@@ -144,3 +144,7 @@ $RECYCLE.BIN/
 
 # data files
 Classifiers/DataLoaders/creditcard.csv
+.idea/workspace.xml
+.idea/ExML.iml
+.idea/misc.xml
+.idea/workspace.xml

@@ -6,7 +6,7 @@ def classifier_loaded_data_handler(classifier, X, y):
     import logging
     # Code source: Gael Varoquaux
     # License: BSD 3 clause
-    print "Got Data from {0}. Plotting PCA data.".format(classifier)
+    print("Got Data from {0}. Plotting PCA data.".format(classifier))
     dim = 3
     Visualyzer.PlotPCA(X, y, dim)
 

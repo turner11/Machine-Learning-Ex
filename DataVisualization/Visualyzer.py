@@ -107,7 +107,7 @@ class Visualyzer(object):
 
         feature_count = X.shape[1]
         if (dim > feature_count):
-            print 'cannot perform PCA'
+            print('cannot perform PCA')
             return
 
         fig = plt.figure(1, figsize=(4, 3))
